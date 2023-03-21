@@ -3,7 +3,6 @@ import {
     RETRIEVE_BOTS,
     UPDATE_BOT,
     DELETE_BOT,
-    DELETE_ALL_BOTS,
   } from "../actions/types";
   
   const initialState = [];
@@ -32,9 +31,6 @@ import {
   
       case DELETE_BOT:
         return bots.filter(({ id }) => id !== payload.id);
-  
-      case DELETE_ALL_BOTS:
-        return [];
   
       default:
         return bots;

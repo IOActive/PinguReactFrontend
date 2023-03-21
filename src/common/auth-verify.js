@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { withRouter } from "./with-router";
+import React, { Component } from "react";
+import { history } from '../helpers/history';
 
 const parseJwt = (token) => {
   try {
@@ -9,22 +9,26 @@ const parseJwt = (token) => {
   }
 };
 
-const AuthVerify = (props) => {
-  let location = props.router.location;
+class AuthVerify extends Component {
+  constructor(props) {
+    super(props);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    history.listen(() => {
+      const user = JSON.parse(localStorage.getItem("user"));
 
-    if (user) {
-      const decodedJwt = parseJwt(user.accessToken);
+      if (user) {
+        const decodedJwt = parseJwt(user.access);
 
-      if (decodedJwt.exp * 1000 < Date.now()) {
-        props.logOut();
+        if (decodedJwt.exp * 1000 < Date.now()) {
+          props.logOut();
+        }
       }
-    }
-  }, [location]);
+    });
+  }
 
-  return <div></div>;
-};
+  render() {
+    return <div></div>;
+  }
+}
 
-export default withRouter(AuthVerify);
+export default AuthVerify;

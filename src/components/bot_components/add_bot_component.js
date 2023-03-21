@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createBot } from "../../actions/bot";
+import { Navigate } from 'react-router-dom';
 
 class AddBot extends Component {
   constructor(props) {
@@ -101,6 +102,12 @@ class AddBot extends Component {
   }
 
   render() {
+    const { user: currentUser, message} = this.props;
+
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    }
+
     return (
       <div className="submit-form">
         {this.state.submitted ? (
@@ -138,6 +145,14 @@ class AddBot extends Component {
               />
             </div>
 
+            {message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {message}
+                </div>
+              </div>
+            )}
+            
             <button onClick={this.saveBot} className="btn btn-success">
               Submit
             </button>
@@ -148,4 +163,14 @@ class AddBot extends Component {
   }
 }
 
-export default connect(null, { createBot })(AddBot);
+const mapStateToProps = (state) => {
+  const { user } = state.auth;
+  const { message } = state.message;
+  return {
+    bots: state.bots,
+    user,
+    message,
+  };
+};
+
+export default connect(mapStateToProps, { createBot })(AddBot);

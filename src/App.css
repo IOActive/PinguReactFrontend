@@ -25,7 +25,8 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #61bdfb;
+  background-color: #282c34;
 }
 
 @keyframes App-logo-spin {
@@ -68,4 +69,20 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
+}
+
+.submit-form {
+  max-width: 300px;
+  margin: auto;
+}
+
+.edit-form {
+  max-width: 300px;
+  margin: auto;
 }

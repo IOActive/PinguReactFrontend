@@ -1,13 +1,14 @@
 import React, { Component } from "react";
+import { Navigate } from 'react-router-dom';
+
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import AuthService from "../../services/auth.service";
+import { connect } from "react-redux";
+import { login } from "../../actions/auth";
 
-import { withRouter } from '../../common/with-router';
-
-const required = value => {
+const required = (value) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -28,19 +29,18 @@ class Login extends Component {
       username: "",
       password: "",
       loading: false,
-      message: ""
     };
   }
 
   onChangeUsername(e) {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     });
   }
 
   onChangePassword(e) {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
     });
   }
 
@@ -48,40 +48,38 @@ class Login extends Component {
     e.preventDefault();
 
     this.setState({
-      message: "",
-      loading: true
+      loading: true,
     });
 
     this.form.validateAll();
 
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.router.navigate("/profile");
-          window.location.reload();
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+    const { dispatch, history } = this.props;
 
+    if (this.checkBtn.context._errors.length === 0) {
+      dispatch(login(this.state.username, this.state.password))
+        .then(() => {
+          history.push("/profile");
+          window.location.reload();
+        })
+        .catch(() => {
           this.setState({
-            loading: false,
-            message: resMessage
+            loading: false
           });
-        }
-      );
+        });
     } else {
       this.setState({
-        loading: false
+        loading: false,
       });
     }
   }
 
   render() {
+    const { isLoggedIn, message } = this.props;
+
+    if (isLoggedIn) {
+      return <Navigate to="/profile" />;
+    }
+
     return (
       <div className="col-md-12">
         <div className="card card-container">
@@ -93,7 +91,7 @@ class Login extends Component {
 
           <Form
             onSubmit={this.handleLogin}
-            ref={c => {
+            ref={(c) => {
               this.form = c;
             }}
           >
@@ -133,16 +131,16 @@ class Login extends Component {
               </button>
             </div>
 
-            {this.state.message && (
+            {message && (
               <div className="form-group">
                 <div className="alert alert-danger" role="alert">
-                  {this.state.message}
+                  {message}
                 </div>
               </div>
             )}
             <CheckButton
               style={{ display: "none" }}
-              ref={c => {
+              ref={(c) => {
                 this.checkBtn = c;
               }}
             />
@@ -153,4 +151,13 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+function mapStateToProps(state) {
+  const { isLoggedIn } = state.auth;
+  const { message } = state.message;
+  return {
+    isLoggedIn,
+    message
+  };
+}
+
+export default connect(mapStateToProps)(Login);

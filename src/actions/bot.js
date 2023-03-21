@@ -6,90 +6,224 @@ import {
   RETRIEVE_BOTS,
   UPDATE_BOT,
   DELETE_BOT,
-  DELETE_ALL_BOTS
+  GET_BOT,
+  SET_MESSAGE,
+  BOT_FALI,
 } from "./types";
 
-export const createBot = (bot_name, last_beat_time, task_payload, task_end_time, task_status, platform) => async (dispatch) => {
-  try {
-    const res = await BotDataService.create({ bot_name, last_beat_time, task_payload, task_end_time, task_status, platform });
-
-    dispatch({
-      type: CREATE_BOT,
-      payload: res.data,
-    });
-
-    return Promise.resolve(res.data);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
-
-export const retrieveBots = () => async (dispatch) => {
-  try {
-    const res = await BotDataService.getAll();
-
-    dispatch({
-      type: RETRIEVE_BOTS,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const updateBot = (id, data) => async (dispatch) => {
-  try {
-    const res = await BotDataService.update(id, data);
-
-    dispatch({
-      type: UPDATE_BOT,
-      payload: data,
-    });
-
-    return Promise.resolve(res.data);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
-
-export const deleteBot = (id) => async (dispatch) => {
-  try {
-    await BotDataService.delete(id);
-
-    dispatch({
-      type: DELETE_BOT,
-      payload: { id },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const findBotsByName = (name) => async (dispatch) => {
-  try {
-    const res = await BotDataService.findByName(name);
-
-    dispatch({
-      type: RETRIEVE_BOTS,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-
-export const deleteAllBots = () => async (dispatch) => {
-    try {
-      const res = await BotDataService.deleteAll();
+export const createBot = (bot_name, last_beat_time, task_payload, task_end_time, task_status, platform) => (dispatch) => {
+    return BotDataService.create(bot_name, last_beat_time, task_payload, task_end_time, task_status, platform).then(
+      (response) => {
+        dispatch({
+          type: CREATE_BOT,
+        });
   
-      dispatch({
-        type: DELETE_ALL_BOTS,
-        payload: res.data,
-      });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: response.data.message,
+        });
   
-      return Promise.resolve(res.data);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+  
+        dispatch({
+          type: BOT_FALI,
+        });
+  
+        dispatch({
+          type: SET_MESSAGE,
+          payload: message,
+        });
+  
+        return Promise.reject();
+      }
+    );
   };
+
+export const retrieveBots = () => (dispatch) => {
+  return BotDataService.getAll().then(
+    (response) => {
+      dispatch({
+        type: RETRIEVE_BOTS,
+        payload: response.data
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: response.data.message,
+      });
+
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: BOT_FALI,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    }
+  );
+}
+
+export const getBot = (id) => (dispatch) => {
+  return BotDataService.findByID(id).then(
+    (response) => {
+      dispatch({
+        type: GET_BOT,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: response.data.message,
+      });
+
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: BOT_FALI,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    }
+  );
+}
+
+export const updateBot = (id, data) => (dispatch) => {
+  return BotDataService.update(id, data).then(
+    (response) => {
+      dispatch({
+        type: UPDATE_BOT,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: response.data.message,
+      });
+
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: BOT_FALI,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    }
+  );
+}
+
+export const deleteBot = (id) => (dispatch) => {
+  return BotDataService.delete(id).then(
+    (response) => {
+      dispatch({
+        type: DELETE_BOT,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: response.data.message,
+      });
+
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: BOT_FALI,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    }
+  );
+}
+
+export const findBotsByName = (name) => (dispatch) => {
+  return BotDataService.findByName(name).then(
+    (response) => {
+      dispatch({
+        type: GET_BOT,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: response.data.message,
+      });
+
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      dispatch({
+        type: BOT_FALI,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
+      return Promise.reject();
+    }
+  );
+}

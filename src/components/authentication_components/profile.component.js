@@ -1,56 +1,48 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
-import AuthService from "../../services/auth.service";
+import { Navigate } from 'react-router-dom';
+import { connect } from "react-redux";
 
-export default class Profile extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      redirect: null,
-      userReady: false,
-      currentUser: { username: "" }
-    };
-  }
-
-  componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
-
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
-  }
+class Profile extends Component {
 
   render() {
-    if (this.state.redirect) {
-      return <Navigate to={this.state.redirect} />
-    }
+    const { user: currentUser } = this.props;
 
-    const { currentUser } = this.state;
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    }
 
     return (
       <div className="container">
-        {(this.state.userReady) ?
-        <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.user.username}</strong> Profile
+            <strong>{currentUser.username}</strong> Profile
           </h3>
         </header>
         <p>
-          <strong>Token:</strong>{" "}
-          {currentUser.access.substring(0, 20)} ...{" "}
+          <strong>Token:</strong> {currentUser.access.substring(0, 20)} ...{" "}
           {currentUser.access.substr(currentUser.access.length - 20)}
         </p>
         <p>
-          <strong>Id:</strong>{" "}
-          {currentUser.user.id}
+          <strong>Id:</strong> {currentUser.id}
         </p>
         <p>
-          <strong>Email:</strong>{" "}
-          {currentUser.user.email}
+          <strong>Email:</strong> {currentUser.email}
         </p>
-      </div>: null}
+        {/*<strong>Authorities:</strong>
+        <ul>
+          {currentUser.roles &&
+            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+          </ul>*/}
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(Profile);

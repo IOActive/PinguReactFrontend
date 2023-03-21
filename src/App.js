@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { connect } from "react-redux";
+
 import "./App.css";
-
-
-import AuthService from "./services/auth.service";
 
 import Login from "./components/authentication_components/login.component";
 import Register from "./components/authentication_components/register.component";
@@ -13,12 +12,21 @@ import Profile from "./components/authentication_components/profile.component";
 import BoardUser from "./components/authentication_components/board-user.component";
 import BoardAdmin from "./components/authentication_components/board-admin.component";
 
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
+import { history } from './helpers/history';
+
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 
 import AddBot from "./components/bot_components/add_bot_component";
 import Bot from "./components/bot_components/bot_component";
 import BotsList from "./components/bot_components/bot_list_component";
+
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 class App extends Component {
   constructor(props) {
@@ -29,10 +37,14 @@ class App extends Component {
       showAdminBoard: false,
       currentUser: undefined,
     };
+
+    history.listen((location) => {
+      props.dispatch(clearMessage()); // clear message when changing location
+    });
   }
 
   componentDidMount() {
-    const user = AuthService.getCurrentUser();
+    const user = this.props.user;
 
     if (user) {
       this.setState({
@@ -40,7 +52,7 @@ class App extends Component {
         showAdminBoard: user.is_staff,
       });
     }
-    
+
     EventBus.on("logout", () => {
       this.logOut();
     });
@@ -51,7 +63,7 @@ class App extends Component {
   }
 
   logOut() {
-    AuthService.logout();
+    this.props.dispatch(logout());
     this.setState({
       showAdminBoard: false,
       currentUser: undefined,
@@ -62,76 +74,45 @@ class App extends Component {
     const { currentUser, showAdminBoard } = this.state;
 
     return (
-      <Router>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/home"} className="navbar-brand">
-            Pingun Control Panel
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
-
-            {currentUser && (
-
-              <li className="nav-item">
-                <Link to={"/bots"} className="nav-link">
-                  Bots
-                </Link>
-              </li>
-             )}
-             
-          </div>
-          <div class="!">
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
+      <Router history={history}>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand href="/home">Pingun Control Panel</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+          {showAdminBoard && (
+              <Nav.Link href="#features">Admin Panel</Nav.Link>
           )}
-          </div>
-        </nav>
+          {currentUser && (
+              <NavDropdown title="Bots" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="/bots">List</NavDropdown.Item>
+              <NavDropdown.Item href="/bot/add">
+                Add Bot
+              </NavDropdown.Item>
+            </NavDropdown>
+          )}
+          </Nav>
 
+          <Nav>
+          {
+          currentUser ? (
+            <Nav>
+              <Nav.Link href="/profile">Profile</Nav.Link>
+              <Nav.Link href="/login" onClick={this.logOut}>Logout</Nav.Link>
+            </Nav>
+            ) :
+          (
+            <Nav>
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/register">Register</Nav.Link>
+            </Nav>
+            
+          )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 
         <div className="container mt-3">
           <Routes>
@@ -152,4 +133,11 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(App);

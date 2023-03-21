@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateBot, deleteBot } from "../../actions/bot";
+import { updateBot } from "../../actions/bot";
 import BotDataService from "../../services/bot_service";
+import Button from 'react-bootstrap/Button';
+import Form from "react-bootstrap/Form"
+import { Navigate } from 'react-router-dom';
 
 class Bot extends Component {
   constructor(props) {
@@ -32,33 +35,29 @@ class Bot extends Component {
   }
 
   componentDidMount() {
-    this.getBot(this.props.match.params.id);
+    this.getBot(this.props.bot.id);
   }
 
   onChangeTaskPayload(e) {
     const task_payload = e.target.value;
 
-    this.setState(function (prevState) {
-      return {
+    this.setState((prevState) => ({
         currentBot: {
-          ...prevState.currentBot,
-          task_payload: task_payload,
-        },
-      };
-    });
+        ...prevState.currentBot,
+        task_payload: task_payload,
+      },
+    }));
   }
 
   onChangeBotName(e) {
     const bot_name = e.target.value;
 
-    this.setState(function (prevState) {
-      return {
+    this.setState((prevState) => ({
         currentBot: {
-          ...prevState.currentBot,
-          bot_name: bot_name,
-        },
-      };
-    });
+        ...prevState.currentBot,
+        bot_name: bot_name,
+      },
+    }));
   }
 
   onChangeTaskStatus(e) {
@@ -95,7 +94,6 @@ class Bot extends Component {
     }));
   }
 
-
   onChangePlatform(e) {
     const platform = e.target.value;
 
@@ -111,9 +109,9 @@ class Bot extends Component {
     BotDataService.get(id)
       .then((response) => {
         this.setState({
-            currentBot: response.data,
+          currentBot: response.data[0],
         });
-        console.log(response.data);
+        console.log(response.data[0]);
       })
       .catch((e) => {
         console.log(e);
@@ -122,15 +120,15 @@ class Bot extends Component {
 
   updateContent() {
     this.props
-      .updateBot(this.state.currentBot.id, this.state.currentBot)
-      .then((reponse) => {
-        console.log(reponse);
-        
-        this.setState({ message: "The bot was updated successfully!" });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    .updateBot(this.state.currentBot.id, this.state.currentBot)
+    .then((reponse) => {
+      console.log(reponse);
+      
+      this.setState({ message: "The bot was updated successfully!" });
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   }
 
   removeBot() {
@@ -146,51 +144,39 @@ class Bot extends Component {
 
   render() {
     const { currentBot } = this.state;
+    const { user: currentUser, message } = this.props;
+
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    }
 
     return (
       <div>
         {currentBot ? (
-          <div className="edit-form">
-            <h4>Bot</h4>
-            <form>
-              <div className="form-group">
-                <label htmlFor="Bot Name">Title</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="bot_name"
+          <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Bot Name</Form.Label>
+            <Form.Control type="text" placeholder={currentBot.bot_name} id="title"
+                  name="bot_name"
                   value={currentBot.bot_name}
-                  onChange={this.onChangeBotName}
-                />
-              </div>
+                  onChange={this.onChangeBotName}/>
+            <Form.Text className="text-muted" id="bot_name" value={currentBot.bot_name}>
+            {currentBot.bot_name}
+            </Form.Text>
+          </Form.Group>
+
+          {message && (
               <div className="form-group">
-                <label htmlFor="description">Task Payload</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="task_payload"
-                  value={currentBot.task_payload}
-                  onChange={this.onChangeTaskPayload}
-                />
+                <div className="alert alert-danger" role="alert">
+                  {message}
+                </div>
               </div>
-            </form>
-
-            <button
-              className="badge badge-danger mr-2"
-              onClick={this.removeBot}
-            >
-              Delete
-            </button>
-
-            <button
-              type="submit"
-              className="badge badge-success"
-              onClick={this.updateContent}
-            >
-              Update
-            </button>
-            <p>{this.state.message}</p>
-          </div>
+            )}
+            
+          <Button variant="primary" type="submit" onClick={this.updateContent}>
+            Update
+          </Button>
+        </Form>
         ) : (
           <div>
             <br />
@@ -202,4 +188,17 @@ class Bot extends Component {
   }
 }
 
-export default connect(null, { updateBot, deleteBot })(Bot);
+const mapStateToProps = (state) => {
+  const { user } = state.auth;
+  const { message } = state.message;
+
+  return {
+    bot: state.bots[0],
+    user,
+    message,
+  };
+};
+
+export default connect(mapStateToProps, {
+  updateBot,
+})(Bot);

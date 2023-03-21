@@ -6,7 +6,7 @@ class BotDataService {
   }
 
   get(id) {
-    return http.get(`/bot/id=${id}`);
+    return http.get(`/bot/?id=${id}`);
   }
 
   create(data) {
@@ -14,7 +14,9 @@ class BotDataService {
   }
 
   update(id, data) {
-    return http.patch(`/bot/${id}/`, data);
+    return http.patch(`/bot/${id}/`, data).catch((e) => {
+      console.log(e);
+    });
   }
 
   delete(id) {
@@ -27,6 +29,10 @@ class BotDataService {
 
   findByName(name) {
     return http.get(`/bot/?bot_name=${name}`);
+  }
+
+  findByID(id){
+    return http.get(`/bot/?id=${id}`);
   }
 }
 

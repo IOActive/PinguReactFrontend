@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 import bots from "./bots";
+import auth from "./auth";
+import message from "./message";
 
 export default combineReducers({
-    bots,
+  auth,
+  message,
+  bots,
 });

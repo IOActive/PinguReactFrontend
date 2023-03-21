@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import {
   retrieveBots,
   findBotsByName,
-  deleteAllBots,
 } from "../../actions/bot";
+
 import { Link } from "react-router-dom";
-import BotDataService from "../../services/bot_service"
+import Card from 'react-bootstrap/Card';
+import { Navigate } from 'react-router-dom';
+
 
 class BotsList extends Component {
   constructor(props) {
@@ -71,6 +73,12 @@ class BotsList extends Component {
   render() {
     const { searchBotName, currentBot, currentIndex } = this.state;
     const { bots } = this.props;
+    const { user: currentUser } = this.props;
+
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    }
+
 
     return (
       <div className="list row">
@@ -112,44 +120,22 @@ class BotsList extends Component {
                 </li>
               ))}
           </ul>
-
-          <button
-            className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllBots}
-          >
-            Remove All
-          </button>
         </div>
         <div className="col-md-6">
           {currentBot ? (
-            <div>
-              <h4>Bot</h4>
-              <div>
-                <label>
-                  <strong>Bot name:</strong>
-                </label>{" "}
-                {currentBot.bot_name}
-              </div>
-              <div>
-                <label>
-                  <strong>Task Payload:</strong>
-                </label>{" "}
-                {currentBot.task_payload}
-              </div>
-              <div>
-                <label>
-                  <strong>Task Status:</strong>
-                </label>{" "}
-                {currentBot.task_status ? "NA" : "Pending"}
-              </div>
-
-              <Link
-                to={"/bot/" + currentBot.id}
-                className="badge badge-warning"
-              >
-                Edit
-              </Link>
-            </div>
+            <Card>
+              <Card.Header>{currentBot.bot_name}</Card.Header>
+              <Card.Body>
+                <Card.Text>Payload: {currentBot.task_payload}</Card.Text>
+                <Card.Text>Last beat time: {currentBot.last_beat_time}</Card.Text>
+                <Card.Text>Task end time: {currentBot.task_end_time}</Card.Text>
+                <Card.Text>Task status: {currentBot.task_status}</Card.Text>
+                <Card.Text>Platform: {currentBot.platform}</Card.Text>
+                <Link to={"/bot/" + currentBot.id}
+                className="button"> Edit </Link>
+                
+              </Card.Body>
+            </Card>
           ) : (
             <div>
               <br />
@@ -163,13 +149,14 @@ class BotsList extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const { user } = state.auth;
   return {
     bots: state.bots,
+    user,
   };
 };
 
 export default connect(mapStateToProps, {
   retrieveBots,
   findBotsByName,
-  deleteAllBots,
 })(BotsList);
