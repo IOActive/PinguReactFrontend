@@ -16,11 +16,12 @@ export const createBot = (bot_name, last_beat_time, task_payload, task_end_time,
       (response) => {
         dispatch({
           type: CREATE_BOT,
+          payload: response.data,
         });
   
         dispatch({
           type: SET_MESSAGE,
-          payload: response.data.message,
+          payload: response.data,
         });
   
         return Promise.resolve();
@@ -57,7 +58,7 @@ export const retrieveBots = () => (dispatch) => {
 
       dispatch({
         type: SET_MESSAGE,
-        payload: response.data.message,
+        payload: response.data,
       });
 
       return Promise.resolve();
@@ -89,11 +90,12 @@ export const getBot = (id) => (dispatch) => {
     (response) => {
       dispatch({
         type: GET_BOT,
+        payload: response.data,
       });
 
       dispatch({
         type: SET_MESSAGE,
-        payload: response.data.message,
+        payload: response.data,
       });
 
       return Promise.resolve();
@@ -125,11 +127,12 @@ export const updateBot = (id, data) => (dispatch) => {
     (response) => {
       dispatch({
         type: UPDATE_BOT,
+        payload: response.data
       });
 
       dispatch({
         type: SET_MESSAGE,
-        payload: response.data.message,
+        payload: response.data,
       });
 
       return Promise.resolve();
@@ -161,11 +164,12 @@ export const deleteBot = (id) => (dispatch) => {
     (response) => {
       dispatch({
         type: DELETE_BOT,
+        payload: response.data,
       });
 
       dispatch({
         type: SET_MESSAGE,
-        payload: response.data.message,
+        payload: response.data,
       });
 
       return Promise.resolve();
@@ -197,11 +201,12 @@ export const findBotsByName = (name) => (dispatch) => {
     (response) => {
       dispatch({
         type: GET_BOT,
+        payload: response.data,
       });
 
       dispatch({
         type: SET_MESSAGE,
-        payload: response.data.message,
+        payload: response.data,
       });
 
       return Promise.resolve();
