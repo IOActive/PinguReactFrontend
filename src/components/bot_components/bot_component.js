@@ -4,7 +4,7 @@ import { updateBot } from "../../actions/bot";
 import BotDataService from "../../services/bot_service";
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form"
-import { Navigate } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Bot extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class Bot extends Component {
   }
 
   componentDidMount() {
-    this.getBot(this.props.bot.id);
+    this.getBot(this.props.match.params.id);
   }
 
   onChangeTaskPayload(e) {
@@ -96,11 +96,11 @@ class Bot extends Component {
     const { user: currentUser, message } = this.props;
 
     if (!currentUser) {
-      return <Navigate to="/login" />;
+      return <Redirect to="/login" />;
     }
 
     if(this.state.message === "The bot was updated successfully!"){
-      return <Navigate to="/bots" />;
+      return <Redirect to="/bots" />;
     }
 
     return (
@@ -125,14 +125,6 @@ class Bot extends Component {
                 </div>
               </div>
             )}
-          <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.updateContent}
-              >
-                Update1
-              </button>
-
           <Button variant="primary" type="submit" onClick={this.updateContent}>
             Update
           </Button>
@@ -153,7 +145,7 @@ const mapStateToProps = (state) => {
   const { message } = state.message;
 
   return {
-    bot: state.bots[0],
+    //bot: state.bots[0],
     user,
     message,
   };

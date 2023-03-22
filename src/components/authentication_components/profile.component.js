@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
 class Profile extends Component {
@@ -8,7 +8,7 @@ class Profile extends Component {
     const { user: currentUser } = this.props;
 
     if (!currentUser) {
-      return <Navigate to="/login" />;
+      return <Redirect to="/login" />;
     }
 
     return (

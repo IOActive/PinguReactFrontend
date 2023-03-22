@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 
@@ -115,18 +115,17 @@ class App extends Component {
     </Navbar>
 
         <div className="container mt-3">
-          <Routes>
-          <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/admin" element={<BoardAdmin />} />
-            <Route path="/bots" element={<BotsList />} />
-            <Route path="/bot/add" element={<AddBot />} />
-            <Route path="/bot/:id/" element={<Bot />} />
-          </Routes>
+          <Switch>
+            <Route exact path={["/", "/home"]} component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile" component={Profile} />
+            <Route path="/user" component={BoardUser} />
+            <Route path="/admin" component={BoardAdmin} />
+            <Route exact path={["/", "/bots"]} component={BotsList} />
+            <Route exact path="/bot/add" component={AddBot} />
+            <Route path="/bot/:id" component={Bot} />
+          </Switch>
         </div>
       </Router>
     );

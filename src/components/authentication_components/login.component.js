@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -77,7 +77,7 @@ class Login extends Component {
     const { isLoggedIn, message } = this.props;
 
     if (isLoggedIn) {
-      return <Navigate to="/profile" />;
+      return <Redirect to="/profile" />;
     }
 
     return (

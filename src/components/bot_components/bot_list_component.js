@@ -5,9 +5,10 @@ import {
   findBotsByName,
 } from "../../actions/bot";
 
-import { Link } from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import Card from 'react-bootstrap/Card';
-import { Navigate } from 'react-router-dom';
+import { Button } from "react-bootstrap";
+import { history } from '../../helpers/history';
 
 
 class BotsList extends Component {
@@ -18,6 +19,7 @@ class BotsList extends Component {
     this.setActiveBot = this.setActiveBot.bind(this);
     this.findByName= this.findByName.bind(this);
     this.removeAllBots = this.removeAllBots.bind(this);
+    this.editBot = this.editBot.bind(this);
 
     this.state = {
       currentBot: null,
@@ -70,15 +72,19 @@ class BotsList extends Component {
     this.props.findBotsByName(this.state.searchBotName);
   }
 
+  editBot(id) {
+    history.push({pathname:"/bot/" + this.state.currentBot.id, state: {bot: this.state.currentBot}});
+    window.location.reload();
+  }
+
   render() {
     const { searchBotName, currentBot, currentIndex } = this.state;
     const { bots } = this.props;
     const { user: currentUser } = this.props;
 
     if (!currentUser) {
-      return <Navigate to="/login" />;
+      return <Redirect to="/login" />;
     }
-
 
     return (
       <div className="list row">
@@ -130,10 +136,7 @@ class BotsList extends Component {
                 <Card.Text>Last beat time: {currentBot.last_beat_time}</Card.Text>
                 <Card.Text>Task end time: {currentBot.task_end_time}</Card.Text>
                 <Card.Text>Task status: {currentBot.task_status}</Card.Text>
-                <Card.Text>Platform: {currentBot.platform}</Card.Text>
-                <Link to={"/bot/" + currentBot.id}
-                className="button"> Edit </Link>
-                
+                <Button onClick={this.editBot}>Edit</Button>
               </Card.Body>
             </Card>
           ) : (
@@ -153,6 +156,7 @@ const mapStateToProps = (state) => {
   return {
     bots: state.bots,
     user,
+    bot: state.currentBot,
   };
 };
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createBot } from "../../actions/bot";
-import { Navigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class AddBot extends Component {
   constructor(props) {
@@ -105,7 +105,7 @@ class AddBot extends Component {
     const { user: currentUser, message} = this.props;
 
     if (!currentUser) {
-      return <Navigate to="/login" />;
+      return <Redirect to="/login" />;
     }
 
     return (
