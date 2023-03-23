@@ -6,17 +6,16 @@ import {
   RETRIEVE_BOTS,
   UPDATE_BOT,
   DELETE_BOT,
-  GET_BOT,
   SET_MESSAGE,
   BOT_FALI,
 } from "./types";
 
 export const createBot = (bot_name, last_beat_time, task_payload, task_end_time, task_status, platform) => (dispatch) => {
-    return BotDataService.create(bot_name, last_beat_time, task_payload, task_end_time, task_status, platform).then(
+    return BotDataService.create({bot_name, last_beat_time, task_payload, task_end_time, task_status, platform}).then(
       (response) => {
         dispatch({
           type: CREATE_BOT,
-          payload: response.data,
+          payload: response.data
         });
   
         dispatch({
@@ -89,7 +88,7 @@ export const getBot = (id) => (dispatch) => {
   return BotDataService.findByID(id).then(
     (response) => {
       dispatch({
-        type: GET_BOT,
+        type: RETRIEVE_BOTS,
         payload: response.data,
       });
 
@@ -200,7 +199,7 @@ export const findBotsByName = (name) => (dispatch) => {
   return BotDataService.findByName(name).then(
     (response) => {
       dispatch({
-        type: GET_BOT,
+        type: RETRIEVE_BOTS,
         payload: response.data,
       });
 

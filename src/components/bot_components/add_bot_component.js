@@ -1,90 +1,83 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createBot } from "../../actions/bot";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import { Alert } from "bootstrap";
 
 class AddBot extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTaskStatus = this.onChangeTaskStatus.bind(this);
-    this.onChangeLastBeat = this.onChangeLastBeat.bind(this);
-    this.onChangeTaskEndTime = this.onChangeTaskEndTime.bind(this);
-    this.onChangeBotName = this.onChangeBotName.bind(this);
-    this.onChangePlatform = this.onChangePlatform.bind(this);
-    this.onChangeTaskPayload = this.onChangeTaskPayload.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
 
     this.saveBot = this.saveBot.bind(this);
     this.newBot = this.newBot.bind(this);
 
-    this.state =     {
-        "id": null,
-        "bot_name": "",
-        "last_beat_time": null,
-        "task_payload": "",
-        "task_end_time": null,
-        "task_status": "NA",
-        "platform": ""
+    this.state = {
+      id: null,
+      bot_name: "",
+      last_beat_time: null,
+      task_payload: "",
+      task_end_time: null,
+      task_status: "NA",
+      platform: "",
+      validated: false,
     };
   }
 
-  onChangeTaskStatus(e) {
+  onInputChange(event) {
+    const { name, value } = event.target;
     this.setState({
-        task_status: e.target.value,
+      [name]: value,
     });
   }
 
-  onChangeBotName(e) {
-    this.setState({
-        bot_name: e.target.value,
-    });
-  }
+  saveBot(event) {
+    const {
+      bot_name,
+      last_beat_time,
+      task_payload,
+      task_end_time,
+      task_status,
+      platform,
+    } = this.state;
 
-  onChangePlatform(e) {
-    this.setState({
-        platform: e.target.value,
-    });
-  }
+    const form = event.target;
+    event.preventDefault();
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    this.setState({ validated: true });
+    const current_time = new Date(); 
+    const last_beat_time_now = current_time.toISOString();
+    const { history } = this.props;
 
-  onChangeTaskPayload(e) {
-    this.setState({
-        task_payload: e.target.value,
-    });
-  }
-
-  onChangeTaskEndTime(e) {
-    this.setState({
-        task_end_time: e.target.value,
-    });
-  }
-
-  onChangeLastBeat(e) {
-    this.setState({
-        last_beat_time: e.target.value,
-    });
-  }
-
-  saveBot() {
-    const { bot_name, last_beat_time, task_payload, task_end_time, task_status, platform } = this.state;
-
+    if (form.checkValidity() === true){
     this.props
-      .createBot(bot_name, last_beat_time, task_payload, task_end_time, task_status, platform)
-      .then((data) => {
+      .createBot(
+        bot_name,
+        last_beat_time_now,
+        task_payload,
+        task_end_time,
+        task_status,
+        platform
+      )
+      .then(() => {
         this.setState({
-          id: data.id,
-          bot_name: data.bot_name,
-          last_beat_time: data.last_beat_time,
-          task_payload: data.task_payload,
-          task_end_time: data.task_end_time,
-          task_status: data.task_status,
-          platform: data.platform,
-
           submitted: true,
+          
         });
-        console.log(data);
+        history.push("/bots");
+        window.location.reload();
       })
       .catch((e) => {
         console.log(e);
       });
+    }
   }
 
   newBot() {
@@ -98,11 +91,13 @@ class AddBot extends Component {
       platform: "",
 
       submitted: false,
+      validated: false,
     });
   }
 
   render() {
-    const { user: currentUser, message} = this.props;
+    const { user: currentUser, message } = this.props;
+    const { validated } = this.state
 
     if (!currentUser) {
       return <Redirect to="/login" />;
@@ -118,45 +113,45 @@ class AddBot extends Component {
             </button>
           </div>
         ) : (
-          <div>
-            <div className="form-group">
-              <label htmlFor="title">Bot Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="bot_name"
-                required
-                value={this.state.bot_name}
-                onChange={this.onChangeBotName}
-                name="bot_name"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="description">Task Payload</label>
-              <input
-                type="text"
-                className="form-control"
-                id="task_payload"
-                required
-                value={this.state.task_payload}
-                onChange={this.onChangeTaskPayload}
-                name="task_payload"
-              />
-            </div>
-
+          <Form noValidate validated={validated} onSubmit={this.saveBot}>
+              <Form.Group className="mb-3" controlId="validationCustom01">
+                <Form.Label>Bot name</Form.Label>
+                <Form.Control
+                  required
+                  id="bot_name"
+                  name="bot_name"
+                  type="text"
+                  placeholder="name"
+                  defaultValue=""
+                  onChange={this.onInputChange}
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="validationCustom02">
+                <Form.Label>Platform</Form.Label>
+                <Form.Control
+                  required
+                  id="platform"
+                  name="platform"
+                  type="text"
+                  placeholder="linux"
+                  defaultValue=""
+                  onChange={this.onInputChange}
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+          
             {message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {message}
-                </div>
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {message}
               </div>
+            </div>
             )}
-            
-            <button onClick={this.saveBot} className="btn btn-success">
-              Submit
-            </button>
-          </div>
+            <div >
+            <Button variant="primary" type="submit"> Submit</Button>
+            </div>
+          </Form>
         )}
       </div>
     );

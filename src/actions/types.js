@@ -2,7 +2,6 @@ export const CREATE_BOT = "CREATE_BOT";
 export const RETRIEVE_BOTS = "RETRIEVE_BOTS";
 export const UPDATE_BOT = "UPDATE_BOT";
 export const DELETE_BOT = "DELETE_BOT";
-export const GET_BOT = "GET_BOT";
 export const BOT_FALI = "BOT_FALI";
 
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";

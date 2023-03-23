@@ -18,7 +18,6 @@ class BotsList extends Component {
     this.refreshData = this.refreshData.bind(this);
     this.setActiveBot = this.setActiveBot.bind(this);
     this.findByName= this.findByName.bind(this);
-    this.removeAllBots = this.removeAllBots.bind(this);
     this.editBot = this.editBot.bind(this);
 
     this.state = {
@@ -52,18 +51,6 @@ class BotsList extends Component {
       currentBot: bot,
       currentIndex: index,
     });
-  }
-
-  removeAllBots() {
-    this.props
-      .deleteAllBots()
-      .then((response) => {
-        console.log(response);
-        this.refreshData();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   }
 
   findByName() {
