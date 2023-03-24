@@ -98,7 +98,7 @@ class Bot extends Component {
     }
 
     return (
-      <div>
+      <div className="submit-form">
         {currentBot ? (
           <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">

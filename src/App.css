@@ -86,3 +86,9 @@ label {
   max-width: 300px;
   margin: auto;
 }
+
+#main_container {
+  margin-left: 5%;
+  margin-bottom: 5%;
+  margin-top: 1%;
+}

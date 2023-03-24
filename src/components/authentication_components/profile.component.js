@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
-
+import Card from 'react-bootstrap/Card';
 class Profile extends Component {
 
   render() {
@@ -12,28 +12,14 @@ class Profile extends Component {
     }
 
     return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>
-            <strong>{currentUser.username}</strong> Profile
-          </h3>
-        </header>
-        <p>
-          <strong>Token:</strong> {currentUser.access.substring(0, 20)} ...{" "}
-          {currentUser.access.substr(currentUser.access.length - 20)}
-        </p>
-        <p>
-          <strong>Id:</strong> {currentUser.id}
-        </p>
-        <p>
-          <strong>Email:</strong> {currentUser.email}
-        </p>
-        {/*<strong>Authorities:</strong>
-        <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-          </ul>*/}
-      </div>
+      <Card>
+        <Card.Header>{currentUser.user.username}</Card.Header>
+        <Card.Body>
+          <Card.Text>Token: {currentUser.access}</Card.Text>
+          <Card.Text>Id: {currentUser.user.id}</Card.Text>
+          <Card.Text>Email: {currentUser.user.email}</Card.Text>
+        </Card.Body>
+      </Card>
     );
   }
 }

@@ -4,11 +4,29 @@ export const UPDATE_BOT = "UPDATE_BOT";
 export const DELETE_BOT = "DELETE_BOT";
 export const BOT_FALI = "BOT_FALI";
 
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAIL = "REGISTER_FAIL";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAIL = "LOGIN_FAIL";
-export const LOGOUT = "LOGOUT";
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+export const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
+
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
+export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
+export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
+
+export const CREATE_JOB = "CREATE_JOB";
+export const RETRIEVE_JOBS = "RETRIEVE_JOBS";
+export const UPDATE_JOB = "UPDATE_JOB";
+export const DELETE_JOB = "DELETE_JOB";
+export const JOB_FALI = "JOB_FALI";
+

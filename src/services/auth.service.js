@@ -2,15 +2,15 @@
 import http from "../http-common";
 
 class AuthService {
-  login(username, password) {
+  login(creds) {
     return http
-      .post( "auth/login/", {
-        username,
-        password
-      })
+      .post( "auth/login/", creds)
       .then(response => {
         if (response.data.access) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("access_token", response.data.access);
+          localStorage.setItem("refresh_token", response.data.refresh);
+          localStorage.setItem("user", response.data.user);
+
         }
 
         return response.data;
@@ -18,15 +18,11 @@ class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("access_token");
   }
 
-  register(username, email, password) {
-    return http.post("auth/register/", {
-      username,
-      email,
-      password
-    });
+  register(data) {
+    return http.post("auth/register/", data);
   }
 
   getCurrentUser() {

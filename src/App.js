@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 
@@ -14,7 +14,7 @@ import BoardAdmin from "./components/authentication_components/board-admin.compo
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-import { history } from './helpers/history';
+import { history } from "./helpers/history";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
@@ -22,11 +22,8 @@ import EventBus from "./common/EventBus";
 import AddBot from "./components/bot_components/add_bot_component";
 import Bot from "./components/bot_components/bot_component";
 import BotsList from "./components/bot_components/bot_list_component";
-
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import AddJob from "./components/job_components/add_job_component";
+import { Row, Col, Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 class App extends Component {
   constructor(props) {
@@ -76,57 +73,68 @@ class App extends Component {
     return (
       <Router history={history}>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="/home">Pingun Control Panel</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-          {showAdminBoard && (
-              <Nav.Link href="#features">Admin Panel</Nav.Link>
-          )}
-          {currentUser && (
-              <NavDropdown title="Bots" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="/bots">List</NavDropdown.Item>
-              <NavDropdown.Item href="/bot/add">
-                Add Bot
-              </NavDropdown.Item>
-            </NavDropdown>
-          )}
-          </Nav>
+          <Container>
+            <Navbar.Brand href="/home">Pingun Control Panel</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto">
+                {showAdminBoard && (
+                  <Nav.Link href="#features">Admin Panel</Nav.Link>
+                )}
+                {currentUser && (
+                  <Nav>
+                    <NavDropdown title="Bots" id="collasible-nav-dropdown">
+                      <NavDropdown.Item href="/bots">List</NavDropdown.Item>
+                      <NavDropdown.Item href="/bot/add">
+                        Add Bot
+                      </NavDropdown.Item>
+                    </NavDropdown>
 
-          <Nav>
-          {
-          currentUser ? (
-            <Nav>
-              <Nav.Link href="/profile">Profile</Nav.Link>
-              <Nav.Link href="/login" onClick={this.logOut}>Logout</Nav.Link>
-            </Nav>
-            ) :
-          (
-            <Nav>
-              <Nav.Link href="/login">Login</Nav.Link>
-              <Nav.Link href="/register">Register</Nav.Link>
-            </Nav>
-            
-          )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+                    <NavDropdown title="Jobs" id="collasible-nav-dropdown">
+                      <NavDropdown.Item href="/jobs">List</NavDropdown.Item>
+                      <NavDropdown.Item href="/job/add">
+                        Add Job
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </Nav>
+                )}
+              </Nav>
 
-        <div className="container mt-3">
-          <Switch>
-            <Route exact path={["/", "/home"]} component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/admin" component={BoardAdmin} />
-            <Route exact path={["/", "/bots"]} component={BotsList} />
-            <Route exact path="/bot/add" component={AddBot} />
-            <Route path="/bot/:id" component={Bot} />
-          </Switch>
-        </div>
+              <Nav>
+                {currentUser ? (
+                  <Nav>
+                    <Nav.Link href="/profile">Profile</Nav.Link>
+                    <Nav.Link href="/login" onClick={this.logOut}>
+                      Logout
+                    </Nav.Link>
+                  </Nav>
+                ) : (
+                  <Nav>
+                    <Nav.Link href="/login">Login</Nav.Link>
+                    <Nav.Link href="/register">Register</Nav.Link>
+                  </Nav>
+                )}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+
+        <Container id="main_container">
+              <Switch>
+                <Route exact path={["/", "/home"]} component={Home} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/profile" component={Profile} />
+                <Route path="/user" component={BoardUser} />
+                <Route path="/admin" component={BoardAdmin} />
+                <Route exact path={["/", "/bots"]} component={BotsList} />
+                <Route exact path="/bot/add" component={AddBot} />
+                <Route path="/bot/:id" component={Bot} />
+                <Route exact path={["/", "/jobs"]} component={BotsList} />
+                <Route exact path="/job/add" component={AddJob} />
+                <Route path="/job/:id" component={Bot} />
+              </Switch>
+        </Container>
       </Router>
     );
   }
