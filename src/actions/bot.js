@@ -6,23 +6,40 @@ import {
   RETRIEVE_BOTS,
   UPDATE_BOT,
   DELETE_BOT,
-  SET_MESSAGE,
-  BOT_FALI,
+  BOT_REQUEST,
+  BOT_FAILURE
 } from "./types";
 
+function botRequest(payload) {
+  return {
+    type: BOT_REQUEST,
+    isFetching: true,
+    payload,
+  };
+}
+
+export function botRecieved(type, data) {
+  return {
+    type: type,
+    isFetching: false,
+    payload: data
+  };
+}
+
+function botError(message) {
+  return {
+    type: BOT_FAILURE,
+    isFetching: false,
+    payload: message,
+  };
+}
+
 export const createBot = (bot_name, last_beat_time, task_payload, task_end_time, task_status, platform) => (dispatch) => {
-    return BotDataService.create({bot_name, last_beat_time, task_payload, task_end_time, task_status, platform}).then(
+    const payload = {bot_name, last_beat_time, task_payload, task_end_time, task_status, platform};
+    dispatch(botRequest(payload));
+    return BotDataService.create(payload).then(
       (response) => {
-        dispatch({
-          type: CREATE_BOT,
-          payload: response.data
-        });
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: response.data,
-        });
-  
+        dispatch(botRecieved(CREATE_BOT,response.data));
         return Promise.resolve();
       },
       (error) => {
@@ -33,33 +50,18 @@ export const createBot = (bot_name, last_beat_time, task_payload, task_end_time,
           error.message ||
           error.toString();
   
-        dispatch({
-          type: BOT_FALI,
-        });
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
-        });
-  
+        dispatch(botError(message));
+ 
         return Promise.reject();
       }
     );
   };
 
 export const retrieveBots = () => (dispatch) => {
+  dispatch(botRequest(""));
   return BotDataService.getAll().then(
     (response) => {
-      dispatch({
-        type: RETRIEVE_BOTS,
-        payload: response.data
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data,
-      });
-
+      dispatch(botRecieved(RETRIEVE_BOTS, response.data));
       return Promise.resolve();
     },
     (error) => {
@@ -70,33 +72,17 @@ export const retrieveBots = () => (dispatch) => {
         error.message ||
         error.toString();
 
-      dispatch({
-        type: BOT_FALI,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
+      dispatch(botError(message));
       return Promise.reject();
     }
   );
 }
 
 export const getBot = (id) => (dispatch) => {
+  dispatch(botRequest(id));
   return BotDataService.findByID(id).then(
     (response) => {
-      dispatch({
-        type: RETRIEVE_BOTS,
-        payload: response.data,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data,
-      });
-
+      dispatch(botRecieved(RETRIEVE_BOTS, response.data));
       return Promise.resolve();
     },
     (error) => {
@@ -107,14 +93,7 @@ export const getBot = (id) => (dispatch) => {
         error.message ||
         error.toString();
 
-      dispatch({
-        type: BOT_FALI,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
+      dispatch(botError(message));
 
       return Promise.reject();
     }
@@ -122,18 +101,10 @@ export const getBot = (id) => (dispatch) => {
 }
 
 export const updateBot = (id, data) => (dispatch) => {
+  dispatch(botRequest(data));
   return BotDataService.update(id, data).then(
     (response) => {
-      dispatch({
-        type: UPDATE_BOT,
-        payload: response.data
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data,
-      });
-
+      dispatch(botRecieved(UPDATE_BOT, response.data));
       return Promise.resolve();
     },
     (error) => {
@@ -144,33 +115,17 @@ export const updateBot = (id, data) => (dispatch) => {
         error.message ||
         error.toString();
 
-      dispatch({
-        type: BOT_FALI,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
+      dispatch(botError(message));
       return Promise.reject();
     }
   );
 }
 
 export const deleteBot = (id) => (dispatch) => {
+  dispatch(botRequest(id));
   return BotDataService.delete(id).then(
     (response) => {
-      dispatch({
-        type: DELETE_BOT,
-        payload: response.data,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data,
-      });
-
+      dispatch(botRecieved(DELETE_BOT, response.data));
       return Promise.resolve();
     },
     (error) => {
@@ -181,33 +136,17 @@ export const deleteBot = (id) => (dispatch) => {
         error.message ||
         error.toString();
 
-      dispatch({
-        type: BOT_FALI,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
+      dispatch(botError(message));
       return Promise.reject();
     }
   );
 }
 
 export const findBotsByName = (name) => (dispatch) => {
+  dispatch(botRequest(name));
   return BotDataService.findByName(name).then(
     (response) => {
-      dispatch({
-        type: RETRIEVE_BOTS,
-        payload: response.data,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: response.data,
-      });
-
+      dispatch(botRecieved(RETRIEVE_BOTS, response.data));
       return Promise.resolve();
     },
     (error) => {
@@ -218,14 +157,7 @@ export const findBotsByName = (name) => (dispatch) => {
         error.message ||
         error.toString();
 
-      dispatch({
-        type: BOT_FALI,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
+      dispatch(botError(message));
 
       return Promise.reject();
     }

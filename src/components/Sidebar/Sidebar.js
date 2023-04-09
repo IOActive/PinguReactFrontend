@@ -20,6 +20,17 @@ const Sidebar = () => (
         headerLink="/app/main"
         glyph="dashboard"
       />
+       <LinksGroup
+        header="Bots"
+        headerLink="/app/bots"
+        childrenLinks={[
+          {
+            name: 'Bot List',
+            link: '/app/bots/list',
+          }
+        ]}
+        glyph="robot"
+      />
     </ul>
   </nav>
 );

@@ -8,6 +8,7 @@ import settings from './settings.svg';
 import notification from './notification.svg';
 import mail from './mail.svg';
 import logo2 from './logo2.svg'
+import robot from './robot.svg'
 
 export default { 
   components,
@@ -20,4 +21,5 @@ export default {
   notification,
   mail,
   logo2,
+  robot
 }

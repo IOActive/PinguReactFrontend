@@ -13,6 +13,7 @@ import Login from "../pages/login";
 import Register from "../pages/register";
 import { logoutUser } from "../actions/auth";
 
+
 const PrivateRoute = ({ dispatch, component, ...rest }) => {
   if (!Login.isAuthenticated(localStorage.getItem("access_token"))) {
     dispatch(logoutUser());

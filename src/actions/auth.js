@@ -8,7 +8,6 @@ import {
     REGISTER_SUCCESS,
     REGISTER_REQUEST,
     REGISTER_FAILURE,
-    SET_MESSAGE,
   } from "./types";
   
   import AuthService from "../services/auth.service";

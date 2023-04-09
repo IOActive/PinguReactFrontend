@@ -2,7 +2,9 @@ export const CREATE_BOT = "CREATE_BOT";
 export const RETRIEVE_BOTS = "RETRIEVE_BOTS";
 export const UPDATE_BOT = "UPDATE_BOT";
 export const DELETE_BOT = "DELETE_BOT";
-export const BOT_FALI = "BOT_FALI";
+export const BOT_REQUEST = "BOT_REQUEST";
+export const BOT_SUCCESS = "BOT_SUCCESS";
+export const BOT_FAILURE = "BOT_FAILURE";
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -15,9 +17,6 @@ export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
-export const SET_MESSAGE = "SET_MESSAGE";
-export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
-
 export const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
@@ -29,4 +28,5 @@ export const RETRIEVE_JOBS = "RETRIEVE_JOBS";
 export const UPDATE_JOB = "UPDATE_JOB";
 export const DELETE_JOB = "DELETE_JOB";
 export const JOB_FALI = "JOB_FALI";
+
 
