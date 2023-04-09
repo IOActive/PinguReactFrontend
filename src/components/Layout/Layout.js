@@ -20,7 +20,7 @@ import Sidebar from '../Sidebar';
 // Dashboard component is loaded directly as an example of server side rendering
 import Dashboard from '../../pages/dashboard'
 import AddBot from "../../pages/bot_pages/add_bot_component";
-import Bot from "../../pages/bot_pages/bot_component";
+import Bot from "../../pages/bot_pages/BotEdit/BotEdit";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
 
 class Layout extends React.Component {

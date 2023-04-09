@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { retrieveBots, findBotsByName } from "../../../actions/bot";
 
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { Button, Breadcrumb, BreadcrumbItem, Table, Badge } from "reactstrap";
 import Widget from "../../../components/Widget/Widget";
@@ -12,7 +12,7 @@ import { history } from "../../../helpers/history";
 import PropTypes from "prop-types";
 import s from "./BotsList.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignCenter, faRobot } from "@fortawesome/free-solid-svg-icons";
+import {faRobot } from "@fortawesome/free-solid-svg-icons";
 
 class BotsList extends Component {
   constructor(props) {
@@ -21,7 +21,6 @@ class BotsList extends Component {
     this.refreshData = this.refreshData.bind(this);
     this.setActiveBot = this.setActiveBot.bind(this);
     this.findByName = this.findByName.bind(this);
-    this.editBot = this.editBot.bind(this);
 
     this.state = {
       currentBot: null,
@@ -89,14 +88,6 @@ class BotsList extends Component {
     this.props.findBotsByName(this.state.searchBotName);
   }
 
-  editBot(id) {
-    history.push({
-      pathname: "/bot/" + this.state.currentBot.id,
-      state: { bot: this.state.currentBot },
-    });
-    window.location.reload();
-  }
-
   render() {
     const { searchBotName, currentBot, currentIndex } = this.state;
     const { bots } = this.props;
@@ -149,14 +140,14 @@ class BotsList extends Component {
               </tr>
             </thead>
             <tbody>
-              {bots.isFetching && (
+              {bots && bots.isFetching && (
                 <tr>
                   <td colSpan="100">Loading...</td>
                 </tr>
               )}
               {!bots.isFetching &&
                 bots &&
-                bots.map((bot, index) => (
+                bots.payload.map((bot, index) => (
                   <tr>
                     <li
                       className={
@@ -208,7 +199,7 @@ class BotsList extends Component {
                       <td>{currentBot.last_beat_time}</td>
                     </tr>
                     <tr>
-                    <td>Task Status</td>
+                      <td>Task Status</td>
                       <td>
                         <Badge
                           className="ml-xs"
@@ -225,7 +216,14 @@ class BotsList extends Component {
                     </tr>
                   </tbody>
                 </Table>
-                <Button size="lg" onClick={this.editBot}>Edit</Button>
+                <div className="d-flex justify-content-end">
+                  <Link
+                    to={"/app/bot/" + currentBot.id}
+                    className="btn btn-default"
+                  >
+                    Edit Bot{" "}
+                  </Link>
+                </div>
               </Card.Body>
             </Card>
           ) : (

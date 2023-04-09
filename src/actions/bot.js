@@ -62,7 +62,7 @@ export const retrieveBots = () => (dispatch) => {
   return BotDataService.getAll().then(
     (response) => {
       dispatch(botRecieved(RETRIEVE_BOTS, response.data));
-      return Promise.resolve();
+      return Promise.resolve(response.data);
     },
     (error) => {
       const message =
@@ -83,7 +83,7 @@ export const getBot = (id) => (dispatch) => {
   return BotDataService.findByID(id).then(
     (response) => {
       dispatch(botRecieved(RETRIEVE_BOTS, response.data));
-      return Promise.resolve();
+      return Promise.resolve(response.data);
     },
     (error) => {
       const message =
@@ -105,7 +105,7 @@ export const updateBot = (id, data) => (dispatch) => {
   return BotDataService.update(id, data).then(
     (response) => {
       dispatch(botRecieved(UPDATE_BOT, response.data));
-      return Promise.resolve();
+      return Promise.resolve(response.data);
     },
     (error) => {
       const message =
@@ -126,7 +126,7 @@ export const deleteBot = (id) => (dispatch) => {
   return BotDataService.delete(id).then(
     (response) => {
       dispatch(botRecieved(DELETE_BOT, response.data));
-      return Promise.resolve();
+      return Promise.resolve(response.data);
     },
     (error) => {
       const message =
@@ -147,7 +147,7 @@ export const findBotsByName = (name) => (dispatch) => {
   return BotDataService.findByName(name).then(
     (response) => {
       dispatch(botRecieved(RETRIEVE_BOTS, response.data));
-      return Promise.resolve();
+      return Promise.resolve(response.data);
     },
     (error) => {
       const message =

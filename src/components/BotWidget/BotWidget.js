@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { retrieveBots, findBotsByName } from "../../actions/bot";
 
-import { Redirect } from "react-router-dom";
 import { Table, Badge } from "reactstrap";
 import Widget from "../Widget/Widget";
 import s from "./BotWidget.module.scss";
@@ -42,7 +41,7 @@ class BotWidget extends Component {
         //Start the timer
         this.setState({ render: true }); //After 1 second, set render to true
       }.bind(this),
-      2000
+      3000
     );
     this.props.retrieveBots();
   }
@@ -71,11 +70,6 @@ class BotWidget extends Component {
   render() {
     const { searchBotName } = this.state;
     const { bots } = this.props;
-    const { user: currentUser } = this.props;
-
-    if (!currentUser) {
-      return <Redirect to="/login" />;
-    }
 
     return (
       <Widget
@@ -117,13 +111,13 @@ class BotWidget extends Component {
             </tr>
           </thead>
           <tbody>
-            {bots.length > 0 && bots.isFetching && (
+            {bots && bots.isFetching && (
               <tr>
                 <td colSpan="100">Loading...</td>
               </tr>
             )}
-            { bots && !bots.isFetching &&
-              bots.slice(0, 6).map((bot, index) => (
+            { bots && bots.payload && !bots.isFetching &&
+              bots.payload.slice(0, 6).map((bot, index) => (
                 <tr>
                   <td>{bot.id}</td>
                   <td>{bot.bot_name}</td>

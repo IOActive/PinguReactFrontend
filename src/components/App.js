@@ -12,6 +12,7 @@ import LayoutComponent from "../components/Layout";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import { logoutUser } from "../actions/auth";
+import Bot from "../pages/bot_pages/BotEdit/BotEdit"
 
 
 const PrivateRoute = ({ dispatch, component, ...rest }) => {
