@@ -8,7 +8,7 @@ import Icon from "../../components/Icon/Icon";
 import { Navigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-const Login = (props) => {
+function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { isAuthenticated, isFetching, errorMessage } = useSelector(
@@ -77,8 +77,7 @@ const Login = (props) => {
                   type="text"
                   required
                   name="username"
-                  placeholder="Username"
-                />
+                  placeholder="Username" />
               </FormGroup>
               <FormGroup>
                 <Input
@@ -88,8 +87,7 @@ const Login = (props) => {
                   type="password"
                   required
                   name="password"
-                  placeholder="Password"
-                />
+                  placeholder="Password" />
               </FormGroup>
               <div className="d-flex justify-content-between align-items-center">
                 <NavLink to="/register" className="fs-sm">
@@ -108,5 +106,5 @@ const Login = (props) => {
       <Footer className="text-center" />
     </div>
   );
-};
+}
 export default Login;

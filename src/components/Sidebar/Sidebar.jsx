@@ -6,33 +6,33 @@ import LinksGroup from './LinksGroup/LinksGroup';
 
 import s from './Sidebar.module.scss';
 
-const Sidebar = () => (
+function Sidebar() {
+  return (
 
-  <nav className={s.root}>
-    <header className={s.logo}>
-      <Link to="/app/dashboard">
-        <Icon glyph="logo2" />
-      </Link>
-    </header>
-    <ul className={s.nav}>
-      <LinksGroup
-        header="Dashboard"
-        headerLink="/app/dashboard"
-        glyph="dashboard"
-      />
-       <LinksGroup
-        header="Bots"
-        headerLink="/app/bots"
-        childrenLinks={[
-          {
-            name: 'Bot List',
-            link: '/app/bots/list',
-          }
-        ]}
-        glyph="robot"
-      />
-    </ul>
-  </nav>
-);
+    <nav className={s.root}>
+      <header className={s.logo}>
+        <Link to="/app/dashboard">
+          <Icon glyph="logo2" />
+        </Link>
+      </header>
+      <ul className={s.nav}>
+        <LinksGroup
+          header="Dashboard"
+          headerLink="/app/dashboard"
+          glyph="dashboard" />
+        <LinksGroup
+          header="Bots"
+          headerLink="/app/bots"
+          childrenLinks={[
+            {
+              name: 'Bot List',
+              link: '/app/bots/list',
+            }
+          ]}
+          glyph="robot" />
+      </ul>
+    </nav>
+  );
+}
 
 export default Sidebar;

@@ -12,33 +12,28 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import { PrivateRoute } from "./PrivateRoute";
 
-const App = () => {
+function App() {
   return (
-      <div>
-        <ToastContainer
-          autoClose={5000}
-          hideProgressBar
-          closeButton={<CloseButton />}
-        />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/register" element={<Register/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/error" element={<ErrorPage/>} />
-            <Route  
-              path="/app/*"
-              element={
-                <PrivateRoute>
-                  <Layout />
-                </PrivateRoute>
+    <div>
+      <ToastContainer
+        autoClose={5000}
+        hideProgressBar
+        closeButton={<CloseButton />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route
+            path="/app/*"
+            element={<PrivateRoute>
+              <Layout />
+            </PrivateRoute>} />
+          <Route path="*" element={<Navigate to="/app" />} />
 
-              }
-            />
-            <Route path="*" element={<Navigate to="/app" />} />
-            
-          </Routes>
-        </BrowserRouter>
-      </div>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

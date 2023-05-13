@@ -7,7 +7,7 @@ import Icon from "../../Icon/Icon";
 
 import s from "./LinksGroup.module.scss";
 
-const LinksGroup = (props) => {
+function LinksGroup(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const { className, childrenLinks, headerLink, header, glyph } = props;
@@ -38,24 +38,22 @@ const LinksGroup = (props) => {
         <ul>
           {childrenLinks &&
             childrenLinks.map((child) => (
-                <li key={child.name}>
-                  <NavLink
-                    to={child.link}
-                    exact="true"
-                    onClick={() =>
-                      setIsOpen({
-                        isOpen: true,
-                      })
-                    }
-                  >
-                    {child.name}
-                  </NavLink>
-                </li>
+              <li key={child.name}>
+                <NavLink
+                  to={child.link}
+                  exact="true"
+                  onClick={() => setIsOpen({
+                    isOpen: true,
+                  })}
+                >
+                  {child.name}
+                </NavLink>
+              </li>
             ))}
         </ul>
       </Collapse>
     </li>
   );
-};
+}
 
 export default LinksGroup;

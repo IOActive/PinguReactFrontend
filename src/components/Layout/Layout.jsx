@@ -23,34 +23,31 @@ import AddBot from "../../pages/bot_pages/add_bot_component";
 import Bot from "../../pages/bot_pages/BotEdit/BotEdit";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
 
-const Layout = (props) => {
+function Layout(props) {
 
-    const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
-    return (
-      <div className={s.root}>
-        <Sidebar />
-        <div
-          className={cx(s.wrap, {[s.sidebarOpen]: sidebarOpen})}
-        >
-          <Header
-            sidebarToggle={() =>
-              setSidebarOpen(!sidebarOpen)
-            }
-          />
-          <main className={s.content}>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/bots/list" element={<BotsList />} />
-              <Route path="/bots/add" element={<AddBot />} />
-              <Route path="/bots/:botId" element={<Bot />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+  return (
+    <div className={s.root}>
+      <Sidebar />
+      <div
+        className={cx(s.wrap, { [s.sidebarOpen]: sidebarOpen })}
+      >
+        <Header
+          sidebarToggle={() => setSidebarOpen(!sidebarOpen)} />
+        <main className={s.content}>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/bots/list" element={<BotsList />} />
+            <Route path="/bots/add" element={<AddBot />} />
+            <Route path="/bots/:botId" element={<Bot />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
-    );
+    </div>
+  );
 
 }
 
