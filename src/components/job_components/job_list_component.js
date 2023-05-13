@@ -5,7 +5,7 @@ import {
   findBotsByName,
 } from "../../actions/bot";
 
-import { Redirect} from "react-router-dom";
+import { Navigate} from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import { Button } from "react-bootstrap";
 import { history } from '../../helpers/history';
@@ -70,7 +70,7 @@ class BotsList extends Component {
     const { user: currentUser } = this.props;
 
     if (!currentUser) {
-      return <Redirect to="/login" />;
+      return <Navigate to="/login" />;
     }
 
     return (

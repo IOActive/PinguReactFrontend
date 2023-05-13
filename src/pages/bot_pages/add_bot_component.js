@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createBot } from "../../actions/bot";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -100,7 +100,7 @@ class AddBot extends Component {
     const { validated } = this.state
 
     if (!currentUser) {
-      return <Redirect to="/login" />;
+      return <Navigate to="/login" />;
     }
 
     return (

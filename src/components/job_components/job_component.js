@@ -5,7 +5,7 @@ import { deleteBot } from "../../actions/bot";
 import BotDataService from "../../services/bot_service";
 import Button from 'react-bootstrap/Button';
 import Form from "react-bootstrap/Form"
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 class Bot extends Component {
@@ -94,7 +94,7 @@ class Bot extends Component {
     const { user: currentUser, message } = this.props;
 
     if (!currentUser) {
-      return <Redirect to="/login" />;
+      return <Navigate to="/login" />;
     }
 
     return (

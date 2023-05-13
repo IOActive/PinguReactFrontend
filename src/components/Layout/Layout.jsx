@@ -9,12 +9,12 @@
 
 import React from 'react';
 import cx from 'classnames';
-import { Switch, Route, withRouter } from 'react-router';
+import { Routes, Route } from 'react-router';
 
 import s from './Layout.module.scss';
-import Header from '../Header';
-import Footer from '../Footer';
-import Sidebar from '../Sidebar';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import Sidebar from '../Sidebar/Sidebar';
 
 
 // Dashboard component is loaded directly as an example of server side rendering
@@ -23,42 +23,35 @@ import AddBot from "../../pages/bot_pages/add_bot_component";
 import Bot from "../../pages/bot_pages/BotEdit/BotEdit";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
 
-class Layout extends React.Component {
-  constructor(props) {
-    super(props);
+const Layout = (props) => {
 
-    this.state = {
-      sidebarOpen: false,
-    };
-  }
+    const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
-  render() {
     return (
       <div className={s.root}>
         <Sidebar />
         <div
-          className={cx(s.wrap, {[s.sidebarOpen]: this.state.sidebarOpen})}
+          className={cx(s.wrap, {[s.sidebarOpen]: sidebarOpen})}
         >
           <Header
             sidebarToggle={() =>
-              this.setState({
-                sidebarOpen: !this.state.sidebarOpen,
-              })
+              setSidebarOpen(!sidebarOpen)
             }
           />
           <main className={s.content}>
-            <Switch>
-              <Route path="/app/main" exact component={Dashboard} />
-              <Route path="/app/bots/list" component={BotsList} />
-              <Route path="/app/bot/add" component={AddBot} />
-              <Route path="/app/bot/:id" component={Bot} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/bots/list" element={<BotsList />} />
+              <Route path="/bots/add" element={<AddBot />} />
+              <Route path="/bots/:botId" element={<Bot />} />
+            </Routes>
           </main>
           <Footer />
         </div>
       </div>
     );
-  }
+
 }
 
-export default withRouter(Layout);
+export default Layout;

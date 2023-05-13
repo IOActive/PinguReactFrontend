@@ -22,8 +22,8 @@ import {
   DropdownItem,
   Input,
   InputGroup,
-  InputGroupAddon,
 } from "reactstrap";
+
 import { NavLink } from "react-router-dom";
 
 import Icon from "../Icon";
