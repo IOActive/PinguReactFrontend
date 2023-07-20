@@ -5,11 +5,8 @@ import Icon from '../Icon/Icon';
 import LinksGroup from './LinksGroup/LinksGroup';
 
 import s from './Sidebar.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
-  
-  const navigate = useNavigate();
 
   return (
 

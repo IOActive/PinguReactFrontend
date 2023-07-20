@@ -123,7 +123,7 @@ const BotWidget = (props) => {
         </tbody>
       </Table>
       <div className="d-flex justify-content-end">
-        <Link to="/app/bots/list" className="btn btn-default">
+        <Link to="/app/bot/list" className="btn btn-default">
           View all Bots{" "}
           <Badge className="ml-xs" color="danger">
             {bots.length}

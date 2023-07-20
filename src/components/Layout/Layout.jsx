@@ -39,9 +39,9 @@ function Layout(props) {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/bots/list" element={<BotsList />} />
-            <Route path="/bots/add" element={<AddBot />} />
-            <Route path="/bots/:botId" element={<Bot />} />
+            <Route path="/bot/list" element={<BotsList />} />
+            <Route path="/bot/add" element={<AddBot />} />
+            <Route path="/bot/:botId" element={<Bot />} />
           </Routes>
         </main>
         <Footer />
