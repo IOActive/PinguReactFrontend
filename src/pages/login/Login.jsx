@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Alert, Button, FormGroup, Input, Row, Col, Form } from "reactstrap";
 import s from "./Login.module.scss";
 import Widget from "../../components/Widget/Widget";
