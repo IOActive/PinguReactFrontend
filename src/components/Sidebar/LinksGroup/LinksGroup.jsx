@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import cx from "classnames";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Collapse } from "reactstrap";
 
 import Icon from "../../Icon/Icon";
@@ -15,12 +15,12 @@ function LinksGroup(props) {
   if (!childrenLinks) {
     return (
       <li className={cx(s.headerLink, className)}>
-        <NavLink to={headerLink} exact="true">
+        <Link to={headerLink} exact="true">
           <div>
             {glyph && <Icon glyph={glyph} />}
             <span>{header}</span>
           </div>
-        </NavLink>
+        </Link>
       </li>
     );
   }
@@ -42,9 +42,7 @@ function LinksGroup(props) {
                 <NavLink
                   to={child.link}
                   exact="true"
-                  onClick={() => setIsOpen({
-                    isOpen: true,
-                  })}
+                  onClick={() => setIsOpen(true)}
                 >
                   {child.name}
                 </NavLink>
