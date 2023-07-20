@@ -1,40 +1,37 @@
 import http from "../helpers/http-common";
 
-class BotDataService {
-  getAll() {
-    return http.get("/bot/");
-  }
-
-  get(id) {
-    return http.get(`/bot/?id=${id}`);
-  }
-
-  create(data) {
-    return http.post("/bot/", data);
-  }
-
-  update(id, data) {
-    return http.patch(`/bot/${id}/`, data).catch((e) => {
-      console.log(e);
-    });
-  }
-
-  delete(id) {
-    return http.delete(`/bot/${id}/`);
-  }
-
-  deleteAll() {
-    return http.delete(`/bot/`);
-  }
-
-  findByName(name) {
-    return http.get(`/bot/?bot_name=${name}`);
-  }
-
-  findByID(id){
-    return http.get(`/bot/?id=${id}`);
-  }
+function getAll() {
+  return http.get("/bot/");
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default new BotDataService();
+function get(id) {
+  return http.get(`/bot/?id=${id}`);
+}
+
+function create(data) {
+  return http.post("/bot/", data);
+}
+
+function update(id, data) {
+  return http.patch(`/bot/${id}/`, data).catch((e) => {
+    console.log(e);
+  });
+}
+
+function deleteBot(id) {
+  return http.delete(`/bot/${id}/`);
+}
+
+function deleteAll() {
+  return http.delete(`/bot/`);
+}
+
+function findByName(name) {
+  return http.get(`/bot/?bot_name=${name}`);
+}
+
+function findByID(id){
+  return http.get(`/bot/?id=${id}`);
+}
+
+export default {getAll, get, create, update, deleteBot, deleteAll, findByName, findByID};

@@ -10,17 +10,20 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
 const BotWidget = (props) => {
   const [currentBot, setCurrentBot] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchBotName, setSearchBotName] = useState("");
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setTimeout(() => {
-      props.retrieveBots();
-    }, 1000);
-  }, []);
+    dispatch(retrieveBots());
+  }, [dispatch]);
+
+  const {isFetching, payload } = useSelector(state => state.bots);
 
   const onChangeSearchBotName = (e) => {
     setSearchBotName(e.target.value);
@@ -88,15 +91,15 @@ const BotWidget = (props) => {
           </tr>
         </thead>
         <tbody>
-          {bots && bots.isFetching && (
+          {isFetching && (
             <tr>
               <td colSpan="100">Loading...</td>
             </tr>
           )}
-          {bots &&
-            bots.payload &&
-            !bots.isFetching &&
-            bots.payload.slice(0, 6).map((bot, index) => (
+          {
+            payload &&
+            !isFetching &&
+            payload.slice(0, 6).map((bot, index) => (
               <tr key={index}>
                 <td>{bot.id}</td>
                 <td>{bot.bot_name}</td>
@@ -131,13 +134,6 @@ const BotWidget = (props) => {
   );
 };
 
-BotWidget.propTypes = {
-  isFetching: PropTypes.bool,
-};
-
-BotWidget.defaultProps = {
-  isFetching: false,
-};
 
 const mapStateToProps = (state) => {
   const { user } = state.auth;

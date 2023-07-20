@@ -25,7 +25,7 @@ import s from "./Header.module.scss";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState("");
 
   useEffect(() => {
     const user = props.user;
@@ -129,8 +129,9 @@ Header.defaultProps = {
 };
 
 function mapStateToProps(state) {
+  const { user } = state.auth;
   return {
-    user: state.auth.user,
+    user
   };
 }
 

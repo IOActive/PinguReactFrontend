@@ -1,10 +1,23 @@
-import axios from "axios";
-import authHeader from "../services/auth-header";
+import axios from 'axios';
 
-export default axios.create({
-  baseURL: "http://localhost:8086/api",
+const http = axios.create({
+  baseURL: 'http://localhost:8086/api',
   headers: {
-    "Content-type": "application/json",
-    Authorization: authHeader()
+    'Content-type': 'application/json',
   }
 });
+
+http.interceptors.request.use(
+  config => {
+    const AUTH_TOKEN = localStorage.getItem('access_token');
+    if (AUTH_TOKEN) {
+      config.headers.Authorization = `Bearer ${AUTH_TOKEN}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
+export default http;

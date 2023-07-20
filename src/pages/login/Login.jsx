@@ -7,6 +7,8 @@ import { loginUser } from "../../actions/auth";
 import Icon from "../../components/Icon/Icon";
 import { Navigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -16,6 +18,8 @@ function Login(props) {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const changeUsername = (event) => {
     const username = event.target.value;
@@ -41,8 +45,8 @@ function Login(props) {
     return <Navigate to="/register" />;
   };
 
-  if (isAuthenticated) {
-    return <Navigate to="/app" />;
+  if(isAuthenticated) {
+    navigate("/dashboard");
   }
 
   return (

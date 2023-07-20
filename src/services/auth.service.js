@@ -1,33 +1,30 @@
-
 import http from "../helpers/http-common";
 
-class AuthService {
-  login(creds) {
-    return http
-      .post( "auth/login/", creds)
-      .then(response => {
-        if (response.data.access) {
-          localStorage.setItem("access_token", response.data.access);
-          localStorage.setItem("refresh_token", response.data.refresh);
-          //localStorage.setItem("user", response.data.user);
+function login(creds) {
+  return http
+    .post( "auth/login/", creds)
+    .then(response => {
+      if (response.data.access) {
+        localStorage.setItem("access_token", response.data.access);
+        localStorage.setItem("refresh_token", response.data.refresh);
+        //localStorage.setItem("user", response.data.user);
 
-        }
+      }
 
-        return response.data;
-      });
-  }
-
-  logout() {
-    localStorage.removeItem("access_token");
-  }
-
-  register(data) {
-    return http.post("auth/register/", data);
-  }
-
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
-  }
+      return response.data;
+    });
 }
 
-export default new AuthService();
+function logout() {
+  localStorage.removeItem("access_token");
+}
+
+function register(data) {
+  return http.post("auth/register/", data);
+}
+
+function getCurrentUser() {
+  return JSON.parse(localStorage.getItem('user'));;
+}
+
+export default {login, logout, register, getCurrentUser};
