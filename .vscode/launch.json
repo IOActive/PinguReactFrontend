@@ -22,7 +22,9 @@
             "name": "Start NPM",
             "request": "launch",
             "runtimeArgs": [
+                "--trace-deprecation",
                 "start"
+                
             ],
             "runtimeExecutable": "npm",
             "skipFiles": [

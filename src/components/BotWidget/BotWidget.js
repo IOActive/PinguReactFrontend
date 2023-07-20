@@ -40,10 +40,11 @@ class BotWidget extends Component {
       function () {
         //Start the timer
         this.setState({ render: true }); //After 1 second, set render to true
+        this.props.retrieveBots();
       }.bind(this),
-      3000
+      1000
     );
-    this.props.retrieveBots();
+    
   }
 
   onChangeSearchBotName(e) {

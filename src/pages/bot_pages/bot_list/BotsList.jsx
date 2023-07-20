@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import { retrieveBots, findBotsByName } from "../../../actions/bot";
 
 import { Navigate, Link } from "react-router-dom";
@@ -24,38 +23,42 @@ const BotsList = (props) => {
   const [searchBotName, setSearchBotName] = React.useState("");
   const [isDropdownOpened, setIsDropdownOpened] = React.useState(false);
 
-
+  // propf
 
   React.useEffect(() => {
     retrieveBots();
   }, [retrieveBots]);
 
-  const handleChange = (e) => {
+  function handleChange(e){
     setBotId(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e){
     e.preventDefault();
     findBotsByName(botId);
   };
 
-  const onChangeSearchBotName = (e) => {
+  function onChangeSearchBotName(e){
     const searchBotName = e.target.value;
 
-    this.setState({
-      searchBotName: searchBotName,
-    });
+    setSearchBotName(searchBotName);
   };
 
-  const refreshData = () => {
+  function refreshData(){
     setCurrentBot(null);
     setCurrentIndex(-1);
   };
 
-  const setActiveBot = (bot, index) => {
+  function setActiveBot(bot, index){
     setCurrentBot(bot);
     setCurrentIndex(index);
   };
+
+  function findByName() {
+    refreshData();
+
+    findBotsByName(searchBotName);
+  }
 
   return (
       <div className={s.root}>
@@ -73,7 +76,7 @@ const BotsList = (props) => {
                 <button
                   className="btn btn-outline-secondary"
                   type="button"
-                  onClick={this.findByName}
+                  onClick={findByName}
                 >
                   Search
                 </button>
@@ -84,7 +87,7 @@ const BotsList = (props) => {
                   className="form-control"
                   placeholder="Search by Bot name"
                   value={searchBotName}
-                  onChange={this.onChangeSearchBotName}
+                  onChange={onChangeSearchBotName}
                 />
               </div>
               <h5 className="mt-0 mb-3">
@@ -114,7 +117,7 @@ const BotsList = (props) => {
                         "list-group-item " +
                         (index === currentIndex ? "active" : "")
                       }
-                      onClick={() => this.setActiveBot(bot, index)}
+                      onClick={() => setActiveBot(bot, index)}
                       key={index}
                     >
                       {bot.bot_name}

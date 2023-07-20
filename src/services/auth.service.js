@@ -9,7 +9,7 @@ class AuthService {
         if (response.data.access) {
           localStorage.setItem("access_token", response.data.access);
           localStorage.setItem("refresh_token", response.data.refresh);
-          localStorage.setItem("user", response.data.user);
+          //localStorage.setItem("user", response.data.user);
 
         }
 
