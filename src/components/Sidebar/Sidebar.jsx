@@ -27,7 +27,7 @@ function Sidebar() {
           childrenLinks={[
             {
               name: 'Bot List',
-              link: '/app/bots/list',
+              link: '/app/bot/list',
             },
             {
               name: 'Bot Create',

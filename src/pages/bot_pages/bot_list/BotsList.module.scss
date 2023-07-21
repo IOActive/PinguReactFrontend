@@ -22,9 +22,11 @@
    thead {
      border-bottom: 1px solid $gray-200;
    }
+
+   max-width: 50% !important;
  }
 
- .BotCard {
+ .BotCardsGroup {
   th,
   td {
     border-color: $white;
@@ -34,11 +36,26 @@
     border-bottom: 1px solid $gray-200;
   }
 
-  button {
-    margin-left: 90%;
+  .EditButton {
+    justify-content: flex-end !important;
+    display: flex !important;
+
   }
 
-  margin-left: 25%;
-  margin-right: 25%;
+  .BotInformantionCard {
+    margin: 10px;
+    -ms-flex-align: center;
+  }
+
+  .BotEditCard{
+    margin: 10px;
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
 }
  

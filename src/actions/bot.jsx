@@ -123,7 +123,7 @@ export const updateBot = (id, data) => (dispatch) => {
 
 export const deleteBot = (id) => (dispatch) => {
   dispatch(botRequest(id));
-  return BotDataService.delete(id).then(
+  return BotDataService.deleteBot(id).then(
     (response) => {
       dispatch(botRecieved(DELETE_BOT, response.data));
       return Promise.resolve(response.data);

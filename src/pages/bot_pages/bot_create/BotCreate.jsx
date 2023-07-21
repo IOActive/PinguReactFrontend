@@ -1,40 +1,36 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createBot } from "../../../actions/bot";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import { Alert } from "bootstrap";
+import cx from "classnames";
+import s from "./BotCreate.module.scss";
+import Card from "react-bootstrap/Card";
 
-class AddBot extends Component {
-  constructor(props) {
-    super(props);
-    this.onInputChange = this.onInputChange.bind(this);
+function AddBot(props) {
+  const [botData, setBotData] = useState({
+    id: null,
+    bot_name: "",
+    last_beat_time: null,
+    task_payload: "",
+    task_end_time: null,
+    task_status: "NA",
+    platform: "",
+    validated: false,
+  });
 
-    this.saveBot = this.saveBot.bind(this);
-    this.newBot = this.newBot.bind(this);
-
-    this.state = {
-      id: null,
-      bot_name: "",
-      last_beat_time: null,
-      task_payload: "",
-      task_end_time: null,
-      task_status: "NA",
-      platform: "",
-      validated: false,
-    };
-  }
-
-  onInputChange(event) {
+  const onInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
+    setBotData({
+      ...botData,
       [name]: value,
     });
-  }
+  };
 
-  saveBot(event) {
+  const navigate = useNavigate();
+
+  const saveBot = (event) => {
     const {
       bot_name,
       last_beat_time,
@@ -42,7 +38,7 @@ class AddBot extends Component {
       task_end_time,
       task_status,
       platform,
-    } = this.state;
+    } = botData;
 
     const form = event.target;
     event.preventDefault();
@@ -51,37 +47,38 @@ class AddBot extends Component {
       event.stopPropagation();
     }
     
-    this.setState({ validated: true });
+    setBotData({ ...botData, validated: true });
     const current_time = new Date(); 
     const last_beat_time_now = current_time.toISOString();
-    const { history } = this.props;
+    const { history } = props;
 
     if (form.checkValidity() === true){
-    this.props
-      .createBot(
-        bot_name,
-        last_beat_time_now,
-        task_payload,
-        task_end_time,
-        task_status,
-        platform
-      )
-      .then(() => {
-        this.setState({
-          submitted: true,
-          
+      props
+        .createBot(
+          bot_name,
+          last_beat_time_now,
+          task_payload,
+          task_end_time,
+          task_status,
+          platform
+        )
+        .then(() => {
+          setBotData({
+            ...botData,
+            submitted: true,
+            
+          });
+          navigate("/app/bot/list");
+          window.location.reload();
+        })
+        .catch((e) => {
+          console.log(e);
         });
-        history.push("/bots");
-        window.location.reload();
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    }
-  }
+      }
+  };
 
-  newBot() {
-    this.setState({
+  const newBot = () => {
+    setBotData({
       id: null,
       bot_name: "",
       last_beat_time: "",
@@ -93,58 +90,53 @@ class AddBot extends Component {
       submitted: false,
       validated: false,
     });
-  }
+  };
 
-  render() {
-    const { user: currentUser, message } = this.props;
-    const { validated } = this.state
-
-    if (!currentUser) {
-      return <Navigate to="/login" />;
-    }
-
-    return (
-      <div className="submit-form">
-        {this.state.submitted ? (
-          <div>
-            <h4>You submitted successfully!</h4>
-            <button className="btn btn-success" onClick={this.newBot}>
-              Add
-            </button>
-          </div>
-        ) : (
-          <Form noValidate validated={validated} onSubmit={this.saveBot}>
-              <Form.Group className="mb-3" controlId="validationCustom01">
-                <Form.Label>Bot name</Form.Label>
-                <Form.Control
-                  required
-                  id="bot_name"
-                  name="bot_name"
-                  type="text"
-                  placeholder="name"
-                  defaultValue=""
-                  onChange={this.onInputChange}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="validationCustom02">
-                <Form.Label>Platform</Form.Label>
-                <Form.Control
-                  required
-                  id="platform"
-                  name="platform"
-                  type="text"
-                  placeholder="linux"
-                  defaultValue=""
-                  onChange={this.onInputChange}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
+  return (
+    <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
+    <Card.Header>Create New Bot</Card.Header>
+    <Card.Body>
+    <div responsive className={cx("mb-0", s.BotCard)}>
+      {botData.submitted ? (
+        <div>
+          <h4>You submitted successfully!</h4>
+          <button className="btn btn-success" onClick={newBot}>
+            Add
+          </button>
+        </div>
+      ) : (
+        <Form noValidate validated={botData.validated} onSubmit={saveBot}>
+            <Form.Group className="mb-3" controlId="validationCustom01">
+              <Form.Label>Bot name</Form.Label>
+              <Form.Control
+                required
+                id="bot_name"
+                name="bot_name"
+                type="text"
+                placeholder="name"
+                defaultValue=""
+                onChange={onInputChange}
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="validationCustom02">
+              <Form.Label>Platform</Form.Label>
+              <Form.Control
+                required
+                id="platform"
+                name="platform"
+                type="text"
+                placeholder="linux"
+                defaultValue=""
+                onChange={onInputChange}
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
           
-            {message && (
+            {props.message && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
-                {message}
+                {props.message}
               </div>
             </div>
             )}
@@ -154,8 +146,9 @@ class AddBot extends Component {
           </Form>
         )}
       </div>
+      </Card.Body>
+      </Card>
     );
-  }
 }
 
 const mapStateToProps = (state) => {

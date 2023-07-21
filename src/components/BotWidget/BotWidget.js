@@ -11,10 +11,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
+import SearchBar from "../SearchBar/SearchBar"
+
+
 
 const BotWidget = (props) => {
-  const [currentBot, setCurrentBot] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchBotName, setSearchBotName] = useState("");
 
   const dispatch = useDispatch();
@@ -29,14 +30,8 @@ const BotWidget = (props) => {
     setSearchBotName(e.target.value);
   };
 
-  const refreshData = () => {
-    setCurrentBot(null);
-    setCurrentIndex(-1);
-
-  };
 
   const findByName = () => {
-    refreshData();
     props.findBotsByName(searchBotName);
   };
 
@@ -50,29 +45,12 @@ const BotWidget = (props) => {
     <Widget
       title={
         <div>
-          <div className="pull-right mt-n-xs">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={findByName}
-            >
-              Search
-            </button>
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={refreshBotsData}
-            >Refresh</button>
-          </div>
-          <div className="pull-right mt-n-xs">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by Bot name"
-              value={searchBotName}
-              onChange={onChangeSearchBotName}
-            />
-          </div>
+          <SearchBar
+            searchValue={searchBotName}
+            onChangeSearchValue={onChangeSearchBotName}
+            findByName={findByName}
+            refreshData={refreshBotsData}
+          />
           <h5 className="mt-0 mb-3">
             <FontAwesomeIcon icon={faRobot} /> Bots
           </h5>
@@ -140,7 +118,6 @@ const mapStateToProps = (state) => {
   return {
     bots: state.bots,
     user,
-    bot: state.currentBot,
   };
 };
 
