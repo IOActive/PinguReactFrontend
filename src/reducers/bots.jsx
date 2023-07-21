@@ -19,7 +19,10 @@ function botReducer(bots = initialState, action) {
       };
 
     case CREATE_BOT:
-      return [...bots, payload];
+      return {
+        isFetching: true,
+        payload,
+      };
 
     case RETRIEVE_BOTS:
       return {
@@ -44,8 +47,7 @@ function botReducer(bots = initialState, action) {
         return bots;
       }
 
-    case DELETE_BOT:
-      return bots.filter(({ id }) => id !== payload.id);
+    //case DELETE_BOT:
 
     case BOT_FAILURE:
       return {

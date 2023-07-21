@@ -8,11 +8,17 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
 import s from "./BotEdit.module.scss";
+import { useSelector } from "react-redux";
+
 
 const BotEdit = (props) => {
   const { botData } = props;
 
   const navigate = useNavigate();
+
+  const { errorMessage } = useSelector(
+    (state) => state.bots
+  );
 
   const [currentBot, setCurrentBot] = useState({
     id: botData.id,
@@ -101,6 +107,14 @@ const BotEdit = (props) => {
                 {currentBot.bot_name}
               </Form.Text>
             </Form.Group>
+
+            {errorMessage && (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {errorMessage}
+              </div>
+            </div>
+            )}
 
             <ButtonGroup className={cx(s.ButtonGroupEditBot, 'btn-group')}>
               <Button onClick={updateContent}>Update</Button>

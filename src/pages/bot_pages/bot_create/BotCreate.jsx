@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import cx from "classnames";
 import s from "./BotCreate.module.scss";
 import Card from "react-bootstrap/Card";
+import { useSelector } from "react-redux";
 
 function AddBot(props) {
   const [botData, setBotData] = useState({
@@ -19,6 +20,11 @@ function AddBot(props) {
     platform: "",
     validated: false,
   });
+
+  const { isFetching, errorMessage } = useSelector(
+    (state) => state.bots
+  );
+
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
@@ -50,7 +56,6 @@ function AddBot(props) {
     setBotData({ ...botData, validated: true });
     const current_time = new Date(); 
     const last_beat_time_now = current_time.toISOString();
-    const { history } = props;
 
     if (form.checkValidity() === true){
       props
@@ -68,7 +73,7 @@ function AddBot(props) {
             submitted: true,
             
           });
-          navigate("/app/bot/list");
+          navigate("/app/dashboard");
           window.location.reload();
         })
         .catch((e) => {
@@ -133,10 +138,10 @@ function AddBot(props) {
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
           
-            {props.message && (
+            {errorMessage && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
-                {props.message}
+                {errorMessage}
               </div>
             </div>
             )}
