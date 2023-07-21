@@ -28,6 +28,10 @@ function Sidebar() {
             {
               name: 'Bot List',
               link: '/app/bots/list',
+            },
+            {
+              name: 'Bot Create',
+              link: '/app/bot/add',
             }
           ]}
           glyph="robot" />

@@ -19,7 +19,7 @@ import Sidebar from '../Sidebar/Sidebar';
 
 // Dashboard component is loaded directly as an example of server side rendering
 import Dashboard from '../../pages/dashboard'
-import AddBot from "../../pages/bot_pages/add_bot_component";
+import AddBot from "../../pages/bot_pages/bot_create/BotCreate";
 import Bot from "../../pages/bot_pages/BotEdit/BotEdit";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
 
@@ -41,7 +41,7 @@ function Layout(props) {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/bot/list" element={<BotsList />} />
             <Route path="/bot/add" element={<AddBot />} />
-            <Route path="/bot/:botId" element={<Bot />} />
+            <Route path="/bot/:id" element={<Bot />} />
           </Routes>
         </main>
         <Footer />

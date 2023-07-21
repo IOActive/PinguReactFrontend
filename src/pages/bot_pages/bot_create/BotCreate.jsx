@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createBot } from "../../actions/bot";
+import { createBot } from "../../../actions/bot";
 import { Navigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -160,11 +160,8 @@ class AddBot extends Component {
 
 const mapStateToProps = (state) => {
   const { user } = state.auth;
-  const { message } = state.message;
   return {
-    bots: state.bots,
     user,
-    message,
   };
 };
 

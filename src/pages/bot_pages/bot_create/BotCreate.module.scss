@@ -10,10 +10,21 @@
  @import '../../../styles/app';
 
  .root {
-  // styles here
-}
+   // styles here
+ }
+ 
+ .BotsTable {
+   th,
+   td {
+     border-color: $white;
+   }
+ 
+   thead {
+     border-bottom: 1px solid $gray-200;
+   }
+ }
 
-.BotsTable {
+ .BotCard {
   th,
   td {
     border-color: $white;
@@ -22,25 +33,12 @@
   thead {
     border-bottom: 1px solid $gray-200;
   }
+
+  button {
+    margin-left: 90%;
+  }
+
+  margin-left: 25%;
+  margin-right: 25%;
 }
-
-.BotCard {
- th,
- td {
-   border-color: $white;
- }
-
- thead {
-   border-bottom: 1px solid $gray-200;
- }
-
- button {
-   margin-left: 90%;
- }
-
- margin-left: 25%;
- margin-right: 25%;
-}
-
- 
  

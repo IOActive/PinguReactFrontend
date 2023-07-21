@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from 'react-router-dom';
 
 import s from "./BotEdit.module.scss";
+import { useParams } from 'react-router-dom';
 
 const BotEdit = (props) => {
 
@@ -23,11 +24,14 @@ const BotEdit = (props) => {
     task_status: "NA",
     platform: "",
   });
+
+
   const [message, setMessage] = useState("");
+  const { id } = useParams();
 
   useEffect(() => {
-    getBot(props.match.params.id);
-  }, [props.match.params.id]);
+    getBot(id);
+  }, [id]);
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
