@@ -18,13 +18,13 @@ import {
   DropdownToggle,
   DropdownItem,
 } from 'reactstrap';
-import { mock } from './mock'
 
 import Widget from '../../components/Widget';
 
 import s from './Dashboard.module.scss';
 
 import BotWidget from '../../components/BotWidget/BotWidget';
+import JobWidget from '../../components/JobWidget/JobWidget';
 
 class Dashboard extends Component {
   /* eslint-disable */
@@ -114,59 +114,7 @@ class Dashboard extends Component {
         </Row>
         <Row>
           <Col sm={6}>
-            <Widget
-              title={
-                <div>
-                  <div className="pull-right mt-n-xs">
-                    <Link to="/app/main" className="td-underline fs-sm">Options</Link>
-                  </div>
-                  <h5 className="mt-0 mb-0">
-                    Recent posts{' '}
-                    <Badge color="success" className="ml-xs">
-                      5
-                    </Badge>
-                  </h5>
-                  <p className="fs-sm mb-0 text-muted">
-                    posts, that have been published recently
-                  </p>
-                </div>
-              }
-            >
-              <table className="table table-sm table-no-border mb-0">
-                <tbody>
-                {this.props.posts &&
-                this.props.posts.map(post => (
-                  <tr key={post.id}>
-                    <td>{this.formatDate(new Date(post.updatedAt).toLocaleString())}</td>
-                    <td>
-                      <Link to="/app/posts">{post.title}</Link>
-                    </td>
-                  </tr>
-                ))}
-                {this.props.posts &&
-                !this.props.posts.length && (
-                  mock.map(post => (
-                    <tr key={post.id}>
-                      <td>{post.updatedAt}</td>
-                      <td>
-                        <Link to="/app/posts">{post.title}</Link>
-                      </td>
-                    </tr>
-                  ))
-                )}
-                {this.props.isFetching && (
-                  <tr>
-                    <td colSpan="100">Loading...</td>
-                  </tr>
-                )}
-                </tbody>
-              </table>
-              <div className="d-flex justify-content-end">
-                <Link to="/app/posts" className="btn btn-default">
-                  View all Posts <Badge className="ml-xs" color="danger">13</Badge>
-                </Link>
-              </div>
-            </Widget>
+            <JobWidget/>
           </Col>
           <Col sm={6}>
             <ListGroup>
