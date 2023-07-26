@@ -9,9 +9,8 @@ import cx from "classnames";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCheck,
   faCheckCircle,
-  faRobot,
+  faPersonDigging,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar";
@@ -52,7 +51,7 @@ const JobWidget = (props) => {
             refreshData={refreshJobsData}
           />
           <h5 className="mt-0 mb-3">
-            <FontAwesomeIcon icon={faRobot} /> Jobs
+          <FontAwesomeIcon icon={faPersonDigging} /> Jobs
           </h5>
         </div>
       }
