@@ -4,33 +4,25 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveJobs, findJobsByName } from "../../../actions/job";
-import s from "./JobList.module.scss";
+import s from "./JobsList.module.scss";
 import { connect } from "react-redux";
 import Card from "react-bootstrap/Card";
 import { Button, Breadcrumb, BreadcrumbItem, Table, Badge } from "reactstrap";
-import Widget from "../../../components/Widget/Widget";
 import cx from "classnames";
-import SearchBar from "../../../components/SearchBar/SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPersonDigging, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faPersonDigging } from "@fortawesome/free-solid-svg-icons";
 import JobEdit from "../JobEdit/JobEdit";
+import InteractiveList from "../../../components/Interactive_List/InteractiveList";
 
 function JobsList(props) {
-    const [currentJob, setCurrentJob] = useState(null);
-    const [currentIndex, setCurrentIndex] = useState(-1);
-    const [searchJobName, setSearchJobName] = useState("");
     const [enableEditing, setEnableEditing] = useState(false);
+    const [currentJob, setCurrentJob] = useState(null);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(retrieveJobs());
     }, [dispatch]);
-
-    const onChangeSearchJobName = (e) => {
-        setSearchJobName(e.target.value);
-    };
-
 
     const editJob = () => {
         setEnableEditing(true);
@@ -44,18 +36,7 @@ function JobsList(props) {
     };
 
 
-
-
-    const setActiveJob = (job, index) => {
-        setCurrentJob(job);
-        setCurrentIndex(index);
-    }
-
-    const findByName = () => {
-        findJobsByName(searchJobName);
-    }
-
-    const { isFetching, payload } = useSelector((state) => state.jobs);
+   const { isFetching, payload } = useSelector((state) => state.jobs);
 
     return (
         <div className={s.root}>
@@ -66,52 +47,18 @@ function JobsList(props) {
             </Breadcrumb>
             <h1 className="mb-lg">Jobs List</h1>
 
-            <Widget
-                title={
-                    <div>
-                        <SearchBar
-                            searchValue={searchJobName}
-                            onChangeSearchValue={onChangeSearchJobName}
-                            findByName={findByName}
-                            refreshData={refreshJobsData}
-                        />
-                        <h5 className="mt-0 mb-3">
-                            <FontAwesomeIcon icon={faPersonDigging} /> Jobs
-                        </h5>
-                    </div>
-                }
-            >
-                <Table hover responsive className={cx("mb-0", s.JobsTable)}>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {isFetching && (
-                            <tr>
-                                <td colSpan="100">Loading...</td>
-                            </tr>
-                        )}
-                        {!isFetching &&
-                            payload.map((job, index) => (
-                                <tr>
-                                    <li
-                                        className={
-                                            "list-group-item " +
-                                            (index === currentIndex ? "active" : "")
-                                        }
-                                        onClick={() => setActiveJob(job, index)}
-                                        key={index}
-                                    >
-                                        {job.name}
-                                    </li>
-                                </tr>
-                            ))}
-                    </tbody>
-                </Table>
-            </Widget>
-
+            <InteractiveList
+                refreshData={refreshJobsData}
+                glyph={<FontAwesomeIcon icon={faPersonDigging} />}
+                search_fucntion={props.findJobsByName}
+                objectName={"Jobs"}
+                isFetching={isFetching}
+                payload={payload}
+                setCurrentObject={setCurrentJob}
+                value_key_name={"name"}
+            />
+            <div style={{ width: '100%' }}>
+        </div>                          
             <div responsive className={cx("mb-0", s.JobCardsGroup)}>
                 {currentJob ? (
                     <div class="row">

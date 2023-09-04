@@ -23,7 +23,7 @@ import Widget from '../../components/Widget';
 
 import s from './Dashboard.module.scss';
 
-import BotWidget from '../../components/BotWidget/BotWidget';
+import BotsDashboardTable from '../../components/BotsDashboardTable/BotsDashboardTable';
 import JobWidget from '../../components/JobWidget/JobWidget';
 
 class Dashboard extends Component {
@@ -70,7 +70,7 @@ class Dashboard extends Component {
         <h1 className="mb-lg">Dashboard</h1>
         <Row>
           <Col sm={12} md={6}>
-            <BotWidget/>
+            <BotsDashboardTable/>
           </Col>
           <Col sm={12} md={6}>
             <Widget title="Alerts">

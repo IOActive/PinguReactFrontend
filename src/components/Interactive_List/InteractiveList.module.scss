@@ -13,14 +13,16 @@
    // styles here
  }
  
- .botsTable {
+ .InteractiveTable{
    th,
    td {
      border-color: $white;
    }
  
    thead {
-     border-bottom: 1px solid $gray-200;
+     border-Jobtom: 1px solid $gray-200;
    }
+
+   max-width: 50% !important;
  }
  
