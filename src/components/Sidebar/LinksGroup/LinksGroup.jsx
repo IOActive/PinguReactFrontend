@@ -6,6 +6,8 @@ import { Collapse } from "reactstrap";
 import Icon from "../../Icon/Icon";
 
 import s from "./LinksGroup.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 function LinksGroup(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +32,11 @@ function LinksGroup(props) {
     <li className={cx(s.headerLink, className)}>
       <NavLink exact="true" onClick={() => setIsOpen(!isOpen)}>
         <div>
-          {glyph && <Icon glyph={glyph} />}
+          {typeof glyph === "object" ? (
+            <span> {glyph} </span>
+          ) : (
+            <Icon glyph={glyph} />
+          )}
           <span>{header}</span>
         </div>
       </NavLink>

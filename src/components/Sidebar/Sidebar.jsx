@@ -1,10 +1,16 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Icon from '../Icon/Icon';
 import LinksGroup from './LinksGroup/LinksGroup';
 
+
 import s from './Sidebar.module.scss';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPersonDigging,
+} from "@fortawesome/free-solid-svg-icons";
+
 
 function Sidebar() {
 
@@ -35,6 +41,21 @@ function Sidebar() {
             }
           ]}
           glyph="robot" />
+
+        <LinksGroup
+          header="Jobs"
+          headerLink="/app/jobs"
+          childrenLinks={[
+            {
+              name: 'Job List',
+              link: '/app/job/list',
+            },
+            {
+              name: 'Job Create',
+              link: '/app/job/add',
+            }
+          ]}
+          glyph={<FontAwesomeIcon icon={faPersonDigging} />} />
       </ul>
     </nav>
   );
