@@ -1,0 +1,61 @@
+/**
+ * Flatlogic Dashboards (https://flatlogic.com/admin-dashboards)
+ *
+ * Copyright © 2015-present Flatlogic, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+ @import '../../../styles/app';
+
+ .root {
+   // styles here
+ }
+ 
+ .JobsTable {
+   th,
+   td {
+     border-color: $white;
+   }
+ 
+   thead {
+     border-Jobtom: 1px solid $gray-200;
+   }
+
+   max-width: 50% !important;
+ }
+
+ .JobCardsGroup {
+  th,
+  td {
+    border-color: $white;
+  }
+
+  thead {
+    border-Jobtom: 1px solid $gray-200;
+  }
+
+  .EditButton {
+    justify-content: flex-end !important;
+    display: flex !important;
+
+  }
+
+  .JobInformantionCard {
+    margin: 10px;
+    -ms-flex-align: center;
+  }
+
+  .JobEditCard{
+    margin: 10px;
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+}
+ 

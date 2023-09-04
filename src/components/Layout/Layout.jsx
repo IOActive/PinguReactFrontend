@@ -22,6 +22,7 @@ import Dashboard from '../../pages/dashboard'
 import AddBot from "../../pages/bot_pages/bot_create/BotCreate";
 import Bot from "../../pages/bot_pages/BotEdit/BotEdit";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
+import JobsList from "../../pages/job_pages/job_list/Job_list";
 
 function Layout(props) {
 
@@ -42,6 +43,7 @@ function Layout(props) {
             <Route path="/bot/list" element={<BotsList />} />
             <Route path="/bot/add" element={<AddBot />} />
             <Route path="/bot/:id" element={<Bot />} />
+            <Route path='/job/list' element={<JobsList />} />
           </Routes>
         </main>
         <Footer />
