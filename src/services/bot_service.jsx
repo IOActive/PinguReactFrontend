@@ -13,9 +13,7 @@ function create(data) {
 }
 
 function update(id, data) {
-  return http.patch(`/bot/${id}/`, data).catch((e) => {
-    console.log(e);
-  });
+  return http.patch(`/bot/${id}/`, data);
 }
 
 function deleteBot(id) {

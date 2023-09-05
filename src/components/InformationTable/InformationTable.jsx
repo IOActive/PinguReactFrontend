@@ -8,7 +8,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const InformationTable = (props) => {
 
-  const {currentObject, editObject, objectName} = props;
+  const { currentObject, editObject, objectName } = props;
   return <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
     <Card.Header>{objectName}</Card.Header>
     <Card.Body>
@@ -44,9 +44,8 @@ export const InformationTable = (props) => {
           })}
         </tbody>
       </Table>
-      <div className={cx("", s.EditButton)}>
-        <Button onClick={editObject}>Edit {objectName}</Button>
-      </div>
+      <Button className={cx("", s.EditButton)} onClick={editObject}>Edit {objectName}</Button>
+
     </Card.Body>
   </Card>;
 }

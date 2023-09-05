@@ -31,19 +31,11 @@ const EditObject = (props) => {
     setCurrentObject({ ...currentObject, [name]: value });
   };
 
-  const navigate = useNavigate();
 
   const updateContent = (event) => {
     event.preventDefault();
 
-    updateObject(currentObject.id, currentObject)
-      .then((reponse) => {
-        console.log(reponse);
-        //navigate("/app/dashboard");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    updateObject(currentObject.id, currentObject);
   };
 
   const removeObject = (event) => {
@@ -76,7 +68,7 @@ const EditObject = (props) => {
                 })}
 
                 {errorMessage && (
-                  <div className="form-group">
+                  <div className={cx(s.ErrorMessage)}>
                     <div className="alert alert-danger" role="alert">
                       {errorMessage}
                     </div>

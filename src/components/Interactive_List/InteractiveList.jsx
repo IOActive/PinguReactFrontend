@@ -58,7 +58,7 @@ function InteractiveList(props) {
                             <td colSpan="100">Loading...</td>
                         </tr>
                     )}
-                    {!isFetching &&
+                    {!isFetching && payload &&
                         payload.map((object, index) => (
                             <tr>
                                 <li

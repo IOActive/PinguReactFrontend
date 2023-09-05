@@ -30,7 +30,8 @@ const BotsList = (props) => {
   };
 
   function editBot() {
-    setEnableEditing(true);
+    // swtich state of editing
+    setEnableEditing(!enableEditing);
   }
 
   return (
