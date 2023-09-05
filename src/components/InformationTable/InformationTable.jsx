@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import { Button, Table, Badge } from "reactstrap";
 import cx from "classnames";
 import s from "./InformationTable.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 export function InformationTable(currentObject, editObject, objectName) {
   return <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
@@ -20,27 +22,22 @@ export function InformationTable(currentObject, editObject, objectName) {
             switch (key) {
               case "task_status":
                 return <tr key={index}>
-                    <td>{key}</td>
-                    <td>
-                      <Badge className="ml-xs" color={currentObject.task_status === "ERROR" || currentObject.task_status === "NA" ? "danger" : "success"}>
-                        {currentObject.task_status}
-                      </Badge>
-                    </td>
-                  </tr>;
+                  <td>{key}</td>
+                  <td>
+                    <Badge className="ml-xs" color={currentObject.task_status === "ERROR" || currentObject.task_status === "NA" ? "danger" : "success"}>
+                      {currentObject.task_status}
+                    </Badge>
+                  </td>
+                </tr>;
+              case "archived":
+                return generate_check_icon(index, key, currentObject);
               case "enabled":
-                return <tr key={index}>
-                    <td>{key}</td>
-                    <td>
-                      <Badge className="ml-xs" color={currentObject.enabled === "false" ? "danger" : "success"}>
-                        {currentObject.enabled}
-                      </Badge>
-                    </td>
-                  </tr>;
+                return generate_check_icon(index, key, currentObject);
               default:
                 return <tr key={index}>
-                    <td>{key}</td>
-                    <td>{currentObject[key]}</td>
-                  </tr>;
+                  <td>{key}</td>
+                  <td>{currentObject[key]}</td>
+                </tr>;
             }
           })}
         </tbody>
@@ -51,3 +48,19 @@ export function InformationTable(currentObject, editObject, objectName) {
     </Card.Body>
   </Card>;
 }
+function generate_check_icon(index, key, currentObject) {
+  return <tr key={index}>
+    <td>{key}</td>
+    <td>
+      <Badge
+        className="ml-xs"
+        color={currentObject.key === "false"
+          ? "danger"
+          : "success"}
+      >
+        <FontAwesomeIcon icon={faCheckCircle} />
+      </Badge>
+    </td>
+  </tr>;
+}
+

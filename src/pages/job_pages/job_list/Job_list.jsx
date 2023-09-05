@@ -7,12 +7,13 @@ import { retrieveJobs, findJobsByName } from "../../../actions/job";
 import s from "./JobsList.module.scss";
 import { connect } from "react-redux";
 import Card from "react-bootstrap/Card";
-import { Button, Breadcrumb, BreadcrumbItem, Table, Badge } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem} from "reactstrap";
 import cx from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faPersonDigging } from "@fortawesome/free-solid-svg-icons";
+import { faPersonDigging } from "@fortawesome/free-solid-svg-icons";
 import JobEdit from "../JobEdit/JobEdit";
 import InteractiveList from "../../../components/Interactive_List/InteractiveList";
+import { InformationTable } from "../../../components/InformationTable/InformationTable";
 
 function JobsList(props) {
     const [enableEditing, setEnableEditing] = useState(false);
@@ -63,91 +64,7 @@ function JobsList(props) {
                 {currentJob ? (
                     <div class="row">
                         <div class="col-md-6">
-                            <Card className={cx("mb-0", s.JobInformantionCard, "flex-fill")}>
-                                <Card.Header>{currentJob.name}</Card.Header>
-                                <Card.Body>
-                                    <Table>
-                                        <thead>
-                                            <tr>
-                                                <th>Parameter</th>
-                                                <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Name</td>
-                                                <td>{currentJob.name}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ID</td>
-                                                <td>{currentJob.id}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Enabled</td>
-                                                <td>
-                                                    <Badge
-                                                        className="ml-xs"
-                                                        color={
-                                                            currentJob.enabled === "false"
-                                                                ? "danger"
-                                                                : "success"
-                                                        }
-                                                    >
-                                                        <FontAwesomeIcon icon={faCheckCircle} />
-                                                    </Badge>
-                                                    </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Project</td>
-                                                <td>{currentJob.project}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Date</td>
-                                                <td>{currentJob.date}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Archived</td>
-                                                <td>
-                                                    <Badge
-                                                        className="ml-xs"
-                                                        color={
-                                                            currentJob.archived === "false"
-                                                                ? "danger"
-                                                                : "success"
-                                                        }
-                                                    >
-                                                        <FontAwesomeIcon icon={faCheckCircle} />
-                                                    </Badge>
-                                                    </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Environment String</td>
-                                                <td>{currentJob.environment_string}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Template</td>
-                                                <td>{currentJob.template}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Custom Binary Path</td>
-                                                <td>{currentJob.custom_binary_path}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Custom Binary Filename</td>
-                                                <td>{currentJob.custom_binary_filename}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Custom Binary Revisions</td>
-                                                <td>{currentJob.custom_binary_revisions}</td>
-                                            </tr>
-                                            </tbody>
-
-                                    </Table>
-                                    <div className={cx("", s.EditButton)}>
-                                        <Button onClick={editJob}>Edit Job</Button>
-                                    </div>
-                                </Card.Body>
-                            </Card>
+                        {InformationTable(currentJob, editJob, currentJob.name)}
                         </div>
                         <div class="col-md-6">
                             {enableEditing ? (
