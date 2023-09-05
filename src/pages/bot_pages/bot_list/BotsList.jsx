@@ -2,7 +2,7 @@ import React from "react";
 import { retrieveBots, findBotsByName } from "../../../actions/bot";
 import { connect } from "react-redux";
 import Card from "react-bootstrap/Card";
-import { Button, Breadcrumb, BreadcrumbItem, Table, Badge } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import cx from "classnames";
 
 import s from "./BotsList.module.scss";
@@ -11,6 +11,8 @@ import BotEdit from "../BotEdit/BotEdit";
 import InteractiveList from "../../../components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
+import { InformationTable } from "../../../components/InformationTable/InformationTable";
+import Bot from "../../../models/Bot";
 
 const BotsList = (props) => {
   const [currentBot, setCurrentBot] = React.useState(null);
@@ -56,60 +58,7 @@ const BotsList = (props) => {
         {currentBot ? (
           <div class="row">
             <div class="col-md-6">
-              <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
-                <Card.Header>{currentBot.bot_name}</Card.Header>
-                <Card.Body>
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>ID</td>
-                        <td>{currentBot.id}</td>
-                      </tr>
-                      <tr>
-                        <td>Name</td>
-                        <td>{currentBot.bot_name}</td>
-                      </tr>
-                      <tr>
-                        <td>Llatform</td>
-                        <td>{currentBot.platform}</td>
-                      </tr>
-                      <tr>
-                        <td>Task Payload</td>
-                        <td>{currentBot.task_payload}</td>
-                      </tr>
-                      <tr>
-                        <td>Last Beat Time</td>
-                        <td>{currentBot.last_beat_time}</td>
-                      </tr>
-                      <tr>
-                        <td>Task Status</td>
-                        <td>
-                          <Badge
-                            className="ml-xs"
-                            color={
-                              currentBot.task_status === "ERROR" ||
-                              currentBot.task_status === "NA"
-                                ? "danger"
-                                : "success"
-                            }
-                          >
-                            {currentBot.task_status}
-                          </Badge>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                  <div className={cx("", s.EditButton)}>
-                    <Button onClick={editBot}>Edit Bot</Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              {InformationTable(currentBot, editBot, currentBot.bot_name)}
             </div>
             <div class="col-md-6">
               {enableEditing ? (
