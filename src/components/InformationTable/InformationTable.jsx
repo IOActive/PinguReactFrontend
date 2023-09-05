@@ -6,7 +6,9 @@ import s from "./InformationTable.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-export function InformationTable(currentObject, editObject, objectName) {
+export const InformationTable = (props) => {
+
+  const {currentObject, editObject, objectName} = props;
   return <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
     <Card.Header>{objectName}</Card.Header>
     <Card.Body>

@@ -1,13 +1,12 @@
 import React from "react";
-import { retrieveBots, findBotsByName } from "../../../actions/bot";
+import { retrieveBots, findBotsByName, updateBot, deleteBot } from "../../../actions/bot";
 import { connect } from "react-redux";
-import Card from "react-bootstrap/Card";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import cx from "classnames";
 
 import s from "./BotsList.module.scss";
 import { useSelector } from "react-redux";
-import BotEdit from "../BotEdit/BotEdit";
+import EditObject from "../../../components/EditObject/EditObject";
 import InteractiveList from "../../../components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
@@ -44,30 +43,33 @@ const BotsList = (props) => {
       <h1 className="mb-lg">Bots List</h1>
 
       <InteractiveList
-                refreshData={refreshBotsData}
-                glyph={<FontAwesomeIcon icon={faRobot} />}
-                search_fucntion={props.findBotsByName}
-                objectName={"Bots"}
-                isFetching={isFetching}
-                payload={payload}
-                setCurrentObject={setCurrentBot}
-                value_key_name={"bot_name"}
-            />
+        refreshData={refreshBotsData}
+        glyph={<FontAwesomeIcon icon={faRobot} />}
+        search_fucntion={props.findBotsByName}
+        objectName={"Bots"}
+        isFetching={isFetching}
+        payload={payload}
+        setCurrentObject={setCurrentBot}
+        value_key_name={"bot_name"}
+      />
 
       <div responsive className={cx("mb-0", s.BotCardsGroup)}>
         {currentBot ? (
           <div class="row">
             <div class="col-md-6">
-              {InformationTable(currentBot, editBot, currentBot.bot_name)}
+            <InformationTable
+              currentObject={currentBot}
+              editObject={editBot}
+              objectName={"Bot"}
+            />
             </div>
             <div class="col-md-6">
               {enableEditing ? (
-                <Card className={cx("mb-0", s.BotEditCard, "flex-fill")}>
-                  <Card.Header>{currentBot.bot_name}</Card.Header>
-                  <Card.Body>
-                    <BotEdit botData={currentBot} />
-                  </Card.Body>
-                </Card>
+                <EditObject
+                  object={Bot(currentBot)}
+                  updateObject={props.updateBot}
+                  deleteObject={props.deleteBot}
+                />
               ) : (
                 <div />
               )}
@@ -96,4 +98,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   retrieveBots,
   findBotsByName,
+  updateBot,
+  deleteBot
 })(BotsList);

@@ -3,17 +3,17 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { retrieveJobs, findJobsByName } from "../../../actions/job";
+import { retrieveJobs, findJobsByName, updateJob, deleteJob } from "../../../actions/job";
 import s from "./JobsList.module.scss";
 import { connect } from "react-redux";
-import Card from "react-bootstrap/Card";
-import { Breadcrumb, BreadcrumbItem} from "reactstrap";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import cx from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPersonDigging } from "@fortawesome/free-solid-svg-icons";
-import JobEdit from "../JobEdit/JobEdit";
 import InteractiveList from "../../../components/Interactive_List/InteractiveList";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
+import Job from "../../../models/Job";
+import EditObject from "../../../components/EditObject/EditObject";
 
 function JobsList(props) {
     const [enableEditing, setEnableEditing] = useState(false);
@@ -37,7 +37,7 @@ function JobsList(props) {
     };
 
 
-   const { isFetching, payload } = useSelector((state) => state.jobs);
+    const { isFetching, payload } = useSelector((state) => state.jobs);
 
     return (
         <div className={s.root}>
@@ -59,21 +59,24 @@ function JobsList(props) {
                 value_key_name={"name"}
             />
             <div style={{ width: '100%' }}>
-        </div>                          
+            </div>
             <div responsive className={cx("mb-0", s.JobCardsGroup)}>
                 {currentJob ? (
                     <div class="row">
                         <div class="col-md-6">
-                        {InformationTable(currentJob, editJob, currentJob.name)}
+                            <InformationTable
+                                currentObject={currentJob}
+                                editObject={editJob}
+                                objectName={currentJob.name}
+                            />
                         </div>
                         <div class="col-md-6">
                             {enableEditing ? (
-                                <Card className={cx("mb-0", s.JobEditCard, "flex-fill")}>
-                                    <Card.Header>{currentJob.Job_name}</Card.Header>
-                                    <Card.Body>
-                                        <JobEdit JobData={currentJob} />
-                                    </Card.Body>
-                                </Card>
+                                <EditObject
+                                    object={Job(currentJob)}
+                                    updateObject={props.updateJob}
+                                    deleteObject={props.deleteJob}
+                                />
                             ) : (
                                 <div />
                             )}
@@ -102,4 +105,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     retrieveJobs,
     findJobsByName,
+    updateJob,
+    deleteJob
 })(JobsList);
