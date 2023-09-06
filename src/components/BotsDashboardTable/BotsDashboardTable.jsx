@@ -28,7 +28,7 @@ const BotsDashboardTable = (props) => {
           findObjectByName={findBotsByName}
           colums={["ID", "Bot Name", "Last Beat Time", "Task Payload", "Task End Time", "Task Status", "Platform"]}
           list_path={"/app/bot/list"}
-          data={payload}
+          data={payload.results}
           isFetching={isFetching}
         />
       )}

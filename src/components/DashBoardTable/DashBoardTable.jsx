@@ -68,7 +68,7 @@ const DashboardTable = (props) => {
                         data &&
                         !isFetching &&
 
-                        data.results.slice(0, 6).map((object, index) => (
+                        data.slice(0, 6).map((object, index) => (
                             <tr key={index}>
                                 {Object.keys(object).slice(0, 6).map((key, index) => {
                                     switch (key) {

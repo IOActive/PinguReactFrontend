@@ -27,10 +27,7 @@ const BotsList = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(retrieveBots(currentPage))
-      .then((response) => {
-        setData(response.results);
-      });
+    dispatch(retrieveBots(currentPage));
   }, [dispatch]);
 
 

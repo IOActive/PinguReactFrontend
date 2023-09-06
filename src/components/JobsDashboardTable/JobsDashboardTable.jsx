@@ -28,7 +28,7 @@ const JobsDashboardTable = (props) => {
           findObjectByName={findJobsByName}
           colums={["ID", "Name", "Description", "Project", "Date", "Enabled", "Archived", "Platform", "Environment Strings", "Template"]}
           list_path={"/app/job/list"}
-          data={payload}
+          data={payload.results}
           isFetching={isFetching}
         />
       )}
