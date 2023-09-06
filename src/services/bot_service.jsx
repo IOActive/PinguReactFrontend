@@ -1,7 +1,7 @@
 import http from "../helpers/http-common";
 
-function getAll() {
-  return http.get("/bot/");
+function getPage(page_number) {
+  return http.get(`/bot/?page=${page_number}`);
 }
 
 function get(id) {
@@ -32,4 +32,4 @@ function findByID(id){
   return http.get(`/bot/?id=${id}`);
 }
 
-export default {getAll, get, create, update, deleteBot, deleteAll, findByName, findByID};
+export default {getPage, get, create, update, deleteBot, deleteAll, findByName, findByID};

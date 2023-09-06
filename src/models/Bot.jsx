@@ -1,5 +1,3 @@
-// Note: Bot Model
-
 const TASK_STATUS = {
     STARTED: "STARTED",
     WIP: "WIP",
@@ -8,19 +6,6 @@ const TASK_STATUS = {
     NA: "NA",
 };
 
-/*class Bot {
-
-    constructor(json) {
-        this.id = json.id;
-        this.bot_name = json.bot_name;
-        this.last_beat_time = new Date(json.last_beat_time);
-        this.task_payload = json.task_payload;
-        this.task_end_time = new Date(json.task_end_time);
-        this.task_status = TASK_STATUS[json.task_status];
-        this.platform = json.platform;
-    }
-
-}*/
 
 const Bot = (json) => {
     return {
@@ -44,4 +29,4 @@ const Bot = (json) => {
     };
 };
 
-export default Bot;
+export { Bot };

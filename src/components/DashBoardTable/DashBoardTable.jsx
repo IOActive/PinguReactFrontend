@@ -9,6 +9,7 @@ import SearchBar from "../SearchBar/SearchBar"
 import Icon from "../Icon/Icon";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { set } from "lodash";
 
 
 
@@ -18,9 +19,13 @@ const DashboardTable = (props) => {
     const { objectName, glyph, isFetching, retrieveData, findObjectByName, payload, colums, list_path } = props;
 
     const dispatch = useDispatch();
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        dispatch(retrieveData());
+        dispatch(retrieveData(1))
+            .then((response) => {
+                setData(response.results);
+            });
     }, [dispatch]);
 
     const onChangeSearchName = (e) => {
@@ -35,6 +40,8 @@ const DashboardTable = (props) => {
     const refreshData = () => {
         retrieveData();
     };
+
+  
 
     return (
         <Widget
@@ -72,10 +79,10 @@ const DashboardTable = (props) => {
                             </tr>
                         )}
                     {
-                        payload &&
+                        data &&
                         !isFetching &&
 
-                        payload.slice(0, 6).map((object, index) => (
+                        data.slice(0, 6).map((object, index) => (
                             <tr key={index}>
                                 {Object.keys(object).slice(0, 6).map((key, index) => {
                                     switch (key) {

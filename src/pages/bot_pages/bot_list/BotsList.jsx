@@ -7,26 +7,33 @@ import cx from "classnames";
 import s from "./BotsList.module.scss";
 import { useSelector } from "react-redux";
 import EditObject from "../../../components/EditObject/EditObject";
-import InteractiveList from "../../../components/Interactive_List/InteractiveList";
+import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
-import Bot from "../../../models/Bot";
+import {Bot} from "../../../models/Bot";
+import { set } from "lodash";
+
 
 const BotsList = (props) => {
   const [currentBot, setCurrentBot] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
 
   const { isFetching, payload } = useSelector((state) => state.bots);
+  const { currentPage, setCurrentPage } = React.useState(1);
+  const [dataPerPage] = React.useState(10);
+  const [data, setData] = React.useState(payload.results);
 
   React.useEffect(() => {
-    retrieveBots();
+    retrieveBots(currentPage)
+
   }, [retrieveBots]);
 
   const refreshBotsData = () => {
-    props.retrieveBots();
+    props.retrieveBots(1);
     setEnableEditing(false);
     setCurrentBot(null);
+    setCurrentPage(1);
   };
 
   function editBot() {
@@ -43,7 +50,13 @@ const BotsList = (props) => {
       </Breadcrumb>
       <h1 className="mb-lg">Bots List</h1>
 
-      <InteractiveList
+      {isFetching ? (
+        <div>
+        <br />
+        <p>Loading Data...</p>
+      </div>
+      ) : (
+        <InteractiveTable
         refreshData={refreshBotsData}
         glyph={<FontAwesomeIcon icon={faRobot} />}
         search_fucntion={props.findBotsByName}
@@ -52,7 +65,9 @@ const BotsList = (props) => {
         payload={payload}
         setCurrentObject={setCurrentBot}
         value_key_name={"bot_name"}
+        setCurrentPage={setCurrentPage}
       />
+      )}
 
       <div responsive className={cx("mb-0", s.BotCardsGroup)}>
         {currentBot ? (

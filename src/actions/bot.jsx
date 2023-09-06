@@ -57,9 +57,9 @@ export const createBot = (bot_name, last_beat_time, task_payload, task_end_time,
     );
   };
 
-export const retrieveBots = () => (dispatch) => {
+export const retrieveBots = (page_number) => (dispatch) => {
   dispatch(botRequest(""));
-  return BotDataService.getAll().then(
+  return BotDataService.getPage(page_number).then(
     (response) => {
       dispatch(botRecieved(RETRIEVE_BOTS, response.data));
       return Promise.resolve(response.data);
