@@ -3,25 +3,36 @@ import { connect } from "react-redux";
 import { retrieveBots, findBotsByName } from "../../actions/bot";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
 import DashboardTable from "../DashBoardTable/DashBoardTable";
-
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const BotsDashboardTable = (props) => {
 
-  const {isFetching, payload } = useSelector(state => state.bots);
+  const { isFetching, payload } = useSelector(state => state.bots);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(retrieveBots(1))
+  }, [dispatch]);
+
 
   return (
-    <DashboardTable
-      objectName={"Bots"}
-      glyph={<FontAwesomeIcon icon={faRobot} />}
-      isFetching={isFetching}
-      retrieveData={retrieveBots}
-      findObjectByName={findBotsByName}
-      payload={payload}
-      colums={[ "ID", "Bot Name", "Last Beat Time", "Task Payload", "Task End Time", "Task Status", "Platform"]}
-      list_path={"/app/bot/list"}
-    />
+    <div>
+      {payload && (
+        <DashboardTable
+          objectName={"Bots"}
+          glyph={<FontAwesomeIcon icon={faRobot} />}
+          retrieveData={retrieveBots}
+          findObjectByName={findBotsByName}
+          colums={["ID", "Bot Name", "Last Beat Time", "Task Payload", "Task End Time", "Task Status", "Platform"]}
+          list_path={"/app/bot/list"}
+          data={payload}
+          isFetching={isFetching}
+        />
+      )}
+    </div>
   );
 };
 

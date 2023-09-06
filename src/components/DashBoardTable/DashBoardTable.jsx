@@ -4,30 +4,17 @@ import Widget from "../Widget/Widget";
 import s from "./DashBoadTable.module.scss";
 import cx from "classnames";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar"
 import Icon from "../Icon/Icon";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { set } from "lodash";
-
-
 
 const DashboardTable = (props) => {
     const [searchName, setSearchName] = useState("");
 
-    const { objectName, glyph, isFetching, retrieveData, findObjectByName, payload, colums, list_path } = props;
+    const { objectName, glyph, retrieveData, findObjectByName, colums, list_path, data, isFetching } = props;
 
-    const dispatch = useDispatch();
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        dispatch(retrieveData(1))
-            .then((response) => {
-                setData(response.results);
-            });
-    }, [dispatch]);
-
+    
     const onChangeSearchName = (e) => {
         setSearchName(e.target.value);
     };
@@ -41,7 +28,6 @@ const DashboardTable = (props) => {
         retrieveData();
     };
 
-  
 
     return (
         <Widget
@@ -82,7 +68,7 @@ const DashboardTable = (props) => {
                         data &&
                         !isFetching &&
 
-                        data.slice(0, 6).map((object, index) => (
+                        data.results.slice(0, 6).map((object, index) => (
                             <tr key={index}>
                                 {Object.keys(object).slice(0, 6).map((key, index) => {
                                     switch (key) {

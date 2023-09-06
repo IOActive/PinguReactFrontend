@@ -18,7 +18,7 @@ import Sidebar from '../Sidebar/Sidebar';
 
 
 // Dashboard component is loaded directly as an example of server side rendering
-import Dashboard from '../../pages/dashboard'
+import Dashboard from '../../pages/dashboard/Dashboard';
 import AddBot from "../../pages/bot_pages/bot_create/BotCreate";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
 import JobsList from "../../pages/job_pages/job_list/Job_list";

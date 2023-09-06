@@ -19,12 +19,12 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-import Widget from '../../components/Widget';
+import Widget from '../../components/Widget/Widget';
 
 import s from './Dashboard.module.scss';
 
 import BotsDashboardTable from '../../components/BotsDashboardTable/BotsDashboardTable';
-import JobWidget from '../../components/JobWidget/JobWidget';
+import JobsDashboardTable from '../../components/JobsDashboardTable/JobsDashboardTable';
 
 class Dashboard extends Component {
   /* eslint-disable */
@@ -114,7 +114,7 @@ class Dashboard extends Component {
         </Row>
         <Row>
           <Col sm={6}>
-            <JobWidget/>
+            <JobsDashboardTable/>
           </Col>
           <Col sm={6}>
             <ListGroup>
