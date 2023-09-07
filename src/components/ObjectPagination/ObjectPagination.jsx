@@ -1,69 +1,58 @@
-import { range, set } from "lodash";
+import React from "react";
 import Pagination from "react-bootstrap/Pagination";
-import { PaginationLink, PaginationItem } from "reactstrap";
 
-const ObjectPagination = (props) => {
-  const { page, numberOfPages, setPage } = props;
+const CustomPagination = ({
+  dataPerPage,
+  totalData,
+  paginate,
+  currentPage,
+}) => {
+  const pageNumbers = [];
 
-  const changePageNumber = (pageNumber) => {
-    setPage(pageNumber);
-  };
+  for (let i = 1; i <= Math.ceil(totalData / dataPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
-  const createPageArrayToShow = () => {
-    if (page <= 3) {
-      return range(1, page + 4);
-    } else if (page >= numberOfPages - 2) {
-      return range(numberOfPages - 4, numberOfPages + 1);
-    } else {
-      return range(page - 2, page + 3);
-    }
-  };
-
-  const onCLickFirst = () => {
-    setPage(1);
-  };
-  const onCLickPrevious = () => {
-    if (page > 0) setPage(page - 1);
-  };
-
-  const onCLickNext = () => {
-    if (page < numberOfPages) setPage(page + 1);
-  };
-
-  const onCLickLast = () => {
-    setPage(numberOfPages);
-  };
+  let start = 1,
+    end = pageNumbers.length;
+  if (currentPage - 2 > 1) {
+    start = currentPage - 2;
+  }
+  if (currentPage + 2 < pageNumbers.length) {
+    end = currentPage + 2;
+  }
 
   return (
     <Pagination>
-      <div className="d-flex flex-wrap">
-        <PaginationItem onClick={onCLickFirst}>
-          <PaginationLink first href="#"></PaginationLink>
-        </PaginationItem>
-        <PaginationItem onClick={onCLickPrevious}>
-          <PaginationLink previous href="#"></PaginationLink>
-        </PaginationItem>
-        {createPageArrayToShow().map((e) => {
-          const currentPageNo = e;
-
-          return (
-            <PaginationItem
-              active={currentPageNo === page}
-              onClick={() => changePageNumber(currentPageNo)}
-            >
-              <PaginationLink href="#">{currentPageNo}</PaginationLink>
-            </PaginationItem>
-          );
-        })}
-        <PaginationItem onClick={onCLickNext}>
-          <PaginationLink next href="#"></PaginationLink>
-        </PaginationItem>
-        <PaginationItem onClick={onCLickLast}>
-          <PaginationLink last href="#"></PaginationLink>
-        </PaginationItem>
-      </div>
+      <Pagination.First
+        onClick={() => paginate(1)}
+        disabled={currentPage === 1}
+      />
+      <Pagination.Prev
+        onClick={() => paginate(currentPage - 1)}
+        disabled={currentPage === 1}
+      />
+      {start !== 1 && <Pagination.Ellipsis />}
+      {pageNumbers.slice(start - 1, end).map((number) => (
+        <Pagination.Item
+          key={number}
+          onClick={() => paginate(number)}
+          active={currentPage === number}
+        >
+          {number}
+        </Pagination.Item>
+      ))}
+      {end !== pageNumbers.length && <Pagination.Ellipsis />}
+      <Pagination.Next
+        onClick={() => paginate(currentPage + 1)}
+        disabled={currentPage === pageNumbers.length}
+      />
+      <Pagination.Last
+        onClick={() => paginate(pageNumbers.length)}
+        disabled={currentPage === pageNumbers.length}
+      />
     </Pagination>
   );
 };
 
-export default ObjectPagination;
+export default CustomPagination;

@@ -1,7 +1,7 @@
 import http from "../helpers/http-common";
 
 function getPage(page_number) {
-  return http.get(`/bot/?page=${page_number}`);
+  return  http.get(`/bot/?page=${page_number}`);
 }
 
 function get(id) {

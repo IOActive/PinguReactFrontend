@@ -1,19 +1,27 @@
 import SearchBar from "../SearchBar/SearchBar";
 import React, { useEffect, useState } from "react";
-import { Table } from "reactstrap";
+import { Table, Spinner } from "reactstrap";
 import Widget from "../Widget/Widget";
 import cx from "classnames";
 import Icon from "../Icon/Icon";
 import s from "./InteractiveList.module.scss";
 import ObjectPagination from "../ObjectPagination/ObjectPagination";
-import { isEmpty } from "lodash";
+
 
 function InteractiveList(props) {
     const [searchName, setSearchName] = useState("");
 
-    const { refreshData, glyph, search_fucntion, objectName, isFetching, data, setCurrentObject, value_key_name } = props;
+    const { glyph, search_fucntion, objectName, setCurrentObject, value_key_name, retieve_data_function, selector, setEnableEditing } = props;
 
     const [currentIndex, setCurrentIndex] = useState(-1);
+
+    const { isFetching, payload } = selector;
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dataPerPage] = useState(5);
+    const [totalData, setTotalData] = useState(0);
+
 
     const onChangeSearchName = (e) => {
         setSearchName(e.target.value);
@@ -23,17 +31,31 @@ function InteractiveList(props) {
         search_fucntion(searchName);
     };
 
+    const refreshData = () => {
+        retieve_data_function(1);
+        setEnableEditing(false);
+        setCurrentObject(null);
+        setCurrentPage(1);
+        setTotalData(payload.count);
+    };
+
     const setActiveObject = (object, index) => {
         setCurrentObject(object);
         setCurrentIndex(index);
     };
 
-    const [page, setPage] = useState(1);
-    const limit = 5
-    let numberOfPages = 1;
-    if (! isEmpty(data)) {
-        numberOfPages = Math.ceil(data.length / limit);
-    }
+    useEffect(() => {
+        retieve_data_function(1);
+        setTotalData(payload.count);
+    }, []);
+
+
+    // Change page
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        retieve_data_function(pageNumber);
+    };
+
 
     return (
         <Widget
@@ -55,18 +77,40 @@ function InteractiveList(props) {
                 </div>
             }
         >
-            <InteractiveTable listData={data} isFetching={isFetching} setActiveObject={setActiveObject} currentIndex={currentIndex} value_key_name={value_key_name} />
+            {isFetching  ? (
+                <Spinner animation="border" variant="primary" />
+            ) : (
+                
+                    <div>
+                        <InteractiveTable
+                            listData={payload.results}
+                            setActiveObject={setActiveObject}
+                            currentIndex={currentIndex}
+                            value_key_name={value_key_name}
+                             />
+                    </div>
+                
+                
+            )}
             <ObjectPagination
-                    page={page}
-                    numberOfPages={numberOfPages}
-                    setPage={setPage}
-                />
+                            dataPerPage={dataPerPage}
+                            totalData={totalData}
+                            paginate={paginate}
+                            currentPage={currentPage}
+                        />
         </Widget>
     )
 }
 
 //Table Section
-const InteractiveTable = ({ listData, isFetching, setActiveObject, currentIndex, value_key_name }) => {
+const InteractiveTable = ({ listData, setActiveObject, currentIndex, value_key_name }) => {
+
+    const [currentData, setCurrentData] = useState([]);
+
+    useEffect(() => {
+        setCurrentData(listData);
+    }, [listData]);
+
     return (
         <Table bordered hover responsive className={cx("mb-0", s.InteractiveTable)}>
             <thead>
@@ -75,12 +119,13 @@ const InteractiveTable = ({ listData, isFetching, setActiveObject, currentIndex,
                 </tr>
             </thead>
             <tbody>
-                {!isFetching && listData.map((listItem, index) => {
+                {currentData.map((listItem, index) => {
                     return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} value_key_name={value_key_name} />;
                 })}
             </tbody>
         </Table>
     );
+
 };
 
 const Row = ({ listItem, index, setActiveObject, currentIndex, value_key_name }) => {

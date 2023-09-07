@@ -35,31 +35,46 @@ function botError(message) {
 }
 
 export const createBot = (bot_name, last_beat_time, task_payload, task_end_time, task_status, platform) => (dispatch) => {
-    const payload = {bot_name, last_beat_time, task_payload, task_end_time, task_status, platform};
-    dispatch(botRequest(payload));
-    return BotDataService.create(payload).then(
-      (response) => {
-        dispatch(botRecieved(CREATE_BOT,response.data));
-        return Promise.resolve();
-      },
-      (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
-        dispatch(botError(message));
- 
-        return Promise.reject();
-      }
-    );
-  };
+  const payload = { bot_name, last_beat_time, task_payload, task_end_time, task_status, platform };
+  dispatch(botRequest(payload));
+  return BotDataService.create(payload).then(
+    (response) => {
+      dispatch(botRecieved(CREATE_BOT, response.data));
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-export const retrieveBots = (page_number) => (dispatch) => {
+      dispatch(botError(message));
+
+      return Promise.reject();
+    }
+  );
+};
+
+
+export const retrieveBots = (page_number) => async (dispatch) => {
+  try {
+    const response = await BotDataService.getPage(page_number);
+
+    dispatch(botRecieved(RETRIEVE_BOTS, response.data));
+    return Promise.resolve(response.data);
+  } catch (err) {
+    const message = err.response.data.message || err.message || err.toString();
+    dispatch(botError(message));
+    return Promise.reject(err);
+  }
+};
+
+
+/*export const retrieveBots = (page_number) => async (dispatch) => {
   dispatch(botRequest(""));
-  return BotDataService.getPage(page_number).then(
+  return await BotDataService.getPage(page_number).then(
     (response) => {
       dispatch(botRecieved(RETRIEVE_BOTS, response.data));
       return Promise.resolve(response.data);
@@ -76,7 +91,7 @@ export const retrieveBots = (page_number) => (dispatch) => {
       return Promise.reject();
     }
   );
-}
+}*/
 
 export const getBot = (id) => (dispatch) => {
   dispatch(botRequest(id));

@@ -9,7 +9,6 @@ import { Navigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-
 function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

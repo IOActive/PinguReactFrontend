@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { retrieveBots, findBotsByName, updateBot, deleteBot } from "../../../actions/bot";
 import { connect } from "react-redux";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
@@ -12,34 +12,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
 import { Bot } from "../../../models/Bot";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 const BotsList = (props) => {
   const [currentBot, setCurrentBot] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
 
-  const { isFetching, payload } = useSelector((state) => state.bots);
-  const { currentPage, setCurrentPage } = React.useState(1);
-  const [dataPerPage] = React.useState(10);
-  const [data, setData] = React.useState([]);
-  
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(retrieveBots(currentPage));
-  }, [dispatch]);
-
-
-  const refreshBotsData = () => {
-    props.retrieveBots(1);
-    setEnableEditing(false);
-    setCurrentBot(null);
-  };
+  const selector = useSelector((state) => state.bots);
 
   function editBot() {
     // swtich state of editing
     setEnableEditing(!enableEditing);
+    
   }
 
   return (
@@ -51,24 +35,17 @@ const BotsList = (props) => {
       </Breadcrumb>
       <h1 className="mb-lg">Bots List</h1>
 
-      {isFetching ? (
-        <div>
-          <br />
-          <p>Loading Data...</p>
-        </div>
-      ) : (
-        <InteractiveTable
-          refreshData={refreshBotsData}
-          glyph={<FontAwesomeIcon icon={faRobot} />}
-          search_fucntion={props.findBotsByName}
-          objectName={"Bots"}
-          isFetching={isFetching}
-          data={data}
-          setCurrentObject={setCurrentBot}
-          value_key_name={"bot_name"}
-          setCurrentPage={setCurrentPage}
-        />
-      )}
+
+      <InteractiveTable
+        glyph={<FontAwesomeIcon icon={faRobot} />}
+        search_fucntion={props.findBotsByName}
+        objectName={"Bots"}
+        setCurrentObject={setCurrentBot}
+        value_key_name={"bot_name"}
+        retieve_data_function={props.retrieveBots}
+        selector={selector}
+        setEnableEditing={setEnableEditing}
+      />
 
       <div responsive className={cx("mb-0", s.BotCardsGroup)}>
         {currentBot ? (
