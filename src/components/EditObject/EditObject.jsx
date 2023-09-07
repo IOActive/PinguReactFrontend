@@ -76,8 +76,8 @@ const EditObject = (props) => {
                 )}
 
                 <ButtonGroup className={cx(s.ButtonGroupEditBot, 'btn-group')}>
-                  <Button onClick={updateContent}>Update</Button>
-                  <Button onClick={removeObject}>Delete</Button>
+                  <Button className={cx(s.UpdateButton)} onClick={updateContent}>Update</Button>
+                  <Button className={cx(s.RemoveButton)} onClick={removeObject}>Delete</Button>
                 </ButtonGroup>
               </Form>
             ) : (

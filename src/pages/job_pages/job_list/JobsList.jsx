@@ -1,25 +1,25 @@
-import React from "react";
-import { retrieveBots, findBotsByName, updateBot, deleteBot } from "../../../actions/bot";
+import { retrieveJobs, findJobsByName, updateJob, deleteJob } from "../../../actions/job";
 import { connect } from "react-redux";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import cx from "classnames";
 
-import s from "./BotsList.module.scss";
+import s from "./JobsList.module.scss";
 import { useSelector } from "react-redux";
 import EditObject from "../../../components/EditObject/EditObject";
 import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRobot } from "@fortawesome/free-solid-svg-icons";
+import { faDigging } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
-import { Bot } from "../../../models/Bot";
+import { Job } from "../../../models/Job";
+import React from "react";
 
-const BotsList = (props) => {
-  const [currentBot, setCurrentBot] = React.useState(null);
+const JobsList = (props) => {
+  const [currentJob, setCurrentJob] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
 
-  const selector = useSelector((state) => state.bots);
+  const selector = useSelector((state) => state.jobs);
 
-  function editBot() {
+  function editJob() {
     // swtich state of editing
     setEnableEditing(!enableEditing);
     
@@ -29,39 +29,39 @@ const BotsList = (props) => {
     <div className={s.root}>
       <Breadcrumb>
         <BreadcrumbItem>YOU ARE HERE</BreadcrumbItem>
-        <BreadcrumbItem>Bots</BreadcrumbItem>
-        <BreadcrumbItem active>Bots List</BreadcrumbItem>
+        <BreadcrumbItem>Jobs</BreadcrumbItem>
+        <BreadcrumbItem active>Jobs List</BreadcrumbItem>
       </Breadcrumb>
-      <h1 className="mb-lg">Bots List</h1>
+      <h1 className="mb-lg">Jobs List</h1>
 
 
       <InteractiveTable
-        glyph={<FontAwesomeIcon icon={faRobot} />}
-        search_fucntion={props.findBotsByName}
-        objectName={"Bots"}
-        setCurrentObject={setCurrentBot}
-        value_key_name={"bot_name"}
-        retieve_data_function={props.retrieveBots}
+        glyph={<FontAwesomeIcon icon={faDigging} />}
+        search_fucntion={findJobsByName}
+        objectName={"Jobs"}
+        setCurrentObject={setCurrentJob}
+        value_key_name={"name"}
+        retieve_data_function={retrieveJobs}
         selector={selector}
         setEnableEditing={setEnableEditing}
       />
 
-      <div responsive className={cx("mb-0", s.BotCardsGroup)}>
-        {currentBot ? (
+      <div responsive className={cx("mb-0", s.JobCardsGroup)}>
+        {currentJob ? (
           <div class="row">
             <div class="col-md-6">
               <InformationTable
-                currentObject={currentBot}
-                editObject={editBot}
-                objectName={"Bot"}
+                currentObject={currentJob}
+                editObject={editJob}
+                objectName={"Job"}
               />
             </div>
             <div class="col-md-6">
               {enableEditing ? (
                 <EditObject
-                  object={Bot(currentBot)}
-                  updateObject={props.updateBot}
-                  deleteObject={props.deleteBot}
+                  object={Job(currentJob)}
+                  updateObject={updateJob}
+                  deleteObject={deleteJob}
                 />
               ) : (
                 <div />
@@ -82,15 +82,15 @@ const BotsList = (props) => {
 const mapStateToProps = (state) => {
   const { user } = state.auth;
   return {
-    bots: state.bots,
+    jobs: state.jobs,
     user,
-    bot: state.currentBot,
+    job: state.currentJob,
   };
 };
 
 export default connect(mapStateToProps, {
-  retrieveBots,
-  findBotsByName,
-  updateBot,
-  deleteBot
-})(BotsList);
+  retrieveJobs,
+  findJobsByName,
+  updateJob,
+  deleteJob
+})(JobsList);

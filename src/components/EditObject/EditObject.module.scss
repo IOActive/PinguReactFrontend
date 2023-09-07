@@ -25,17 +25,24 @@
 
 
  .UpdateButton {
-  margin-right: 10px
+  margin-right: 10px;
+  margin-left: 10px;
   }
 
   .RemoveButton {
-    margin-right: 10px
+    margin-right: 10px;
+    margin-left: 10px;
   }
 
   .ButtonGroupEditBot {
     display: flex !important;
     justify-content: flex-end !important;
-    gap: 10px !important;
+    margin-top: 10px !important;
+  }
+
+  .ErrorMessage{
+    color: red;
+    margin-top: 10px;
   }
   
 

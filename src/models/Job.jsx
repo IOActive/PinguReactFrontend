@@ -1,6 +1,6 @@
 // Note: Job model
 
-const Job = (json) => {
+export const Job = (json) => {
     return {
         id: json.id,
         name: json.name,
@@ -25,5 +25,3 @@ const Job = (json) => {
         }
     };
 }
-
-export default Job;

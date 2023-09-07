@@ -80,7 +80,7 @@ function InteractiveList(props) {
             {isFetching  ? (
                 <Spinner animation="border" variant="primary" />
             ) : (
-                
+                payload && (
                     <div>
                         <InteractiveTable
                             listData={payload.results}
@@ -89,6 +89,7 @@ function InteractiveList(props) {
                             value_key_name={value_key_name}
                              />
                     </div>
+                )
                 
                 
             )}
