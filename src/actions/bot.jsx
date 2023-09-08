@@ -34,8 +34,7 @@ function botError(message) {
   };
 }
 
-export const createBot = (bot_name, last_beat_time, task_payload, task_end_time, task_status, platform) => (dispatch) => {
-  const payload = { bot_name, last_beat_time, task_payload, task_end_time, task_status, platform };
+export const createBot = (payload) => (dispatch) => {
   dispatch(botRequest(payload));
   return BotDataService.create(payload).then(
     (response) => {
@@ -70,28 +69,6 @@ export const retrieveBots = (page_number) => async (dispatch) => {
     return Promise.reject(err);
   }
 };
-
-
-/*export const retrieveBots = (page_number) => async (dispatch) => {
-  dispatch(botRequest(""));
-  return await BotDataService.getPage(page_number).then(
-    (response) => {
-      dispatch(botRecieved(RETRIEVE_BOTS, response.data));
-      return Promise.resolve(response.data);
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      dispatch(botError(message));
-      return Promise.reject();
-    }
-  );
-}*/
 
 export const getBot = (id) => (dispatch) => {
   dispatch(botRequest(id));

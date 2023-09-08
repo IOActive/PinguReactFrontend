@@ -3,25 +3,17 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import cx from "classnames";
 import { Button } from "reactstrap";
 import Form from "react-bootstrap/Form";
-import { useNavigate } from "react-router-dom";
 
 import s from "./EditObject.module.scss";
-import { useSelector } from "react-redux";
 import Card from "react-bootstrap/Card";
+import { generateFormGroups } from "../../helpers/generateForm";
 
 
 
 const EditObject = (props) => {
 
-  const { object, updateObject, deleteObject } = props;
-
-  const { errorMessage } = useSelector(
-    (state) => state.bots
-  );
-
-  useEffect(() => {
-    setCurrentObject(object);
-  }, [object]);
+  const { object, updateObject, deleteObject, errorMessage } = props;
+  
 
   const [currentObject, setCurrentObject] = useState(object);
 
@@ -35,19 +27,43 @@ const EditObject = (props) => {
   const updateContent = (event) => {
     event.preventDefault();
 
-    updateObject(currentObject.id, currentObject);
+    const form = event.target;
+    event.preventDefault();
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setCurrentObject({ ...currentObject, validated: true });
+
+    if (form.checkValidity() === true) {
+
+      updateObject(currentObject.id, currentObject.get_json());
+    }
   };
 
   const removeObject = (event) => {
+
+    const form = event.target;
     event.preventDefault();
-    deleteObject(currentObject.id)
-      .then((reponse) => {
-        console.log(reponse);
-        //navigate("/app/dashboard");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setCurrentObject({ ...currentObject, validated: true });
+
+    if (form.checkValidity() === true) {
+
+      deleteObject(currentObject.id)
+        .then((reponse) => {
+          console.log(reponse);
+          //navigate("/app/dashboard");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   };
 
   return (
@@ -61,10 +77,11 @@ const EditObject = (props) => {
         <div className={s.root}>
           <div className="submit-form">
             {currentObject.id != null ? (
-              <Form onSubmit={updateContent}>
+
+              <Form noValidate validated={currentObject.validated}>
 
                 {Object.keys(currentObject).map((key, index) => {
-                  return generateForm(key, index, currentObject, onInputChange);
+                  return generateFormGroups(key, index, currentObject, onInputChange);
                 })}
 
                 {errorMessage && (
@@ -92,71 +109,6 @@ const EditObject = (props) => {
     </Card >
   );
 };
-
-function generateForm(key, index, currentObject, onInputChange) {
-  const value = currentObject[key];
-  const object_enums = currentObject.get_enums();
-
-  if (object_enums && object_enums[key]) {
-    return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
-      <Form.Control
-        as="select"
-        name={key}
-        value={value}
-        onChange={onInputChange}
-      >
-        {Object.keys(object_enums[key]).map((enum_key, index) => {
-          return <option key={index} value={enum_key}>{object_enums[key][enum_key]}</option>;
-        })}
-      </Form.Control>
-    </Form.Group>;
-
-  } else if (value instanceof Date) {
-    return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
-      <Form.Control
-        type="date"
-        name={key}
-        value={value.toISOString().split('T')[0]}
-        onChange={onInputChange}
-      />
-    </Form.Group>;
-  } else if (value instanceof Boolean) {
-    return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
-      <Form.Control
-        type="checkbox"
-        name={key}
-        checked={value}
-        onChange={onInputChange}
-      />
-    </Form.Group>;
-  }
-  else if (value instanceof Number) {
-    <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
-      <Form.Control
-        type="number"
-        name={key}
-        value={value}
-        onChange={onInputChange}
-      />
-    </Form.Group>;
-  }
-
-  else if (typeof value === 'string') {
-    return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
-      <Form.Control
-        type="text"
-        name={key}
-        value={value}
-        onChange={onInputChange}
-      />
-    </Form.Group>;
-  }
-}
 
 export default EditObject;
 

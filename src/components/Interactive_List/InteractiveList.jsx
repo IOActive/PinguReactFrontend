@@ -36,7 +36,9 @@ function InteractiveList(props) {
         setEnableEditing(false);
         setCurrentObject(null);
         setCurrentPage(1);
-        setTotalData(payload.count);
+        if (payload) {
+            setTotalData(payload.count);
+        }
     };
 
     const setActiveObject = (object, index) => {
@@ -77,7 +79,7 @@ function InteractiveList(props) {
                 </div>
             }
         >
-            {isFetching  ? (
+            {isFetching ? (
                 <Spinner animation="border" variant="primary" />
             ) : (
                 payload && (
@@ -87,18 +89,18 @@ function InteractiveList(props) {
                             setActiveObject={setActiveObject}
                             currentIndex={currentIndex}
                             value_key_name={value_key_name}
-                             />
+                        />
                     </div>
                 )
-                
-                
+
+
             )}
             <ObjectPagination
-                            dataPerPage={dataPerPage}
-                            totalData={totalData}
-                            paginate={paginate}
-                            currentPage={currentPage}
-                        />
+                dataPerPage={dataPerPage}
+                totalData={totalData}
+                paginate={paginate}
+                currentPage={currentPage}
+            />
         </Widget>
     )
 }

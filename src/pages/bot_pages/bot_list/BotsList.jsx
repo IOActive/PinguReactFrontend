@@ -24,6 +24,10 @@ const BotsList = (props) => {
     setEnableEditing(!enableEditing);
     
   }
+  
+  const { errorMessage } = useSelector(
+    (state) => state.bots
+  );
 
   return (
     <div className={s.root}>
@@ -62,6 +66,7 @@ const BotsList = (props) => {
                   object={Bot(currentBot)}
                   updateObject={props.updateBot}
                   deleteObject={props.deleteBot}
+                  errorMessage={errorMessage}
                 />
               ) : (
                 <div />
