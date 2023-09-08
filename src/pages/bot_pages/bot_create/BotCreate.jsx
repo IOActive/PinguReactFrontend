@@ -7,7 +7,17 @@ import { useSelector } from "react-redux";
 
 function CreateBot() {
 
-  const bot = Bot();
+  const bot = Bot(
+    {
+      id: null ,
+      bot_name: "",
+      last_beat_time: new Date(),
+      task_payload:"",
+      task_end_time: new Date(),
+      task_status: "",
+      platform: ""
+    }
+  );
 
   const { errorMessage } = useSelector(
     (state) => state.bots

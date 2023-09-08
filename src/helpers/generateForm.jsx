@@ -1,13 +1,27 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 
+function beautify_key_names(key) {
+  key = key.replace(/_/g, " ");
+  // uppercase first letter of each word
+  key = key.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+
+  return key;
+}
+
 export function generateFormGroups(key, index, currentObject, onInputChange) {
   const value = currentObject[key];
   const object_enums = currentObject.get_enums();
 
+  if (key === "id") {
+    return;
+  }
+
   if (object_enums && object_enums[key]) {
     return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
+      <Form.Label>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         as="select"
         name={key}
@@ -23,7 +37,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
 
   } else if (value instanceof Date) {
     return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
+      <Form.Label>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="date"
         name={key}
@@ -33,7 +47,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
     </Form.Group>;
   } else if (value instanceof Boolean) {
     return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
+      <Form.Label>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="checkbox"
         name={key}
@@ -44,7 +58,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   }
   else if (value instanceof Number) {
     <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
+      <Form.Label>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="number"
         name={key}
@@ -56,7 +70,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
 
   else if (typeof value === 'string') {
     return <Form.Group key={index}>
-      <Form.Label>{key}</Form.Label>
+      <Form.Label>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="text"
         name={key}
