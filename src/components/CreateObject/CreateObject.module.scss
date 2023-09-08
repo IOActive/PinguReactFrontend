@@ -26,9 +26,12 @@
  }
 
  button {
-   margin-left: 90%;
+  // position to bottom of form and aligned with the input fields
+  margin-top: 2%;
+  float: right;   
  }
 
  margin-left: 25%;
  margin-right: 25%;
+    
 }

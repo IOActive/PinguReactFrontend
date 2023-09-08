@@ -34,8 +34,7 @@ function jobError(message) {
   };
 }
 
-export const createJob = (name, description, project, date, platform, template, custom_binary_path, custom_binary_filename, custom_binary_revision) => (dispatch) => {
-    const payload = {name, description, project, date, platform, template, custom_binary_path, custom_binary_filename, custom_binary_revision};
+export const createJob = (payload) => (dispatch) => {
     dispatch(jobRequest(payload));
     return JobDataService.create(payload).then(
       (response) => {

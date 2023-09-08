@@ -1,5 +1,8 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import cx from "classnames";
+import s from "./GenericForm.module.scss";
+
 
 function beautify_key_names(key) {
   key = key.replace(/_/g, " ");
@@ -21,7 +24,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
 
   if (object_enums && object_enums[key]) {
     return <Form.Group key={index}>
-      <Form.Label>{beautify_key_names(key)}</Form.Label>
+      <Form.Label className={cx(s.FormLabel)} >{beautify_key_names(key)}</Form.Label>
       <Form.Control
         as="select"
         name={key}
@@ -37,7 +40,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
 
   } else if (value instanceof Date) {
     return <Form.Group key={index}>
-      <Form.Label>{beautify_key_names(key)}</Form.Label>
+      <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="date"
         name={key}
@@ -47,7 +50,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
     </Form.Group>;
   } else if (value instanceof Boolean) {
     return <Form.Group key={index}>
-      <Form.Label>{beautify_key_names(key)}</Form.Label>
+      <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="checkbox"
         name={key}
@@ -58,7 +61,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   }
   else if (value instanceof Number) {
     <Form.Group key={index}>
-      <Form.Label>{beautify_key_names(key)}</Form.Label>
+      <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="number"
         name={key}
@@ -70,7 +73,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
 
   else if (typeof value === 'string') {
     return <Form.Group key={index}>
-      <Form.Label>{beautify_key_names(key)}</Form.Label>
+      <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="text"
         name={key}

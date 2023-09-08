@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import cx from "classnames";
 import s from "./CreateObject.module.scss";
 import Card from "react-bootstrap/Card";
-import { generateFormGroups } from "../../helpers/generateForm";
+import { generateFormGroups } from "../GenericForm/GenericForm";
 
 function CreateObject(props) {
 
@@ -21,8 +21,6 @@ function CreateObject(props) {
         });
     };
 
-    const navigate = useNavigate();
-
     const saveObject = (event) => {
 
         const form = event.target;
@@ -35,18 +33,15 @@ function CreateObject(props) {
         setCurrentObject({ ...currentObject, validated: true });
 
         if (form.checkValidity() === true) {
-            createObject(currentObject)
-                .then(() => {
-                    setCurrentObject({
-                        ...currentObject,
-                        submitted: true,
+            createObject(currentObject);
 
-                    });
-                    navigate("/app/dashboard");
-                })
-                .catch((e) => {
-                    console.log(e);
-                });
+            /*setCurrentObject({
+                ...currentObject,
+                submitted: true,
+
+            });*/
+            //navigate("/app/dashboard");
+
         }
     };
 

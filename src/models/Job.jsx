@@ -1,5 +1,11 @@
 // Note: Job model
 
+const Platforms = {
+    Windows: "Windows",
+    Linux: "Linux",
+    Mac: "Mac",
+};
+
 export const Job = (json) => {
     return {
         id: json.id,
@@ -14,14 +20,12 @@ export const Job = (json) => {
         custom_binary_path: json.custom_binary_path,
         custom_binary_filename: json.custom_binary_filename,
         custom_binary_revision: json.custom_binary_revision,
+        validated: false,
+        submited: false,
         get_enums: () => {
             return {
-                platform: {
-                    windows: "windows",
-                    linux: "linux",
-                    mac: "mac",
-                },
+                platform: Platforms
             };
-        }
+        },
     };
 }

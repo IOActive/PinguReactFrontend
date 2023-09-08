@@ -6,14 +6,14 @@ import Form from "react-bootstrap/Form";
 
 import s from "./EditObject.module.scss";
 import Card from "react-bootstrap/Card";
-import { generateFormGroups } from "../../helpers/generateForm";
+import { generateFormGroups } from "../GenericForm/GenericForm";
 
 
 
 const EditObject = (props) => {
 
   const { object, updateObject, deleteObject, errorMessage } = props;
-  
+
 
   const [currentObject, setCurrentObject] = useState(object);
 
@@ -38,7 +38,7 @@ const EditObject = (props) => {
 
     if (form.checkValidity() === true) {
 
-      updateObject(currentObject.id, currentObject.get_json());
+      updateObject(currentObject.id, currentObject);
     }
   };
 
@@ -55,19 +55,12 @@ const EditObject = (props) => {
 
     if (form.checkValidity() === true) {
 
-      deleteObject(currentObject.id)
-        .then((reponse) => {
-          console.log(reponse);
-          //navigate("/app/dashboard");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      deleteObject(currentObject.id);
     }
   };
 
   return (
-    <Card className={cx("mb-0", s.BotEditCard, "flex-fill")}>
+    <Card className={cx("mb-0", s.EditCard, "flex-fill")}>
       <Card.Header>
         <Card.Title tag="h5" className="mb-0">
           {currentObject.bot_name}
@@ -78,7 +71,7 @@ const EditObject = (props) => {
           <div className="submit-form">
             {currentObject.id != null ? (
 
-              <Form noValidate validated={currentObject.validated}>
+              <Form noValidate validated={currentObject.validated} className={cx(s.EditForm, "mb-0", "flex-fill")}>
 
                 {Object.keys(currentObject).map((key, index) => {
                   return generateFormGroups(key, index, currentObject, onInputChange);
