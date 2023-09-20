@@ -15,10 +15,16 @@ function beautify_key_names(key) {
 }
 
 export function generateFormGroups(key, index, currentObject, onInputChange) {
-  const value = currentObject[key];
-  const object_enums = currentObject.get_enums();
+  const value = currentObject[key]["value"];
+  const editable = currentObject[key]["editable"];
+  let object_enums = []
+  // check if currentObject has get_enums function
+  if (currentObject.get_enums) {
+    object_enums = currentObject.get_enums();
+  }
 
-  if (key === "id") {
+  
+  if (!editable) {
     return;
   }
 
@@ -36,6 +42,8 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         })}
       </Form.Control>
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+
     </Form.Group>;
 
   } else if (value instanceof Date) {
@@ -47,6 +55,8 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         value={value.toISOString().split('T')[0]}
         onChange={onInputChange} />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+
     </Form.Group>;
   } else if (value instanceof Boolean) {
     return <Form.Group key={index}>
@@ -57,6 +67,8 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         checked={value}
         onChange={onInputChange} />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+
     </Form.Group>;
   }
   else if (value instanceof Number) {
@@ -68,6 +80,8 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         value={value}
         onChange={onInputChange} />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+
     </Form.Group>;
   }
 
@@ -78,8 +92,10 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         type="text"
         name={key}
         value={value}
-        onChange={onInputChange} />
+        onChange={onInputChange} 
+        />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
     </Form.Group>;
   }
 }

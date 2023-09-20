@@ -15,15 +15,43 @@ const Platforms = {
 
 export const Bot = (json) => {
     return {
-        id: json.id ,
-        bot_name: json.bot_name,
-        last_beat_time: new Date(json.last_beat_time),
-        task_payload:json.task_payload,
-        task_end_time: new Date(json.task_end_time),
-        task_status: TASK_STATUS[json.task_status],
-        platform: json.platform,
+        id: {
+            value: json.id ,
+            editable: false,
+            header: "UUID",
+        },
+        name: {
+            value: json.name,
+            editable: true,
+            header: "The name of the bot",
+        },
+        last_beat_time: {
+            value: new Date(json.last_beat_time),
+            editable: false,
+            header: "The last time the bot sent a heartbeat",
+        },
+        task_payload: {
+            value: json.task_payload,
+            editable: false,
+            header: "The task payload that the bot is currently working on",
+        },
+        task_end_time: {
+            value: new Date(json.task_end_time),
+            editable: false,
+            header: "The time when the task should be finished",
+        },
+        task_status: {
+            value: TASK_STATUS[json.task_status],
+            editable: false,
+            header: "The status of the task",
+        },
+        platform: {
+            value: json.platform,
+            editable: true,
+            header: "The platform that the bot is running on",
+        },
         validated: false,
-        submited: false,
+        submitted: false,
         get_enums: () => {
             return {
                 task_status: TASK_STATUS,

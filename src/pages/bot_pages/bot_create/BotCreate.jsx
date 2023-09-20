@@ -8,14 +8,14 @@ function AddBot(props) {
 
   const newBot = Bot({
     id: null,
-    bot_name: "",
+    name: "",
     last_beat_time: null,
     task_payload: "",
     task_end_time: null,
     task_status: "NA",
     platform: "",
     validated: false,
-    submited: false,
+    submitted: false,
   });
 
   const { errorMessage } = useSelector(
@@ -26,7 +26,6 @@ function AddBot(props) {
     <CreateObject
       object={newBot}
       createObject={props.createBot}
-      object_name={"Bot"}
       errorMessage={errorMessage}
       />
   );

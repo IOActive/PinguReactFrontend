@@ -9,7 +9,7 @@ import { generateFormGroups } from "../GenericForm/GenericForm";
 
 function CreateObject(props) {
 
-    const { createObject, object, object_name, errorMessage } = props;
+    const { createObject, object, errorMessage } = props;
 
     const [currentObject, setCurrentObject] = useState(object);
 
@@ -47,7 +47,7 @@ function CreateObject(props) {
 
     return (
         <Card className={cx("mb-0", s.InformantionCard, "flex-fill")}>
-            <Card.Header>Create New {object_name}</Card.Header>
+            <Card.Header>Create New {currentObject.name.value}</Card.Header>
             <Card.Body>
                 <div responsive className={cx("mb-0", s.Card)}>
                     {currentObject.submitted ? (

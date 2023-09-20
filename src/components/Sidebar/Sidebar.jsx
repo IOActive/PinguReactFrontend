@@ -9,6 +9,7 @@ import s from './Sidebar.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPersonDigging,
+  faRocket,
 } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -56,6 +57,21 @@ function Sidebar() {
             }
           ]}
           glyph={<FontAwesomeIcon icon={faPersonDigging} />} />
+
+        <LinksGroup
+          header="Fuzzers"
+          headerLink="/app/fuzzers"
+          childrenLinks={[
+            {
+              name: 'Fuzzers List',
+              link: '/app/fuzzer/list',
+            },
+            {
+              name: 'Fuzzer Create',
+              link: '/app/fuzzer/add',
+            }
+          ]}
+          glyph={<FontAwesomeIcon icon={faRocket} />} />
       </ul>
     </nav>
   );

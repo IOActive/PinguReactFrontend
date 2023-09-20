@@ -8,20 +8,68 @@ const Platforms = {
 
 export const Job = (json) => {
     return {
-        id: json.id,
-        name: json.name,
-        description: json.description,
-        project: json.project,
-        date: new Date(json.date),
-        enabled: json.enabled === "true",
-        archived: json.archived === "true",
-        platform: json.platform,
-        environment_string: json.environment_string,
-        custom_binary_path: json.custom_binary_path,
-        custom_binary_filename: json.custom_binary_filename,
-        custom_binary_revision: json.custom_binary_revision,
+        id: {
+            value: json.id,
+            editable: false,
+            header: "UUID",
+        },
+        name: {
+            value: json.name,
+            editable: true,
+            header: "The name of the job",
+        },
+        description: {
+            value: json.description,
+            editable: true,
+            header: "The description of the job",
+        },
+        project: {
+            value: json.project,
+            editable: true,
+            header: "The project that the job belongs to",
+        },
+        date: {
+            value: new Date(json.date),
+            editable: false,
+            header: "The date when the job was created",
+        },
+        enabled: {
+            value: json.enabled === "true",
+            editable: true,
+            header: "Whether the job is enabled or not",
+        },
+        archived: {
+            value: json.archived === "true",
+            editable: true,
+            header: "Whether the job is archived or not",
+        },
+        platform: {
+            value: json.platform,
+            editable: true,
+            header: "The platform that the job is running on",
+        },
+        environment_string: {
+            value: json.environment_string,
+            editable: true,
+            header: "The environment string that the job is running on",
+        },
+        custom_binary_path: {
+            value: json.custom_binary_path,
+            editable: true,
+            header: "The path to the custom binary that the job is running on",
+        },
+        custom_binary_filename: {
+            value: json.custom_binary_filename,
+            editable: true,
+            header: "The filename of the custom binary that the job is running on",
+        },
+        custom_binary_revision: {
+            value: json.custom_binary_revision,
+            editable: true,
+            header: "The revision of the custom binary that the job is running on",
+        },
         validated: false,
-        submited: false,
+        submitted: false,
         get_enums: () => {
             return {
                 platform: Platforms

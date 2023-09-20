@@ -11,7 +11,7 @@ import ObjectPagination from "../ObjectPagination/ObjectPagination";
 function InteractiveList(props) {
     const [searchName, setSearchName] = useState("");
 
-    const { glyph, search_fucntion, objectName, setCurrentObject, value_key_name, retieve_data_function, selector, setEnableEditing } = props;
+    const { glyph, search_fucntion, objectName, setCurrentObject, retieve_data_function, selector, setEnableEditing } = props;
 
     const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -48,7 +48,8 @@ function InteractiveList(props) {
 
     useEffect(() => {
         retieve_data_function(1);
-        setTotalData(payload.count);
+        if (payload)
+            setTotalData(payload.count);
     }, []);
 
 
@@ -88,7 +89,6 @@ function InteractiveList(props) {
                             listData={payload.results}
                             setActiveObject={setActiveObject}
                             currentIndex={currentIndex}
-                            value_key_name={value_key_name}
                         />
                     </div>
                 )
@@ -106,7 +106,7 @@ function InteractiveList(props) {
 }
 
 //Table Section
-const InteractiveTable = ({ listData, setActiveObject, currentIndex, value_key_name }) => {
+const InteractiveTable = ({ listData, setActiveObject, currentIndex }) => {
 
     const [currentData, setCurrentData] = useState([]);
 
@@ -123,7 +123,7 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex, value_key_n
             </thead>
             <tbody>
                 {currentData.map((listItem, index) => {
-                    return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} value_key_name={value_key_name} />;
+                    return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} />;
                 })}
             </tbody>
         </Table>
@@ -131,7 +131,7 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex, value_key_n
 
 };
 
-const Row = ({ listItem, index, setActiveObject, currentIndex, value_key_name }) => {
+const Row = ({ listItem, index, setActiveObject, currentIndex }) => {
     return (
         <tr>
             <li
@@ -142,7 +142,7 @@ const Row = ({ listItem, index, setActiveObject, currentIndex, value_key_name })
                 onClick={() => setActiveObject(listItem, index)}
                 key={index}
             >
-                {listItem[value_key_name]}
+                {listItem['name']}
             </li>
         </tr>
     );

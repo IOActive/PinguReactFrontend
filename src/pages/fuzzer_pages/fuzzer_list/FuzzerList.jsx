@@ -1,70 +1,71 @@
 import React from "react";
-import { retrieveBots, findBotsByName, updateBot, deleteBot } from "../../../actions/bot";
+import { retrieveFuzzers, findFuzzersByName, updateFuzzer, deleteFuzzer } from "../../../actions/fuzzer";
 import { connect } from "react-redux";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import cx from "classnames";
 
-import s from "./BotsList.module.scss";
+import s from "./FuzzersList.module.scss";
 import { useSelector } from "react-redux";
 import EditObject from "../../../components/EditObject/EditObject";
 import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRobot } from "@fortawesome/free-solid-svg-icons";
+import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
-import { Bot } from "../../../models/Bot";
+import { Fuzzer } from "../../../models/Fuzzer";
 
-const BotsList = (props) => {
-  const [currentBot, setCurrentBot] = React.useState(null);
+const FuzzersList = (props) => {
+
+  const [currentFuzzer, setCurrentFuzzer] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
 
-  const selector = useSelector((state) => state.bots);
+  const selector = useSelector((state) => state.fuzzers);
 
-  function editBot() {
+  function editFuzzer() {
     // swtich state of editing
     setEnableEditing(!enableEditing);
     
   }
   
   const { errorMessage } = useSelector(
-    (state) => state.bots
+    (state) => state.fuzzers
   );
 
   return (
     <div className={s.root}>
       <Breadcrumb>
         <BreadcrumbItem>YOU ARE HERE</BreadcrumbItem>
-        <BreadcrumbItem>Bots</BreadcrumbItem>
-        <BreadcrumbItem active>Bots List</BreadcrumbItem>
+        <BreadcrumbItem>Fuzzers</BreadcrumbItem>
+        <BreadcrumbItem active>Fuzzers List</BreadcrumbItem>
       </Breadcrumb>
-      <h1 className="mb-lg">Bots List</h1>
+      <h1 className="mb-lg">Fuzzers List</h1>
 
 
       <InteractiveTable
-        glyph={<FontAwesomeIcon icon={faRobot} />}
-        search_fucntion={props.findBotsByName}
-        objectName={"Bots"}
-        setCurrentObject={setCurrentBot}
-        retieve_data_function={props.retrieveBots}
+        glyph={<FontAwesomeIcon icon={faRocket} />}
+        search_fucntion={props.findFuzzersByName}
+        objectName={"Fuzzers"}
+        setCurrentObject={setCurrentFuzzer}
+        retieve_data_function={props.retrieveFuzzers}
         selector={selector}
         setEnableEditing={setEnableEditing}
       />
 
-      <div responsive className={cx("mb-0", s.BotCardsGroup)}>
-        {currentBot ? (
+      <div responsive className={cx("mb-0", s.FuzzerCardsGroup)}>
+        {currentFuzzer ? (
           <div class="row">
             <div class="col-md-6">
               <InformationTable
-                currentObject={currentBot}
-                editObject={editBot}
-                objectName={"Bot"}
+                currentObject={currentFuzzer}
+                editObject={editFuzzer}
+                objectName={"Fuzzer"}
               />
             </div>
             <div class="col-md-6">
               {enableEditing ? (
                 <EditObject
-                  object={Bot(currentBot)}
-                  updateObject={props.updateBot}
-                  deleteObject={props.deleteBot}
+                  object={Fuzzer(currentFuzzer)}
+                  updateObject={props.updateFuzzer}
+                  deleteObject={props.deleteFuzzer}
                   errorMessage={errorMessage}
                 />
               ) : (
@@ -75,7 +76,7 @@ const BotsList = (props) => {
         ) : (
           <div>
             <br />
-            <p>Please click on a Bot...</p>
+            <p>Please click on a Fuzzer...</p>
           </div>
         )}
       </div>
@@ -86,15 +87,15 @@ const BotsList = (props) => {
 const mapStateToProps = (state) => {
   const { user } = state.auth;
   return {
-    bots: state.bots,
+    fuzzers: state.fuzzers,
     user,
-    bot: state.currentBot,
+    fuzzer: state.currentFuzzer,
   };
 };
 
 export default connect(mapStateToProps, {
-  retrieveBots,
-  findBotsByName,
-  updateBot,
-  deleteBot
-})(BotsList);
+  retrieveFuzzers,
+  findFuzzersByName,
+  updateFuzzer,
+  deleteFuzzer
+})(FuzzersList);

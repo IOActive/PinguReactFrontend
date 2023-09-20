@@ -38,7 +38,7 @@ const EditObject = (props) => {
 
     if (form.checkValidity() === true) {
 
-      updateObject(currentObject.id, currentObject);
+      updateObject(currentObject.id.value, currentObject);
     }
   };
 
@@ -48,14 +48,14 @@ const EditObject = (props) => {
     event.preventDefault();
     if (form.checkValidity() === false) {
       event.preventDefault();
-      event.stopPropagation();
+      event.currentObjecttopPropagation();
     }
 
     setCurrentObject({ ...currentObject, validated: true });
 
     if (form.checkValidity() === true) {
 
-      deleteObject(currentObject.id);
+      deleteObject(currentObject.id.value);
     }
   };
 
@@ -63,13 +63,13 @@ const EditObject = (props) => {
     <Card className={cx("mb-0", s.EditCard, "flex-fill")}>
       <Card.Header>
         <Card.Title tag="h5" className="mb-0">
-          {currentObject.bot_name}
+          {currentObject.name.value}
         </Card.Title>
       </Card.Header>
       <Card.Body>
         <div className={s.root}>
           <div className="submit-form">
-            {currentObject.id != null ? (
+            {currentObject.id.value != null ? (
 
               <Form noValidate validated={currentObject.validated} className={cx(s.EditForm, "mb-0", "flex-fill")}>
 

@@ -23,6 +23,8 @@ import AddBot from "../../pages/bot_pages/bot_create/BotCreate";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
 import JobsList from "../../pages/job_pages/job_list/JobsList";
 import AddJob from "../../pages/job_pages/job_create/JobCreate"
+import AddFuzzer from "../../pages/fuzzer_pages/fuzzer_create/FuzzerCreate";
+import FuzzersList from "../../pages/fuzzer_pages/fuzzer_list/FuzzerList";
 
 function Layout(props) {
 
@@ -44,6 +46,8 @@ function Layout(props) {
             <Route path="/bot/add" element={<AddBot />} />
             <Route path='/job/list' element={<JobsList />} />
             <Route path='/job/add' element={<AddJob />} />
+            <Route path='/fuzzer/add' element={<AddFuzzer />} />
+            <Route path='/fuzzer/list' element={<FuzzersList />} />
           </Routes>
         </main>
         <Footer />

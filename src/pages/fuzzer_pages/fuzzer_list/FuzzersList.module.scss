@@ -7,23 +7,45 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
- @import '../../styles/app.scss';
+ @import '../../../styles/app';
 
  .root {
    // styles here
  }
  
- .InteractiveTable{
+ .BotsTable {
    th,
    td {
      border-color: $white;
    }
  
    thead {
-     border-Jobtom: 1px solid $gray-200;
+     border-bottom: 1px solid $gray-200;
    }
 
    max-width: 50% !important;
-
  }
+
+ .FuzzerCardsGroup {
+  th,
+  td {
+    border-color: $white;
+  }
+
+  thead {
+    border-bottom: 1px solid $gray-200;
+  }
+
+  .FuzzerEditCard{
+    margin: 10px;
+
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+}
  

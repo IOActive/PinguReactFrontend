@@ -30,4 +30,12 @@ export const DELETE_JOB = "DELETE_JOB";
 export const JOB_FAILURE = "JOB_FAILURE";
 export const JOB_REQUEST = "JOB_REQUEST";
 
+export const CREATE_FUZZER = "CREATE_FUZZER";
+export const RETRIEVE_FUZZERS = "RETRIEVE_FUZZERS";
+export const UPDATE_FUZZER = "UPDATE_FUZZER";
+export const DELETE_FUZZER = "DELETE_FUZZER";
+export const FUZZER_FAILURE = "FUZZER_FAILURE";
+export const FUZZER_REQUEST = "FUZZER_REQUEST";
+
+
 

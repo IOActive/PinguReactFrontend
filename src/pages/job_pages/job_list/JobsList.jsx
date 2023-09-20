@@ -40,7 +40,6 @@ const JobsList = (props) => {
         search_fucntion={findJobsByName}
         objectName={"Jobs"}
         setCurrentObject={setCurrentJob}
-        value_key_name={"name"}
         retieve_data_function={props.retrieveJobs}
         selector={selector}
         setEnableEditing={setEnableEditing}

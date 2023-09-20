@@ -20,7 +20,7 @@ function AddJob(props) {
     custom_binary_filename: "",
     custom_binary_revision: 1,
     validated: false,
-    submited: false,
+    submitted: false,
   });
 
   const { errorMessage } = useSelector(
@@ -31,7 +31,6 @@ function AddJob(props) {
     <CreateObject
       object={newJob}
       createObject={props.createJob}
-      object_name={"Job"}
       errorMessage={errorMessage}
       />
   );
