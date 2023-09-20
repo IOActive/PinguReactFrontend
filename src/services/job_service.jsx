@@ -34,6 +34,10 @@ class JobDataService {
   findByID(id){
     return http.get(`/job/?id=${id}`);
   }
+
+  getPage(page_number) {
+    return  http.get(`/job/?page=${page_number}`);
+  }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

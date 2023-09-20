@@ -56,26 +56,19 @@ export const createJob = (payload) => (dispatch) => {
     );
   };
 
-export const retrieveJobs = () => (dispatch) => {
-  dispatch(jobRequest(""));
-  return JobDataService.getAll().then(
-    (response) => {
-      dispatch(jobRecieved(RETRIEVE_JOBS, response.data));
-      return Promise.resolve(response.data);
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+export const retrieveJobs = (page_number) => async (dispatch) => {
+  try {
+    dispatch(jobRequest(page_number));
+    const response = await JobDataService.getPage(page_number);
 
-      dispatch(jobError(message));
-      return Promise.reject();
-    }
-  );
-}
+    dispatch(jobRecieved(RETRIEVE_JOBS, response.data));
+    return Promise.resolve(response.data);
+  } catch (err) {
+    const message = err.response.data.message || err.message || err.toString();
+    dispatch(jobError(message));
+    return Promise.reject(err);
+  }
+};
 
 export const getJob = (id) => (dispatch) => {
   dispatch(jobRequest(id));
@@ -122,7 +115,7 @@ export const updateJob = (id, data) => (dispatch) => {
 
 export const deleteJob = (id) => (dispatch) => {
   dispatch(jobRequest(id));
-  return JobDataService.deleteJob(id).then(
+  return JobDataService.delete(id).then(
     (response) => {
       dispatch(jobRecieved(DELETE_JOB, response.data));
       return Promise.resolve(response.data);

@@ -41,7 +41,7 @@ const JobsList = (props) => {
         objectName={"Jobs"}
         setCurrentObject={setCurrentJob}
         value_key_name={"name"}
-        retieve_data_function={retrieveJobs}
+        retieve_data_function={props.retrieveJobs}
         selector={selector}
         setEnableEditing={setEnableEditing}
       />
@@ -60,8 +60,8 @@ const JobsList = (props) => {
               {enableEditing ? (
                 <EditObject
                   object={Job(currentJob)}
-                  updateObject={updateJob}
-                  deleteObject={deleteJob}
+                  updateObject={props.updateJob}
+                  deleteObject={props.deleteJob}
                 />
               ) : (
                 <div />
