@@ -17,7 +17,11 @@ function CreateObject(props) {
         const { name, value } = event.target;
         setCurrentObject({
             ...currentObject,
-            [name]: value,
+            [name]:{
+                ...currentObject[name],
+                "value": value
+            }
+
         });
     };
 
@@ -80,32 +84,3 @@ function CreateObject(props) {
 }
 
 export default CreateObject;
-
-/*
-    <Form.Group className="mb-3" controlId="validationCustom01">
-                                <Form.Label>Bot name</Form.Label>
-                                <Form.Control
-                                    required
-                                    id="bot_name"
-                                    name="bot_name"
-                                    type="text"
-                                    placeholder="name"
-                                    defaultValue=""
-                                    onChange={onInputChange}
-                                />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="validationCustom02">
-                                <Form.Label>Platform</Form.Label>
-                                <Form.Control
-                                    required
-                                    id="platform"
-                                    name="platform"
-                                    type="text"
-                                    placeholder="linux"
-                                    defaultValue=""
-                                    onChange={onInputChange}
-                                />
-                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                            </Form.Group>
-*/

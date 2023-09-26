@@ -20,7 +20,13 @@ const EditObject = (props) => {
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
-    setCurrentObject({ ...currentObject, [name]: value });
+    setCurrentObject({
+      ...currentObject,
+      [name]: {
+        ...currentObject[name],
+        "value": value
+      }
+    });
   };
 
 
