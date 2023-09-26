@@ -15,7 +15,7 @@ function CreateObject(props) {
 
     const onInputChange = (event) => {
         const { name, value } = event.target;
-        if (event.target.type === "checkbox" && value === "on")
+        if (value === "on")
             value = true;
         else if (value === "off")
             value = false;

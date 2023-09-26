@@ -54,7 +54,7 @@ const BotsList = (props) => {
           <div class="row">
             <div class="col-md-6">
               <InformationTable
-                currentObject={currentBot}
+                object={Bot(currentBot)}
                 editObject={editBot}
                 objectName={"Bot"}
               />

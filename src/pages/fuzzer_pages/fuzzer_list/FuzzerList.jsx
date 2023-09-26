@@ -55,7 +55,7 @@ const FuzzersList = (props) => {
           <div class="row">
             <div class="col-md-6">
               <InformationTable
-                currentObject={currentFuzzer}
+                object={Fuzzer(currentFuzzer)}
                 editObject={editFuzzer}
                 objectName={"Fuzzer"}
               />

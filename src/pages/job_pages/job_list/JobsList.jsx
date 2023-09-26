@@ -50,7 +50,7 @@ const JobsList = (props) => {
           <div class="row">
             <div class="col-md-6">
               <InformationTable
-                currentObject={currentJob}
+                object={Job(currentJob)}
                 editObject={editJob}
                 objectName={"Job"}
               />

@@ -19,11 +19,52 @@ const EditObject = (props) => {
 
 
   const onInputChange = (event) => {
-    let { name, value } = event.target;
-    if ( event.target.type === "checkbox" && value === "on")
-            value = true;
-    else if (value === "off")
-        value = false;
+
+    let name = event.target.name;
+    var value = "";
+
+    switch (event.target.type) {
+      case "checkbox":
+        if (event.target.value === "on")
+          value = true;
+        else if (event.target.value === "off")
+          value = false;
+        break;
+      case "file":
+        let files = event.target.files;
+        if (files.length !== 1) {
+          alert('Please select a single file.');
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]); //
+
+        const promise = new Promise((resolve, reject) => {
+          reader.onload = () => {
+            value = reader.result;
+            resolve();
+          }
+          reader.onerror = reject;
+        });
+
+        promise.then(() => {
+          setCurrentObject({
+            ...currentObject,
+            [name]: {
+              ...currentObject[name],
+              "value": value
+            }
+          });
+        });
+
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+
+        };
+        break;
+      default:
+        value = event.target.value;
+    }
+
     setCurrentObject({
       ...currentObject,
       [name]: {

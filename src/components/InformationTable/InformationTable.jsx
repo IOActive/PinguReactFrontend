@@ -5,10 +5,14 @@ import cx from "classnames";
 import s from "./InformationTable.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 export const InformationTable = (props) => {
 
-  const { currentObject, editObject, objectName } = props;
+  const { object, editObject, objectName } = props;
+
+  const [currentObject, setCurrentObject] = useState(object);
+
   return <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
     <Card.Header>{objectName}</Card.Header>
     <Card.Body>
@@ -20,28 +24,9 @@ export const InformationTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(currentObject).map((key, index) => {
-            switch (key) {
-              case "task_status":
-                return <tr key={index}>
-                  <td>{key}</td>
-                  <td>
-                    <Badge className="ml-xs" color={currentObject.task_status === "ERROR" || currentObject.task_status === "NA" ? "danger" : "success"}>
-                      {currentObject.task_status}
-                    </Badge>
-                  </td>
-                </tr>;
-              case "archived":
-                return generate_check_icon(index, key, currentObject);
-              case "enabled":
-                return generate_check_icon(index, key, currentObject);
-              default:
-                return <tr key={index}>
-                  <td>{key}</td>
-                  <td>{currentObject[key]}</td>
-                </tr>;
-            }
-          })}
+        {Object.keys(currentObject).map((key, index) => {
+              return generateList(key, index, currentObject);
+            })}
         </tbody>
       </Table>
       <Button className={cx("", s.EditButton)} onClick={editObject}>Edit {objectName}</Button>
@@ -49,13 +34,14 @@ export const InformationTable = (props) => {
     </Card.Body>
   </Card>;
 }
+
 function generate_check_icon(index, key, currentObject) {
   return <tr key={index}>
     <td>{key}</td>
     <td>
       <Badge
         className="ml-xs"
-        color={currentObject.key === "false"
+        color={currentObject[key]["value"] === "false"
           ? "danger"
           : "success"}
       >
@@ -63,5 +49,47 @@ function generate_check_icon(index, key, currentObject) {
       </Badge>
     </td>
   </tr>;
+}
+
+function generateList(key, index, currentObject) {
+
+  const objectType = currentObject[key]["type"];
+
+  if (typeof currentObject[key] === "function"){
+    return;
+  }
+  if (key === "task_status") {
+    return <tr key={index}>
+      <td>{key}</td>
+      <td>
+        <Badge className="ml-xs" color={currentObject[key]["value"] === "ERROR" || currentObject[key]["value"] === "NA" ? "danger" : "success"}>
+          {currentObject[key]["value"]}
+        </Badge>
+      </td>
+    </tr>;
+  }
+  else if (key === "archived") {
+    return generate_check_icon(index, key, currentObject);
+  }
+  else if (key === "enabled") {
+    return generate_check_icon(index, key, currentObject);
+  }
+  else {
+    if (objectType === Date) {
+      return <tr key={index}>
+        <td>{key}</td>
+        <td>{currentObject[key]["value"].toISOString().split('T')[0]}</td>
+      </tr>;
+    }
+    else if (objectType === File) {
+      return;
+    }
+    else {
+    return <tr key={index}>
+      <td>{key}</td>
+      <td>{currentObject[key]["value"]}</td>
+    </tr>;
+    }
+  }
 }
 

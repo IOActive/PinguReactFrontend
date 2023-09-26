@@ -64,7 +64,7 @@ export const Fuzzer = (json) => {
             value: json.timeout,
             editable: false,
             header: "Last Testcase timeout",
-            type: Date,
+            type: Number,
         },
         supported_platforms: {
             value: Platforms[json.supported_platforms],
@@ -85,7 +85,7 @@ export const Fuzzer = (json) => {
             type: String,
         },
         result_timestamp: {
-            value: json.result_timestamp,
+            value: new Date(json.result_timestamp),
             editable: false,
             header: " Last result update timestamp",
             type: Date,

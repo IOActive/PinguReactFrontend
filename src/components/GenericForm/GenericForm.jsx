@@ -15,6 +15,7 @@ function beautify_key_names(key) {
 }
 
 export function generateFormGroups(key, index, currentObject, onInputChange) {
+  
   const value = currentObject[key]["value"];
   const editable = currentObject[key]["editable"];
   let object_enums = []
@@ -75,7 +76,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
     </Form.Group>;
   }
   else if (objectType === Number) {
-    <Form.Group key={index}>
+    return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control
         type="number"
@@ -100,5 +101,18 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
     </Form.Group>;
+  }
+
+  else if (objectType === File) {
+    return <Form.Group key={index}>
+    <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
+    <Form.Control
+      type="file"
+      name={key}
+      value={value}
+      onChange={onInputChange} />
+      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+    </Form.Group>
   }
 }
