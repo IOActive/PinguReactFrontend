@@ -84,6 +84,9 @@ function generateList(key, index, currentObject) {
     else if (objectType === File) {
       return;
     }
+    else if (objectType === Object) {
+      return;
+    }
     else {
     return <tr key={index}>
       <td>{key}</td>

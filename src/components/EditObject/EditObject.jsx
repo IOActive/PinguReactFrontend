@@ -47,13 +47,19 @@ const EditObject = (props) => {
         });
 
         promise.then(() => {
-          setCurrentObject({
+
+          setCurrentObject((currentObject) => ({
             ...currentObject,
+            "filename": {
+              ...currentObject.filename,
+              "value": files[0].name,
+            },
             [name]: {
               ...currentObject[name],
-              "value": value
-            }
-          });
+              "value": value,
+            },
+          }));
+
         });
 
         reader.onerror = function (error) {
@@ -89,7 +95,7 @@ const EditObject = (props) => {
 
     if (form.checkValidity() === true) {
 
-      updateObject(currentObject.id.value, currentObject);
+      updateObject(currentObject.id.value, currentObject.get_payload(currentObject));
     }
   };
 
@@ -105,7 +111,6 @@ const EditObject = (props) => {
     setCurrentObject({ ...currentObject, validated: true });
 
     if (form.checkValidity() === true) {
-
       deleteObject(currentObject.id.value);
     }
   };

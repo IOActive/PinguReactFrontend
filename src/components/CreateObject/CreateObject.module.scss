@@ -18,7 +18,7 @@
 .Card {
  th,
  td {
-   border-color: $white;
+   border-color: $red;
  }
 
  thead {
@@ -27,9 +27,17 @@
 
  button {
   // position to bottom of form and aligned with the input fields
-  margin-top: 2%;
   float: right;   
  }
+
+.toggle_dropdown  {
+  float: left;
+}
+
+.buttons_container {
+  // position to bottom of form and aligned with the input fields
+  margin-top: 10px;  
+}
 
  margin-left: 25%;
  margin-right: 25%;
