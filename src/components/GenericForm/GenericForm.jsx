@@ -18,6 +18,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   const value = currentObject[key]["value"];
   const editable = currentObject[key]["editable"];
   let object_enums = []
+  const objectType = currentObject[key]["type"];
   // check if currentObject has get_enums function
   if (currentObject.get_enums) {
     object_enums = currentObject.get_enums();
@@ -46,7 +47,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
 
     </Form.Group>;
 
-  } else if (value instanceof Date) {
+  } else if (objectType === Date) {
     return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control
@@ -58,20 +59,22 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
 
     </Form.Group>;
-  } else if (value instanceof Boolean) {
+  } else if (objectType === Boolean) {
     return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
-      <Form.Control
-        type="checkbox"
+      <Form.Check // prettier-ignore
+        type="switch"
+        id={key}
         name={key}
-        checked={value}
-        onChange={onInputChange} />
+        label="Check this switch"
+        onChange={onInputChange}
+      />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
 
     </Form.Group>;
   }
-  else if (value instanceof Number) {
+  else if (objectType === Number) {
     <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control
@@ -85,7 +88,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
     </Form.Group>;
   }
 
-  else if (typeof value === 'string') {
+  else if (objectType === String) {
     return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
       <Form.Control

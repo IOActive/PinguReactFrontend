@@ -19,7 +19,11 @@ const EditObject = (props) => {
 
 
   const onInputChange = (event) => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
+    if ( event.target.type === "checkbox" && value === "on")
+            value = true;
+    else if (value === "off")
+        value = false;
     setCurrentObject({
       ...currentObject,
       [name]: {
