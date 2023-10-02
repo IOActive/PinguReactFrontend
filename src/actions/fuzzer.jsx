@@ -115,7 +115,7 @@ export const updateFuzzer = (id, data) => (dispatch) => {
 
 export const deleteFuzzer = (id) => (dispatch) => {
   dispatch(fuzzerRequest(id));
-  return FuzzerDataService.deleteFuzzer(id).then(
+  return FuzzerDataService.delete(id).then(
     (response) => {
       dispatch(fuzzerRecieved(DELETE_FUZZER, response.data));
       return Promise.resolve(response.data);
