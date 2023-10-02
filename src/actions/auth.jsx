@@ -145,16 +145,8 @@ import {
           dispatch(receiveLogin(data));
           return Promise.resolve();
         },
-        (error) => {
-          const message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          
-          dispatch(loginError(message));
-  
+        (error) => {          
+          dispatch(loginError(error.response.message));
           return Promise.reject();
         }
       );
