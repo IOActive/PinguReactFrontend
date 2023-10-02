@@ -1,14 +1,14 @@
 import http from "../helpers/http-common";
+import TokenService from "./token_service";
 
 function login(creds) {
   return http
     .post( "auth/login/", creds)
     .then(response => {
       if (response.data.access) {
-        localStorage.setItem("access_token", response.data.access);
-        localStorage.setItem("refresh_token", response.data.refresh);
-        //localStorage.setItem("user", response.data.user);
-
+        TokenService.setUser(response.data.user);
+        TokenService.setAccessToken(response.data.access);
+        TokenService.setRefreshToken(response.data.refresh);
       }
 
       return response.data;
@@ -16,7 +16,7 @@ function login(creds) {
 }
 
 function logout() {
-  localStorage.removeItem("access_token");
+  TokenService.removeUser();
 }
 
 function register(data) {
@@ -24,11 +24,7 @@ function register(data) {
 }
 
 function getCurrentUser() {
-  return JSON.parse(localStorage.getItem('user'));
+  return TokenService.getUser();
 }
 
-function refreshToken(token) {
-  return http.post("auth/refresh/", {refresh: token});
-}
-
-export default {login, logout, register, getCurrentUser, refreshToken};
+export default {login, logout, register, getCurrentUser};
