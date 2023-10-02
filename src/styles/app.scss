@@ -9,4 +9,7 @@
  @import '../../node_modules/bootstrap/scss/variables';
  @import '../../node_modules/bootstrap/scss/mixins';
  @import '_mixins';
- 
+ @font-face {
+    font-family: 'Font Awesome 5 Free';
+    src: url('../../node_modules/font-awesome/css/font-awesome.min.css');
+ }

@@ -1,7 +1,7 @@
 import React from "react";
-import { retrieveFuzzers, findFuzzersByName, updateFuzzer, deleteFuzzer } from "../../../actions/fuzzer";
+import { retrieveFuzzers, findFuzzersByName, updateFuzzer, deleteFuzzer, getFuzzer } from "../../../actions/fuzzer";
 import { connect } from "react-redux";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
 import cx from "classnames";
 
 import s from "./FuzzersList.module.scss";
@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
 import { Fuzzer } from "../../../models/Fuzzer";
+import { Buffer } from 'buffer';
 
 const FuzzersList = (props) => {
 
@@ -23,12 +24,29 @@ const FuzzersList = (props) => {
   function editFuzzer() {
     // swtich state of editing
     setEnableEditing(!enableEditing);
-    
+
   }
-  
+
   const { errorMessage } = useSelector(
     (state) => state.fuzzers
   );
+
+  function DownloadFuzzer() {
+    let fuzzer_zip_stream_b64 = currentFuzzer["fuzzer_zip"];
+    fuzzer_zip_stream_b64 = fuzzer_zip_stream_b64.substring(1);
+    const urlDecodedBase64 = decodeURIComponent(fuzzer_zip_stream_b64);
+
+    const buffer = Buffer.from(urlDecodedBase64, 'base64');
+
+    // Create a Blob object from the buffer
+    const blob = new Blob([buffer], { type: 'application/zip' });
+
+    // Create a download link for the Blob object and simulate a click on the link to download the file
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = currentFuzzer["name"] + ".zip";
+    link.click();
+  }
 
   return (
     <div className={s.root}>
@@ -59,6 +77,9 @@ const FuzzersList = (props) => {
                 editObject={editFuzzer}
                 objectName={"Fuzzer"}
               />
+              <Button className={cx(s.FuzzerDownloadButton)} onClick={DownloadFuzzer}>
+                Download Fuzzer
+              </Button>
             </div>
             <div class="col-md-6">
               {enableEditing ? (
