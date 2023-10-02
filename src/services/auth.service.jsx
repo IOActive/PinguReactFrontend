@@ -24,7 +24,11 @@ function register(data) {
 }
 
 function getCurrentUser() {
-  return JSON.parse(localStorage.getItem('user'));;
+  return JSON.parse(localStorage.getItem('user'));
 }
 
-export default {login, logout, register, getCurrentUser};
+function refreshToken(token) {
+  return http.post("auth/refresh/", {refresh: token});
+}
+
+export default {login, logout, register, getCurrentUser, refreshToken};

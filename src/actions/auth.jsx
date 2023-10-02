@@ -135,3 +135,28 @@ import {
       dispatch(receiveLogout());
     };
   }
+
+  export function refreshToken(token) {
+    return dispatch => {
+      dispatch(requestLogin(token));
+      AuthService.refreshToken(token)
+      .then(
+        (data) => {
+          dispatch(receiveLogin(data));
+          return Promise.resolve();
+        },
+        (error) => {
+          const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          
+          dispatch(loginError(message));
+  
+          return Promise.reject();
+        }
+      );
+    }
+  }

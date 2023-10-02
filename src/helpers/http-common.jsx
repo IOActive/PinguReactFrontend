@@ -13,6 +13,9 @@ http.interceptors.request.use(
     if (AUTH_TOKEN) {
       config.headers.Authorization = `Bearer ${AUTH_TOKEN}`;
     }
+    else {
+      delete config.headers.Authorization;
+    }
     return config;
   },
   error => {
