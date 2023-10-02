@@ -34,26 +34,22 @@ http.interceptors.response.use(
 
     if (originalConfig.url !== "/auth/login" && err.response) {
       // Access Token was expired
-      if (err.response.status === 401 && !originalConfig._retry) {
+      if (err.response.status === 403 && !originalConfig._retry) {
         originalConfig._retry = true;
 
         try {
-          const rs = await http.post("/auth/refresh", {
-            refreshToken: TokenService.getLocalRefreshToken(),
+          const rs = await http.post("/auth/refresh/", {
+            refresh: TokenService.getLocalRefreshToken(),
           });
-
-          const { accessToken } = rs.data;
-          TokenService.updateLocalAccessToken(accessToken);
+          
+          TokenService.updateLocalAccessToken(rs.data.access);
 
           return http(originalConfig);
         } catch (_error) {
+          TokenService.removeUser();
+          window.location.replace("/login");
           return Promise.reject(_error);
         }
-      }
-      else if (err.response.status === 403) {
-        // Refresh Token was expired
-        TokenService.removeUser();
-        window.location.replace("/login");
       }
     }
 

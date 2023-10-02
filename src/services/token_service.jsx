@@ -1,12 +1,10 @@
 class TokenService {
     getLocalRefreshToken() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      return user?.refreshToken;
+      return localStorage.getItem("refresh_token");
     }
   
     getLocalAccessToken() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      return user?.accessToken;
+      return localStorage.getItem("access_token");
     }
     
     setAccessToken(accessToken) {
