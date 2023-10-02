@@ -9,13 +9,13 @@ import axios from 'axios';
 export { PrivateRoute };
 
 function PrivateRoute({ children }) {
-    const { isAuthenticated, token, refreshToken: rt, user } = useSelector((state) => state.auth);
+    const { isAuthenticated, token, refreshToken } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const handleUnauthorized = async () => {
             try {
-                const response = await refreshToken(rt);
+                const response = await refreshToken(refreshToken);
                 dispatch({ type: 'auth/refresh/', payload: response.data });
             } catch (error) {
                 dispatch({ type: 'auth/logout/' });
@@ -42,7 +42,7 @@ function PrivateRoute({ children }) {
         return () => {
             axios.interceptors.response.eject(interceptor);
         };
-    }, [dispatch, rt]);
+    }, [isAuthenticated]);
 
     if (!isAuthenticated) {
         // not logged in so redirect to login page with the return url
