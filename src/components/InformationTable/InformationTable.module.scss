@@ -20,8 +20,18 @@
     margin-left: auto !important;    
   }
 
-  .BotInformantionCard {
-    -ms-flex-align: center;
-  }
-
+  .InformationTable {
+    th,
+    td {
+      border-color: $gray-400;
+    }
+  
+    thead {
+      border-bottom: 1px solid $gray-200;
+    }
+    // center text in table
+    td {
+      text-align: left;
+    }
+   }
  

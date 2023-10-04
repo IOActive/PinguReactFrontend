@@ -6,6 +6,7 @@ import s from "./InformationTable.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { SimplePopper } from "../SimplePopper/SimplePopper";
 
 export const InformationTable = (props) => {
 
@@ -16,7 +17,7 @@ export const InformationTable = (props) => {
   return <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
     <Card.Header>{objectName}</Card.Header>
     <Card.Body>
-      <Table>
+      <Table className={cx(s.InformationTable)}>
         <thead>
           <tr>
             <th>Parameter</th>
@@ -24,9 +25,9 @@ export const InformationTable = (props) => {
           </tr>
         </thead>
         <tbody>
-        {Object.keys(currentObject).map((key, index) => {
-              return generateList(key, index, currentObject);
-            })}
+          {Object.keys(currentObject).map((key, index) => {
+            return generateList(key, index, currentObject);
+          })}
         </tbody>
       </Table>
       <Button className={cx("", s.EditButton)} onClick={editObject}>Edit {objectName}</Button>
@@ -37,7 +38,15 @@ export const InformationTable = (props) => {
 
 function generate_check_icon(index, key, currentObject) {
   return <tr key={index}>
-    <td>{key}</td>
+    <td>
+      <td>
+        {key}
+      </td>
+      <td>
+        <SimplePopper content={currentObject[key]["header"]}
+        />
+      </td>
+    </td>
     <td>
       <Badge
         className="ml-xs"
@@ -55,12 +64,20 @@ function generateList(key, index, currentObject) {
 
   const objectType = currentObject[key]["type"];
 
-  if (typeof currentObject[key] === "function"){
+  if (typeof currentObject[key] === "function") {
     return;
   }
   if (key === "task_status") {
     return <tr key={index}>
-      <td>{key}</td>
+      <td>
+        <td>
+          {key}
+        </td>
+        <td>
+          <SimplePopper content={currentObject[key]["header"]}
+          />
+        </td>
+      </td>
       <td>
         <Badge className="ml-xs" color={currentObject[key]["value"] === "ERROR" || currentObject[key]["value"] === "NA" ? "danger" : "success"}>
           {currentObject[key]["value"]}
@@ -77,7 +94,15 @@ function generateList(key, index, currentObject) {
   else {
     if (objectType === Date) {
       return <tr key={index}>
-        <td>{key}</td>
+        <td>
+          <td>
+            {key}
+          </td>
+          <td>
+            <SimplePopper content={currentObject[key]["header"]}
+            />
+          </td>
+        </td>
         <td>{currentObject[key]["value"].toISOString().split('T')[0]}</td>
       </tr>;
     }
@@ -87,11 +112,19 @@ function generateList(key, index, currentObject) {
     else if (objectType === Object) {
       return;
     }
-    else {
-    return <tr key={index}>
-      <td>{key}</td>
-      <td>{currentObject[key]["value"]}</td>
-    </tr>;
+    else if (objectType === String) {
+      return <tr key={index}>
+        <td>
+          <td>
+            {key}
+          </td>
+          <td>
+            <SimplePopper content={currentObject[key]["header"]}
+            />
+          </td>
+        </td>
+        <td>{currentObject[key]["value"]}</td>
+      </tr>;
     }
   }
 }
