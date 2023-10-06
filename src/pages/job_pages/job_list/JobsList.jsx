@@ -47,7 +47,7 @@ const JobsList = (props) => {
 
       <div responsive className={cx("mb-0", s.JobCardsGroup)}>
         {currentJob ? (
-          <div class="row">
+          <div className={cx(s.JobRow)}>
             <div class="col-md-6">
               <InformationTable
                 object={Job(currentJob)}

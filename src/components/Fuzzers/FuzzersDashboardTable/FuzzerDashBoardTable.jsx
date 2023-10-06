@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { retrieveFuzzers, findFuzzersByName } from "../../actions/fuzzer";
+import { retrieveFuzzers, findFuzzersByName } from "../../../actions/fuzzer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {DashboardTable} from "../DashBoardTable/DashBoardTable"
+import DashboardTable from "../../DashBoardTable/DashBoardTable";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
@@ -24,9 +24,9 @@ const FuzzersDashboardTable = (props) => {
         <DashboardTable
           objectName={"Fuzzers"}
           glyph={<FontAwesomeIcon icon={faRocket} />}
-          retrieveData={retrieveFuzzers}
-          findObjectByName={findFuzzersByName}
-          colums={["ID", "Name", "Revision", "Supported_Platforms"]}
+          retrieveData={props.retrieveFuzzers}
+          findObjectByName={props.findFuzzersByName}
+          colums={["name", "revision", "supported_platforms"]}
           list_path={"/app/fuzzer/list"}
           data={payload.results}
           isFetching={isFetching}
@@ -40,7 +40,7 @@ const FuzzersDashboardTable = (props) => {
 const mapStateToProps = (state) => {
   const { user } = state.auth;
   return {
-    bots: state.bots,
+    fuzzers: state.fuzzers,
     user,
   };
 };

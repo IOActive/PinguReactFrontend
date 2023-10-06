@@ -70,9 +70,10 @@ const FuzzersList = (props) => {
 
       <div responsive className={cx("mb-0", s.FuzzerCardsGroup)}>
         {currentFuzzer ? (
-          <div class="row">
+          <div className={cx("mb-0", s.FuzzerRow)}>
             <div class="col-md-6">
               <InformationTable
+                className={cx(s.FuzzerInformationTable)}
                 object={Fuzzer(currentFuzzer)}
                 editObject={editFuzzer}
                 objectName={"Fuzzer"}
@@ -84,6 +85,7 @@ const FuzzersList = (props) => {
             <div class="col-md-6">
               {enableEditing ? (
                 <EditObject
+                  className={cx(s.FuzzerEdit)}
                   object={Fuzzer(currentFuzzer)}
                   updateObject={props.updateFuzzer}
                   deleteObject={props.deleteFuzzer}

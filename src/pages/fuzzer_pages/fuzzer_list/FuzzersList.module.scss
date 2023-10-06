@@ -7,58 +7,33 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
- @import '../../../styles/app';
- @import "~@fortawesome/fontawesome-free/scss/solid";
+@import '../../../styles/app';
+@import "~@fortawesome/fontawesome-free/scss/solid";
 
- .root {
-   // styles here
- }
- 
- .BotsTable {
-   th,
-   td {
-     border-color: $white;
-   }
- 
-   thead {
-     border-bottom: 1px solid $gray-200;
-   }
+.root {
+  // styles here
+  
+}
 
-   max-width: 50% !important;
- }
+.FuzzerCardsGroup {
 
- .FuzzerCardsGroup {
-  th,
-  td {
-    border-color: $white;
-  }
-
-  thead {
-    border-bottom: 1px solid $gray-200;
-  }
-
-  .FuzzerEditCard{
-    margin: 10px;
-
-  }
-
-  .btn-group {
+  .FuzzerRow {
     display: flex;
-    justify-content: flex-start;
-    gap: 10px;
+    flex-direction: row;
   }
-
+  
   .FuzzerDownloadButton {
     background-color: $blue;
     // letters in white
     color: $white;
+
     // add arrow icon
     &:after {
       content: "\f019";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-size: 1.5em;
-      margin-left: 0.5em;      
+      margin-left: 0.5em;
     }
 
     &:hover {
@@ -75,11 +50,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    
-    
-    
   }
-
 }
- 

@@ -51,7 +51,7 @@ const BotsList = (props) => {
 
       <div responsive className={cx("mb-0", s.BotCardsGroup)}>
         {currentBot ? (
-          <div class="row">
+          <div className={cx(s.BotRow)}>
             <div class="col-md-6">
               <InformationTable
                 object={Bot(currentBot)}

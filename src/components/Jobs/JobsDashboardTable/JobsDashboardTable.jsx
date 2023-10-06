@@ -24,8 +24,8 @@ const JobsDashboardTable = (props) => {
         <DashboardTable
           objectName={"Jobs"}
           glyph={<FontAwesomeIcon icon={faPersonDigging} />}
-          retrieveData={retrieveJobs}
-          findObjectByName={findJobsByName}
+          retrieveData={props.retrieveJobs}
+          findObjectByName={props.findJobsByName}
           colums={["name", "project", "platform", "enabled"]}
           list_path={"/app/job/list"}
           data={payload.results}

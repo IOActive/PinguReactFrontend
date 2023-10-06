@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -25,6 +25,7 @@ import s from './Dashboard.module.scss';
 
 import BotsDashboardTable from '../../components/Bots/BotsDashboardTable/BotsDashboardTable';
 import JobsDashboardTable from '../../components/Jobs/JobsDashboardTable/JobsDashboardTable';
+import FuzzersDashboardTable from '../../components/Fuzzers/FuzzersDashboardTable/FuzzerDashBoardTable';
 
 class Dashboard extends Component {
   /* eslint-disable */
@@ -45,13 +46,13 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    if(process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === "development") {
       //this.props.dispatch(fetchPosts());      
     }
   }
 
   formatDate = (str) => {
-    return str.replace(/,.*$/,"");
+    return str.replace(/,.*$/, "");
   }
 
   toggleDropdown = () => {
@@ -70,11 +71,17 @@ class Dashboard extends Component {
         <h1 className="mb-lg">Dashboard</h1>
         <Row>
           <Col>
-            <BotsDashboardTable/>
+            <BotsDashboardTable />
           </Col>
           <Col>
-            <JobsDashboardTable/>
+            <JobsDashboardTable />
           </Col>
+        </Row>
+        <Row>
+          <Col>
+            <FuzzersDashboardTable />
+          </Col>
+          <Col></Col>
         </Row>
       </div>
     );

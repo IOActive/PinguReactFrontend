@@ -27,6 +27,11 @@
  }
 
  .BotCardsGroup {
+
+  .BotRow {
+    display: flex;
+    flex-direction: row;
+  }
   th,
   td {
     border-color: $white;

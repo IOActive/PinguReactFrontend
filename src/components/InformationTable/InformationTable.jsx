@@ -14,7 +14,7 @@ export const InformationTable = (props) => {
 
   const [currentObject, setCurrentObject] = useState(object);
 
-  return <Card className={cx("mb-0", s.BotInformantionCard, "flex-fill")}>
+  return <Card className={cx(s.BotInformantionCard)}>
     <Card.Header>{objectName}</Card.Header>
     <Card.Body>
       <Table className={cx(s.InformationTable)}>
