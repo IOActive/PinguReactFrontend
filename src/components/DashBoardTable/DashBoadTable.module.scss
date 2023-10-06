@@ -7,20 +7,29 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
- @import '../../styles/app.scss';
+@import '../../styles/app.scss';
 
- .root {
-   // styles here
- }
- 
- .DashboardTable {
-   th,
-   td {
-     border-color: $white;
-   }
- 
-   thead {
-     border-bottom: 1px solid $gray-200;
-   }
- }
- 
+.root {
+  // styles here
+}
+
+.DashboardTable {
+
+  th,
+  td {
+    border-bottom: 2px solid $gray-200;
+    text-align: left;
+
+  }
+
+  // add space between header and table cells
+  
+
+  thead {
+    border-bottom: 3px solid $gray-400;
+  }
+}
+
+.Badge {
+ margin-top: 5px;
+}

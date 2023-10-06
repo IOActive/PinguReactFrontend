@@ -1,0 +1,17 @@
+ @import '../../styles/app.scss';
+
+ .root {
+   // styles here
+ }
+ 
+ .fuzzersTable {
+   th,
+   td {
+     border-color: $white;
+   }
+ 
+   thead {
+     border-bottom: 1px solid $gray-200;
+   }
+ }
+ 

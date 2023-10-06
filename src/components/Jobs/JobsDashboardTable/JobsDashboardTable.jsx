@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { retrieveJobs, findJobsByName } from "../../actions/job";
+import { retrieveJobs, findJobsByName } from "../../../actions/job";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DashboardTable from "../DashBoardTable/DashBoardTable";
+import DashboardTable from "../../DashBoardTable/DashBoardTable";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { faPersonDigging } from "@fortawesome/free-solid-svg-icons";
@@ -26,7 +26,7 @@ const JobsDashboardTable = (props) => {
           glyph={<FontAwesomeIcon icon={faPersonDigging} />}
           retrieveData={retrieveJobs}
           findObjectByName={findJobsByName}
-          colums={["ID", "Name", "Description", "Project", "Date", "Enabled", "Archived", "Platform", "Environment Strings", "Template"]}
+          colums={["name", "project", "platform", "enabled"]}
           list_path={"/app/job/list"}
           data={payload.results}
           isFetching={isFetching}

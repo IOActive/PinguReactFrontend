@@ -25,7 +25,7 @@ function deleteAll() {
 }
 
 function findByName(name) {
-  return http.get(`/bot/?bot_name=${name}`);
+  return http.get(`/bot/?name=${name}`);
 }
 
 function findByID(id){

@@ -2,17 +2,8 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import cx from "classnames";
 import s from "./GenericForm.module.scss";
+import { beautify_key_names } from "../../helpers/utils";
 
-
-function beautify_key_names(key) {
-  key = key.replace(/_/g, " ");
-  // uppercase first letter of each word
-  key = key.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-
-  return key;
-}
 
 export function generateFormGroups(key, index, currentObject, onInputChange) {
   

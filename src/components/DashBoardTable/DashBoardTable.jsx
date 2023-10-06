@@ -8,13 +8,14 @@ import SearchBar from "../SearchBar/SearchBar"
 import Icon from "../Icon/Icon";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { beautify_key_names, beautify_date, isDateString} from "../../helpers/utils";
 
 const DashboardTable = (props) => {
     const [searchName, setSearchName] = useState("");
 
     const { objectName, glyph, retrieveData, findObjectByName, colums, list_path, data, isFetching } = props;
 
-    
+
     const onChangeSearchName = (e) => {
         setSearchName(e.target.value);
     };
@@ -25,7 +26,7 @@ const DashboardTable = (props) => {
     };
 
     const refreshData = () => {
-        retrieveData();
+        retrieveData(1);
     };
 
 
@@ -49,11 +50,11 @@ const DashboardTable = (props) => {
                 </div>
             }
         >
-            <Table responsive borderless className={cx("mb-0", s.botsTable)}>
+            <Table responsive borderless className={cx("mb-0", s.DashboardTable)}>
                 <thead>
                     <tr>
-                        {colums.slice(0, 6).map((colum, index) => (
-                            <th key={index}>{colum}</th>
+                        {colums.map((colum, index) => (
+                            <th key={index}>{beautify_key_names(colum)}</th>
                         ))}
                     </tr>
                 </thead>
@@ -70,37 +71,43 @@ const DashboardTable = (props) => {
 
                         data.slice(0, 6).map((object, index) => (
                             <tr key={index}>
-                                {Object.keys(object).slice(0, 6).map((key, index) => {
-                                    switch (key) {
-                                        case 'task_status':
-                                            return <td>
-                                                <Badge
-                                                    className="ml-xs"
+                                {
+                                    colums.map((colum, index2) => {
+                                        switch (colum) {
+                                            case 'task_status':
+                                                return <td>
+                                                    <Badge
+                                                        className="ml-xs"
+                                                        color={
+                                                            object.task_status === "ERROR" ||
+                                                                object.task_status === "NA"
+                                                                ? "danger"
+                                                                : "success"
+                                                        }
+                                                    >
+                                                        {object.task_status}
+                                                    </Badge>
+                                                </td>;
+                                            case 'enabled':
+                                                return <Badge
+                                                    className={cx(s.Badge)}
                                                     color={
-                                                        object.task_status === "ERROR" ||
-                                                            object.task_status === "NA"
+                                                        object.enabled === "false"
                                                             ? "danger"
                                                             : "success"
                                                     }
                                                 >
-                                                    {object.task_status}
-                                                </Badge>
-                                            </td>;
-                                        case 'enabled':
-                                            return <Badge
-                                                className="ml-xs"
-                                                color={
-                                                    object.enabled === "false"
-                                                        ? "danger"
-                                                        : "success"
-                                                }
-                                            >
-                                                <FontAwesomeIcon icon={faCheckCircle} />
-                                            </Badge>;
-                                        default:
-                                            return <td key={index}>{object[key]}</td>;
+                                                    <FontAwesomeIcon icon={faCheckCircle} />
+                                                </Badge>;
+                                            default:
+                                                if (isDateString(object[colum]))
+                                                    return <td key={index2}>{beautify_date(object[colum])}</td>;
+                                                else
+                                                    return <td key={index2}>{object[colum]}</td>;
+                                        }
                                     }
-                                })}
+
+                                    )}
                             </tr>
                         ))
                     }
