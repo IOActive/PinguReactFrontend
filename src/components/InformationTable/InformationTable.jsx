@@ -10,7 +10,7 @@ import { SimplePopper } from "../SimplePopper/SimplePopper";
 
 export const InformationTable = (props) => {
 
-  const { object, editObject, objectName } = props;
+  const { object, objectName } = props;
 
   const [currentObject, setCurrentObject] = useState(object);
 
@@ -30,8 +30,6 @@ export const InformationTable = (props) => {
           })}
         </tbody>
       </Table>
-      <Button className={cx("", s.EditButton)} onClick={editObject}>Edit {objectName}</Button>
-
     </Card.Body>
   </Card>;
 }

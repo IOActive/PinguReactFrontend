@@ -1,6 +1,6 @@
 import { retrieveJobs, findJobsByName, updateJob, deleteJob } from "../../../actions/job";
 import { connect } from "react-redux";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, ButtonGroup } from "reactstrap";
 import cx from "classnames";
 
 import s from "./JobsList.module.scss";
@@ -51,9 +51,11 @@ const JobsList = (props) => {
             <div class="col-md-6">
               <InformationTable
                 object={Job(currentJob)}
-                editObject={editJob}
                 objectName={"Job"}
               />
+              <ButtonGroup className={cx(s.JobButtonGroup)}>
+                <Button className={cx("", s.JobEditButton)} onClick={editJob}>Edit {"Job"}</Button>
+              </ButtonGroup>
             </div>
             <div class="col-md-6">
               {enableEditing ? (

@@ -1,7 +1,7 @@
 import React from "react";
 import { retrieveBots, findBotsByName, updateBot, deleteBot } from "../../../actions/bot";
 import { connect } from "react-redux";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, ButtonGroup } from "reactstrap";
 import cx from "classnames";
 
 import s from "./BotsList.module.scss";
@@ -37,7 +37,7 @@ const BotsList = (props) => {
         <BreadcrumbItem active>Bots List</BreadcrumbItem>
       </Breadcrumb>
       <h1 className="mb-lg">Bots List</h1>
-
+      Fuzzer
 
       <InteractiveTable
         glyph={<FontAwesomeIcon icon={faRobot} />}
@@ -55,9 +55,11 @@ const BotsList = (props) => {
             <div class="col-md-6">
               <InformationTable
                 object={Bot(currentBot)}
-                editObject={editBot}
                 objectName={"Bot"}
               />
+              <ButtonGroup className={cx(s.BotButtonGroup)}>
+                <Button className={cx("", s.BotEditButton)} onClick={editBot}>Edit {"Bot"}</Button>
+              </ButtonGroup>
             </div>
             <div class="col-md-6">
               {enableEditing ? (

@@ -1,7 +1,7 @@
 import React from "react";
 import { retrieveFuzzers, findFuzzersByName, updateFuzzer, deleteFuzzer, getFuzzer } from "../../../actions/fuzzer";
 import { connect } from "react-redux";
-import { Breadcrumb, BreadcrumbItem, Button } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Button, ButtonGroup } from "reactstrap";
 import cx from "classnames";
 
 import s from "./FuzzersList.module.scss";
@@ -71,16 +71,18 @@ const FuzzersList = (props) => {
       <div responsive className={cx("mb-0", s.FuzzerCardsGroup)}>
         {currentFuzzer ? (
           <div className={cx("mb-0", s.FuzzerRow)}>
-            <div class="col-md-6">
+            <div class={cx("col-md-6", s.FuzzerCol)}>
               <InformationTable
                 className={cx(s.FuzzerInformationTable)}
                 object={Fuzzer(currentFuzzer)}
-                editObject={editFuzzer}
                 objectName={"Fuzzer"}
               />
-              <Button className={cx(s.FuzzerDownloadButton)} onClick={DownloadFuzzer}>
-                Download Fuzzer
-              </Button>
+              <ButtonGroup className={cx(s.FuzzerButtonGroup)}>
+                <Button className={cx("", s.FuzzerEditButton)} onClick={editFuzzer}>Edit {"Fuzzer"}</Button>
+                <Button className={cx(s.FuzzerDownloadButton)} onClick={DownloadFuzzer}>
+                  Download Fuzzer
+                </Button>
+              </ButtonGroup>
             </div>
             <div class="col-md-6">
               {enableEditing ? (

@@ -7,31 +7,29 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
- @import '../../styles/app.scss';
+@import '../../styles/app.scss';
 
- .root {
-   // styles here
- }
- 
+.root {
+  // styles here
+}
 
-  .EditButton {
-    justify-content: flex-end !important;
-    display: flex !important;
-    margin-left: auto !important;    
+.InformationTable {
+
+  th,
+  td {
+    border-color: $gray-400;
   }
 
-  .InformationTable {
-    th,
-    td {
-      border-color: $gray-400;
-    }
-  
-    thead {
-      border-bottom: 1px solid $gray-200;
-    }
-    // center text in table
-    td {
-      text-align: left;
-    }
-   }
- 
+  thead {
+    border-bottom: 1px solid $gray-200;
+  }
+
+  // center text in table
+  td {
+    text-align: left;
+  }
+}
+
+.BotInformantionCard {
+  border-bottom-style:none;
+}

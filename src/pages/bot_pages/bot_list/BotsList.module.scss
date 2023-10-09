@@ -8,49 +8,48 @@
  */
 
  @import '../../../styles/app';
-
+ @import "~@fortawesome/fontawesome-free/scss/solid";
+ 
  .root {
    // styles here
+   
  }
  
- .BotsTable {
-   th,
-   td {
-     border-color: $white;
-   }
- 
-   thead {
-     border-bottom: 1px solid $gray-200;
-   }
-
-   max-width: 50% !important;
- }
-
  .BotCardsGroup {
-
-  .BotRow {
-    display: flex;
-    flex-direction: row;
-  }
-  th,
-  td {
-    border-color: $white;
-  }
-
-  thead {
-    border-bottom: 1px solid $gray-200;
-  }
-
-  .BotEditCard{
-    margin: 10px;
-
-  }
-
-  .btn-group {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-
-}
+ 
+   display: flex;
+   flex-direction: column;
+ 
+   .BotRow {
+     display: flex;
+     flex-direction: row;
+   }
+   
+   .BotButtonGroup {
+     display:flex;
+     background-color: $widget-bg;
+     border-color: $gray-400;
+     border-style:solid;
+     border-width:1px;
+     border-top-style:none;
+   }
+ 
+   .BotEditButton {
+     justify-content: center !important;
+     display: inline-flex !important;
+     margin-left: auto !important;
+     background-color: $blue;
+     float:right;
+     flex:0 0 auto;
+ 
+     // letters in white
+     color: $white;
+ 
+     // centert text
+     align-items: center;
+     margin: 5px;
+   }
+ 
+ }
+ 
  
