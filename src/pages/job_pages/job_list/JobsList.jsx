@@ -51,7 +51,7 @@ const JobsList = (props) => {
         setCurrentObject={setCurrentJob}
         retieve_data_function={props.retrieveJobs}
         selector={selector}
-        colums={["name"]}
+        colums={["id", "name", "date"]}
       />
 
       <div responsive className={cx("mb-0", s.JobCardsGroup)}>
@@ -103,6 +103,8 @@ const JobsList = (props) => {
                   colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
                 />
               </div>
+            </div>
+            <div className={cx(s.JobRow)}>
               {
                 currentTestcase ? (
                   <InformationTable
@@ -114,6 +116,7 @@ const JobsList = (props) => {
                   <div />
                 )
               }
+
             </div>
           </div>
         ) : (

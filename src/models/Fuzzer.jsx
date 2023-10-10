@@ -153,7 +153,7 @@ export const Fuzzer = (json) => {
             editable: true,
             header: "Whether the fuzzer is built-in or not",
             type: Boolean,
-            required: true,
+            required: false,
         },
         differential: {
             value: json.differential,

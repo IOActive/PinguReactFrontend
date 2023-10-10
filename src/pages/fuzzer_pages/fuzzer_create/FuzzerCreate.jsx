@@ -10,7 +10,7 @@ function AddFuzzer(props) {
         id: "",
         timestamp: new Date(),
         name: "",
-        fuzzer_zip: new File([], ""),
+        fuzzer_zip: "",
         filename: "",
         file_size: 0,
         blobstore_path: "",
