@@ -13,7 +13,7 @@ import { InformationTable } from "../../../components/InformationTable/Informati
 import { Job } from "../../../models/Job";
 import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
-import { retrieveTestCases } from "../../../actions/testcase"
+import { retrieveJobTestCases } from "../../../actions/testcase"
 import { TestCase } from "../../../models/TestCase";
 
 const JobsList = (props) => {
@@ -98,9 +98,10 @@ const JobsList = (props) => {
                   search_fucntion={null}
                   objectName={"TestCases"}
                   setCurrentObject={setCurrentTestCase}
-                  retieve_data_function={props.retrieveTestCases}
+                  retieve_data_function={props.retrieveJobTestCases}
                   selector={selector_testcase}
                   colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
+                  parent_object={currentJob}
                 />
               </div>
             </div>
@@ -144,5 +145,5 @@ export default connect(mapStateToProps, {
   findJobsByName,
   updateJob,
   deleteJob,
-  retrieveTestCases,
+  retrieveJobTestCases,
 })(JobsList);

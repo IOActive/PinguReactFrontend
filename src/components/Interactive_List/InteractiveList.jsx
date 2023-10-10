@@ -13,7 +13,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 function InteractiveList(props) {
     const [searchName, setSearchName] = useState("");
 
-    const { glyph, search_fucntion, objectName, setCurrentObject, retieve_data_function, selector, colums } = props;
+    const { glyph, search_fucntion, objectName, setCurrentObject, retieve_data_function, selector, colums, parent_object } = props;
 
     const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -34,7 +34,10 @@ function InteractiveList(props) {
     };
 
     const refreshData = () => {
-        retieve_data_function(1);
+        if (parent_object)
+            retieve_data_function(1, parent_object.id)
+        else
+            retieve_data_function(1);
         setCurrentObject(null);
         setCurrentPage(1);
         if (payload) {
@@ -48,10 +51,23 @@ function InteractiveList(props) {
     };
 
     useEffect(() => {
-        retieve_data_function(1);
+        if (parent_object)
+            retieve_data_function(1, parent_object.id)
+        else
+            retieve_data_function(1);
         if (payload)
             setTotalData(payload.count);
     }, []);
+
+    useEffect (() => {
+        if (parent_object)
+            retieve_data_function(1, parent_object.id)
+        else
+            retieve_data_function(1);
+        if (payload)
+            setTotalData(payload.count);
+    }, [parent_object]);
+
 
 
     // Change page
