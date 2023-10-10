@@ -46,7 +46,7 @@ const BotsList = (props) => {
         setCurrentObject={setCurrentBot}
         retieve_data_function={props.retrieveBots}
         selector={selector}
-        setEnableEditing={setEnableEditing}
+        colums={["name"]}
       />
 
       <div responsive className={cx("mb-0", s.BotCardsGroup)}>

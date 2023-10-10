@@ -6,12 +6,12 @@ import cx from "classnames";
 import Icon from "../Icon/Icon";
 import s from "./InteractiveList.module.scss";
 import ObjectPagination from "../ObjectPagination/ObjectPagination";
-
+import { beautify_key_names, isDateString, beautify_date } from "../../helpers/utils";
 
 function InteractiveList(props) {
     const [searchName, setSearchName] = useState("");
 
-    const { glyph, search_fucntion, objectName, setCurrentObject, retieve_data_function, selector, setEnableEditing } = props;
+    const { glyph, search_fucntion, objectName, setCurrentObject, retieve_data_function, selector, colums } = props;
 
     const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -33,7 +33,6 @@ function InteractiveList(props) {
 
     const refreshData = () => {
         retieve_data_function(1);
-        setEnableEditing(false);
         setCurrentObject(null);
         setCurrentPage(1);
         if (payload) {
@@ -64,12 +63,15 @@ function InteractiveList(props) {
         <Widget
             title={
                 <div>
-                    <SearchBar
-                        searchValue={searchName}
-                        onChangeSearchValue={onChangeSearchName}
-                        findByName={findByName}
-                        refreshData={refreshData}
-                    />
+                    {search_fucntion != undefined && (
+
+                        <SearchBar
+                            searchValue={searchName}
+                            onChangeSearchValue={onChangeSearchName}
+                            findByName={findByName}
+                            refreshData={refreshData}
+                        />
+                    )}
                     <h5 className="mt-0 mb-3">
                         {typeof glyph === "object" ? (
                             <span> {glyph} </span>
@@ -78,6 +80,7 @@ function InteractiveList(props) {
                         )} {objectName}
                     </h5>
                 </div>
+
             }
         >
             {isFetching ? (
@@ -89,6 +92,7 @@ function InteractiveList(props) {
                             listData={payload.results}
                             setActiveObject={setActiveObject}
                             currentIndex={currentIndex}
+                            colums={colums}
                         />
                     </div>
                 )
@@ -106,7 +110,7 @@ function InteractiveList(props) {
 }
 
 //Table Section
-const InteractiveTable = ({ listData, setActiveObject, currentIndex }) => {
+const InteractiveTable = ({ listData, setActiveObject, currentIndex, colums }) => {
 
     const [currentData, setCurrentData] = useState([]);
 
@@ -118,12 +122,14 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex }) => {
         <Table bordered hover responsive className={cx("mb-0", s.InteractiveTable)}>
             <thead>
                 <tr>
-                    <th>Name</th>
+                    {colums.map((colum, index) => (
+                        <th key={index}>{beautify_key_names(colum)}</th>
+                    ))}
                 </tr>
             </thead>
             <tbody>
                 {currentData.map((listItem, index) => {
-                    return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} />;
+                    return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} colums={colums} />;
                 })}
             </tbody>
         </Table>
@@ -131,19 +137,21 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex }) => {
 
 };
 
-const Row = ({ listItem, index, setActiveObject, currentIndex }) => {
+const Row = ({ listItem, index, setActiveObject, currentIndex, colums }) => {
     return (
-        <tr>
-            <li
-                className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
+        <tr key={index}>
+                {
+                    colums.map((colum, index2) => {
+
+                        if (isDateString(listItem[colum]))
+                            return <td key={index2} onClick={() => setActiveObject(listItem, index)}>{beautify_date(listItem[colum])} </td>;
+                        else
+                            return <td key={index2} onClick={() => setActiveObject(listItem, index)}>{listItem[colum]}</td>;
+                    })
+
                 }
-                onClick={() => setActiveObject(listItem, index)}
-                key={index}
-            >
-                {listItem['name']}
-            </li>
+
+            
         </tr>
     );
 };

@@ -8,18 +8,21 @@ import { useSelector } from "react-redux";
 import EditObject from "../../../components/EditObject/EditObject";
 import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDigging } from "@fortawesome/free-solid-svg-icons";
+import { faDigging, faVial } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
 import { Job } from "../../../models/Job";
 import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
+import {retrieveTestCases} from "../../../actions/testcase"
 
 const JobsList = (props) => {
   const [currentJob, setCurrentJob] = React.useState(null);
+  const [currentTestcase, setCurrentTestCase] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
   const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
 
   const selector = useSelector((state) => state.jobs);
+  const selector_testcase = useSelector((state) => state.testcase);
 
   function editJob() {
     // swtich state of editing
@@ -47,7 +50,7 @@ const JobsList = (props) => {
         setCurrentObject={setCurrentJob}
         retieve_data_function={props.retrieveJobs}
         selector={selector}
-        setEnableEditing={setEnableEditing}
+        colums={["name"]}
       />
 
       <div responsive className={cx("mb-0", s.JobCardsGroup)}>
@@ -77,14 +80,27 @@ const JobsList = (props) => {
               </div>
             </div>
             <div className={cx(s.JobRow)}>
-              {enableCreateTasks ?(
-              <AddTask
-                job_id={currentJob.id}
-              />
+              {enableCreateTasks ? (
+                <AddTask
+                  job_id={currentJob.id}
+                />
               ) : (
                 <div />
               )
-            }
+              }
+            </div>
+            <div className={cx(s.JobRow)}>
+              <div class="col-md-6">
+                <InteractiveTable
+                  glyph={<FontAwesomeIcon icon={faVial} />}
+                  search_fucntion={null}
+                  objectName={"TestCases"}
+                  setCurrentObject={setCurrentTestCase}
+                  retieve_data_function={props.retrieveTestCases}
+                  selector={selector_testcase}
+                  colums={["id", "status"]}
+                />
+              </div>
             </div>
           </div>
         ) : (
@@ -111,5 +127,6 @@ export default connect(mapStateToProps, {
   retrieveJobs,
   findJobsByName,
   updateJob,
-  deleteJob
+  deleteJob,
+  retrieveTestCases,
 })(JobsList);

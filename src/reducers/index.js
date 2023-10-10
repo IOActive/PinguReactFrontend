@@ -6,6 +6,7 @@ import fuzzers from "./fuzzers";
 import navigation from './navigation';
 import runtime from './runtime';
 import tasks from "./tasks";
+import testcase from "./testcase"
 
 
 
@@ -17,4 +18,5 @@ export default combineReducers({
   jobs,
   fuzzers,
   tasks,
+  testcase,
 });

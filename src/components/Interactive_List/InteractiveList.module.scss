@@ -14,11 +14,18 @@
  }
  
  .InteractiveTable{
-   th,
-   td {
-     border-color: $white;
-   }
-   max-width: 50% !important;
+  th,
+  td {
+    border-bottom: 2px solid $gray-200;
+    text-align: center;
+
+  }
+
+  // add space between header and table cells
+  
+
+  thead {
+    border-bottom: 3px solid $gray-400;
+  }
 
  }
- 

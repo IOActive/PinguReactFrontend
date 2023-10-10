@@ -1,4 +1,4 @@
-import React from "react";
+import {React,useEffect} from "react";
 import Card from "react-bootstrap/Card";
 import { Button, Table, Badge } from "reactstrap";
 import cx from "classnames";
@@ -13,6 +13,11 @@ export const InformationTable = (props) => {
   const { object, objectName } = props;
 
   const [currentObject, setCurrentObject] = useState(object);
+
+
+  useEffect(() => {
+        setCurrentObject(object);
+  }, [object]);
 
   return <Card className={cx(s.BotInformantionCard)}>
     <Card.Header>{objectName}</Card.Header>

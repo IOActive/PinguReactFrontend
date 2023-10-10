@@ -65,7 +65,7 @@ const FuzzersList = (props) => {
         setCurrentObject={setCurrentFuzzer}
         retieve_data_function={props.retrieveFuzzers}
         selector={selector}
-        setEnableEditing={setEnableEditing}
+        colums={["name"]}
       />
 
       <div responsive className={cx("mb-0", s.FuzzerCardsGroup)}>
