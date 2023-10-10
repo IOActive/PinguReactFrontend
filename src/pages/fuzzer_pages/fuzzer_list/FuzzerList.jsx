@@ -78,7 +78,7 @@ const FuzzersList = (props) => {
                 objectName={"Fuzzer"}
               />
               <ButtonGroup className={cx(s.FuzzerButtonGroup)}>
-                <Button className={cx("", s.FuzzerEditButton)} onClick={editFuzzer}>Edit {"Fuzzer"}</Button>
+                <Button className={cx(enableEditing ? s.FuzzerEditButton_bg_red: s.FuzzerEditButton_bg_blue)} onClick={editFuzzer}>Edit {"Fuzzer"}</Button>
                 <Button className={cx(s.FuzzerDownloadButton)} onClick={DownloadFuzzer}>
                   Download Fuzzer
                 </Button>

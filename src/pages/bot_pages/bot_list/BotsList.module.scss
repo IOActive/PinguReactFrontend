@@ -34,11 +34,11 @@
      border-top-style:none;
    }
  
-   .BotEditButton {
+   .BotEditButton_bg_red {
      justify-content: center !important;
      display: inline-flex !important;
      margin-left: auto !important;
-     background-color: $blue;
+     background-color: $red;
      float:right;
      flex:0 0 auto;
  
@@ -49,6 +49,22 @@
      align-items: center;
      margin: 5px;
    }
+
+   .BotEditButton_bg_blue {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: $blue;
+    float:right;
+    flex:0 0 auto;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+    margin: 5px;
+  }
  
  }
  

@@ -82,5 +82,37 @@
     margin: 5px;
   }
 
+  .FuzzerEditButton_bg_red {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: $red;
+    float:right;
+    flex:0 0 auto;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+    margin: 5px;
+  }
+
+  .FuzzerEditButton_bg_blue {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: $blue;
+    float:right;
+    flex:0 0 auto;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+    margin: 5px;
+  }
+
 }
 

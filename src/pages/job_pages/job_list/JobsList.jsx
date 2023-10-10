@@ -24,7 +24,6 @@ const JobsList = (props) => {
   function editJob() {
     // swtich state of editing
     setEnableEditing(!enableEditing);
-
   }
 
   function createTask() {
@@ -61,8 +60,8 @@ const JobsList = (props) => {
                   objectName={"Job"}
                 />
                 <ButtonGroup className={cx(s.JobButtonGroup)}>
-                  <Button className={cx("", s.JobEditButton)} onClick={editJob}>Edit {"Job"}</Button>
-                  <Button className={cx("", s.CreateTaskButton)} onClick={createTask}>Create {"Task"}</Button>
+                  <Button className={cx(enableEditing ? s.JobEditButton_red_bg : s.JobEditButton_blue_bg)} onClick={editJob}>Edit {"Job"}</Button>
+                  <Button className={cx(enableCreateTasks ? s.CreateTaskButton_red_bg : s.CreateTaskButton_blue_bg)} onClick={createTask}>Create {"Task"}</Button>
                 </ButtonGroup>
               </div>
               <div class="col-md-6">

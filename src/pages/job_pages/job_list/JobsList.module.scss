@@ -7,49 +7,91 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
- @import '../../../styles/app';
- @import "~@fortawesome/fontawesome-free/scss/solid";
- 
- .root {
-   // styles here
-   
- }
- 
- .JobCardsGroup {
- 
-   display: flex;
-   flex-direction: column;
- 
-   .JobRow {
-     display: flex;
-     flex-direction: row;
-     margin-top: 20px;
-   }
-   
-   .JobButtonGroup {
-     display:flex;
-     background-color: $widget-bg;
-     border-color: $gray-400;
-     border-style:solid;
-     border-width:1px;
-     border-top-style:none;
-   }
- 
-   .JobEditButton {
-     justify-content: center !important;
-     display: inline-flex !important;
-     margin-left: auto !important;
-     background-color: $blue;
-     // letters in white
-     color: $white;
-     float: right;
- 
-     // centert text
-     align-items: center;
-   }
+@import '../../../styles/app';
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
+.root {
+  // styles here
+
+}
+
+.JobCardsGroup {
+
+  display: flex;
+  flex-direction: column;
+
+  .JobRow {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+
+  .JobButtonGroup {
+    display: flex;
+    background-color: $widget-bg;
+    border-color: $gray-400;
+    border-style: solid;
+    border-width: 1px;
+    border-top-style: none;
+  }
+
+  .JobEditButton_red_bg {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    // letters in white
+    color: $white;
+    float: right;
+    background-color: $red;
+
+    // centert text
+    align-items: center;
+
+    &:hover {
+      background-color: $green;
+      color: $white;
+    }
+  }
+
+  .JobEditButton_blue_bg {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    // letters in white
+    background-color: $blue;
+    color: $white;
+    float: right;
+
+    // centert text
+    align-items: center;
+
+    &:hover {
+      background-color: $green;
+      color: $white;
+    }
+  }
 
 
-   .CreateTaskButton {
+  .CreateTaskButton_red_bg {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: $red;
+    float: right;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+
+    &:hover {
+      background-color: $green;
+      color: $white;
+    }
+  }
+
+  .CreateTaskButton_blue_bg {
     justify-content: center !important;
     display: inline-flex !important;
     margin-left: auto !important;
@@ -61,8 +103,11 @@
 
     // centert text
     align-items: center;
+
+    &:hover {
+      background-color: $green;
+      color: $white;
+    }
   }
- 
- }
- 
- 
+
+}

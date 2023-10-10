@@ -58,7 +58,7 @@ const BotsList = (props) => {
                 objectName={"Bot"}
               />
               <ButtonGroup className={cx(s.BotButtonGroup)}>
-                <Button className={cx("", s.BotEditButton)} onClick={editBot}>Edit {"Bot"}</Button>
+                <Button className={cx(enableEditing ? s.BotEditButton_bg_red: s.BotEditButton_bg_blue)} onClick={editBot}>Edit {"Bot"}</Button>
               </ButtonGroup>
             </div>
             <div class="col-md-6">
