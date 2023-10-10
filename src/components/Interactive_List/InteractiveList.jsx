@@ -1,12 +1,14 @@
 import SearchBar from "../SearchBar/SearchBar";
 import React, { useEffect, useState } from "react";
-import { Table, Spinner } from "reactstrap";
+import { Table, Spinner,Badge} from "reactstrap";
 import Widget from "../Widget/Widget";
 import cx from "classnames";
 import Icon from "../Icon/Icon";
 import s from "./InteractiveList.module.scss";
 import ObjectPagination from "../ObjectPagination/ObjectPagination";
 import { beautify_key_names, isDateString, beautify_date } from "../../helpers/utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 function InteractiveList(props) {
     const [searchName, setSearchName] = useState("");
@@ -140,18 +142,30 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex, colums }) =
 const Row = ({ listItem, index, setActiveObject, currentIndex, colums }) => {
     return (
         <tr key={index}>
-                {
-                    colums.map((colum, index2) => {
+            {
+                colums.map((colum, index2) => {
 
-                        if (isDateString(listItem[colum]))
-                            return <td key={index2} onClick={() => setActiveObject(listItem, index)}>{beautify_date(listItem[colum])} </td>;
-                        else
-                            return <td key={index2} onClick={() => setActiveObject(listItem, index)}>{listItem[colum]}</td>;
-                    })
+                    if (isDateString(listItem[colum]))
+                        return <td key={index2} onClick={() => setActiveObject(listItem, index)}>{beautify_date(listItem[colum])} </td>;
+                    else if (typeof listItem[colum] === 'boolean')
+                        return <td>
+                            <Badge
+                                className="ml-xs"
+                                color={listItem[colum] === "false"
+                                    ? "danger"
+                                    : "success"}
+                            >
+                                <FontAwesomeIcon icon={faCheckCircle} />
+                            </Badge>
+                        </td>;
+                    else
+                        return <td key={index2} onClick={() => setActiveObject(listItem, index)}>{listItem[colum]}</td>;
 
-                }
+                })
 
-            
+            }
+
+
         </tr>
     );
 };

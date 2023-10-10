@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { SimplePopper } from "../SimplePopper/SimplePopper";
+import { beautify_date } from "../../helpers/utils";
 
 export const InformationTable = (props) => {
 
@@ -21,7 +22,7 @@ export const InformationTable = (props) => {
 
   return <Card className={cx(s.BotInformantionCard)}>
     <Card.Header>{objectName}</Card.Header>
-    <Card.Body>
+    <Card.Body>beatify_date
       <Table className={cx(s.InformationTable)}>
         <thead>
           <tr>
@@ -88,12 +89,10 @@ function generateList(key, index, currentObject) {
       </td>
     </tr>;
   }
-  else if (key === "archived") {
+  else if (objectType === Boolean) {
     return generate_check_icon(index, key, currentObject);
   }
-  else if (key === "enabled") {
-    return generate_check_icon(index, key, currentObject);
-  }
+  
   else {
     if (objectType === Date) {
       return <tr key={index}>
@@ -106,7 +105,7 @@ function generateList(key, index, currentObject) {
             />
           </td>
         </td>
-        <td>{currentObject[key]["value"].toISOString().split('T')[0]}</td>
+        <td>{beautify_date(currentObject[key]["value"].toISOString())}</td>
       </tr>;
     }
     else if (objectType === File) {

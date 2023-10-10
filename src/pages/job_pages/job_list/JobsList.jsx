@@ -13,7 +13,8 @@ import { InformationTable } from "../../../components/InformationTable/Informati
 import { Job } from "../../../models/Job";
 import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
-import {retrieveTestCases} from "../../../actions/testcase"
+import { retrieveTestCases } from "../../../actions/testcase"
+import { TestCase } from "../../../models/TestCase";
 
 const JobsList = (props) => {
   const [currentJob, setCurrentJob] = React.useState(null);
@@ -22,7 +23,7 @@ const JobsList = (props) => {
   const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
 
   const selector = useSelector((state) => state.jobs);
-  const selector_testcase = useSelector((state) => state.testcase);
+  const selector_testcase = useSelector((state) => state.testcases);
 
   function editJob() {
     // swtich state of editing
@@ -59,6 +60,7 @@ const JobsList = (props) => {
             <div className={cx(s.JobRow)}>
               <div class="col-md-6">
                 <InformationTable
+                  id="Job Info Table"
                   object={Job(currentJob)}
                   objectName={"Job"}
                 />
@@ -98,15 +100,26 @@ const JobsList = (props) => {
                   setCurrentObject={setCurrentTestCase}
                   retieve_data_function={props.retrieveTestCases}
                   selector={selector_testcase}
-                  colums={["id", "status"]}
+                  colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
                 />
               </div>
+              {
+                currentTestcase ? (
+                  <InformationTable
+                    id="Test Case Info Table"
+                    object={TestCase(currentTestcase)}
+                    objectName={"TestCase"}
+                  />
+                ) : (
+                  <div />
+                )
+              }
             </div>
           </div>
         ) : (
           <div>
             <br />
-            <p>Please click on a Bot...</p>
+            <p>Please click on a Test Case...</p>
           </div>
         )}
       </div>
