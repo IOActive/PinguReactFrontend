@@ -1,8 +1,4 @@
-const Platforms = {
-    Windows: "Windows",
-    Linux: "Linux",
-    Mac: "Mac",
-};
+import Platforms from '../helpers/Platforms';
 
 export const Fuzzer = (json) => {
     return {

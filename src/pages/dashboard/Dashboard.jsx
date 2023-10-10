@@ -19,13 +19,14 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-import Widget from '../../components/Widget/Widget';
+import cx from "classnames";
 
 import s from './Dashboard.module.scss';
 
 import BotsDashboardTable from '../../components/Bots/BotsDashboardTable/BotsDashboardTable';
 import JobsDashboardTable from '../../components/Jobs/JobsDashboardTable/JobsDashboardTable';
 import FuzzersDashboardTable from '../../components/Fuzzers/FuzzersDashboardTable/FuzzerDashBoardTable';
+import TasksDashboardTable from '../../components/Tasks/TasksDashboardTable/TasksDashboardTable';
 
 class Dashboard extends Component {
   /* eslint-disable */
@@ -69,19 +70,21 @@ class Dashboard extends Component {
           <BreadcrumbItem active>Dashboard</BreadcrumbItem>
         </Breadcrumb>
         <h1 className="mb-lg">Dashboard</h1>
-        <Row>
-          <Col>
+        <Row className={cx(s.DashboardRow)}>
+          <Col className={cx(s.DashboardCol)}>
             <BotsDashboardTable />
           </Col>
-          <Col>
+          <Col className={cx(s.DashboardCol)}>
             <JobsDashboardTable />
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col className={cx(s.DashboardCol)}>
             <FuzzersDashboardTable />
           </Col>
-          <Col></Col>
+          <Col className={cx(s.DashboardCol)}>
+            <TasksDashboardTable />
+          </Col>
         </Row>
       </div>
     );

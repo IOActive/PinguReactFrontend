@@ -1,3 +1,5 @@
+import Platforms from '../helpers/Platforms'
+
 const TASK_STATUS = {
     STARTED: "STARTED",
     WIP: "WIP",
@@ -5,13 +7,6 @@ const TASK_STATUS = {
     ERROR: "ERROR",
     NA: "NA",
 };
-
-const Platforms = {
-    Windows: "Windows",
-    Linux: "Linux",
-    Mac: "Mac",
-};
-
 
 export const Bot = (json) => {
     return {

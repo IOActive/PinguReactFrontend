@@ -23,6 +23,7 @@
    .JobRow {
      display: flex;
      flex-direction: row;
+     margin-top: 20px;
    }
    
    .JobButtonGroup {
@@ -39,16 +40,28 @@
      display: inline-flex !important;
      margin-left: auto !important;
      background-color: $blue;
-     float:right;
-     flex:0 0 auto;
- 
      // letters in white
      color: $white;
+     float: right;
  
      // centert text
      align-items: center;
-     margin: 5px;
    }
+
+
+   .CreateTaskButton {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: $blue;
+    float: right;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+  }
  
  }
  

@@ -8,7 +8,7 @@ import SearchBar from "../SearchBar/SearchBar"
 import Icon from "../Icon/Icon";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { beautify_key_names, beautify_date, isDateString} from "../../helpers/utils";
+import { beautify_key_names, beautify_date, isDateString } from "../../helpers/utils";
 
 const DashboardTable = (props) => {
     const [searchName, setSearchName] = useState("");
@@ -34,12 +34,16 @@ const DashboardTable = (props) => {
         <Widget
             title={
                 <div>
-                    <SearchBar
-                        searchValue={searchName}
-                        onChangeSearchValue={onChangeSearchName}
-                        findByName={findByName}
-                        refreshData={refreshData}
-                    />
+                    {
+                        findObjectByName != undefined && (
+                            <SearchBar
+                                searchValue={searchName}
+                                onChangeSearchValue={onChangeSearchName}
+                                findByName={findByName}
+                                refreshData={refreshData}
+                            />
+                        )
+                    }
                     <h5 className="mt-0 mb-3">
                         {typeof glyph === "object" ? (
                             <span> {glyph} </span>
@@ -114,11 +118,14 @@ const DashboardTable = (props) => {
                 </tbody>
 
             </Table>
-            <div className="d-flex justify-content-end">
-                <Link to={list_path} className="btn btn-default">
-                    View all {objectName}{" "}
-                </Link>
-            </div>
+            {list_path != undefined && (
+                <div className="d-flex justify-content-end">
+                    <Link to={list_path} className="btn btn-default">
+                        View all {objectName}{" "}
+                    </Link>
+                </div>
+            )
+            }
         </Widget>
     );
 };

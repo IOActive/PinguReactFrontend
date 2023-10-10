@@ -12,17 +12,23 @@ import { faDigging } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
 import { Job } from "../../../models/Job";
 import React from "react";
+import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
 
 const JobsList = (props) => {
   const [currentJob, setCurrentJob] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
+  const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
 
   const selector = useSelector((state) => state.jobs);
 
   function editJob() {
     // swtich state of editing
     setEnableEditing(!enableEditing);
-    
+
+  }
+
+  function createTask() {
+    setEnableCreateTasks(!enableCreateTasks);
   }
 
   return (
@@ -47,26 +53,39 @@ const JobsList = (props) => {
 
       <div responsive className={cx("mb-0", s.JobCardsGroup)}>
         {currentJob ? (
-          <div className={cx(s.JobRow)}>
-            <div class="col-md-6">
-              <InformationTable
-                object={Job(currentJob)}
-                objectName={"Job"}
-              />
-              <ButtonGroup className={cx(s.JobButtonGroup)}>
-                <Button className={cx("", s.JobEditButton)} onClick={editJob}>Edit {"Job"}</Button>
-              </ButtonGroup>
-            </div>
-            <div class="col-md-6">
-              {enableEditing ? (
-                <EditObject
+          <div responsive className={cx("mb-0", s.JobCardsGroup)}>
+            <div className={cx(s.JobRow)}>
+              <div class="col-md-6">
+                <InformationTable
                   object={Job(currentJob)}
-                  updateObject={props.updateJob}
-                  deleteObject={props.deleteJob}
+                  objectName={"Job"}
                 />
+                <ButtonGroup className={cx(s.JobButtonGroup)}>
+                  <Button className={cx("", s.JobEditButton)} onClick={editJob}>Edit {"Job"}</Button>
+                  <Button className={cx("", s.CreateTaskButton)} onClick={createTask}>Create {"Task"}</Button>
+                </ButtonGroup>
+              </div>
+              <div class="col-md-6">
+                {enableEditing ? (
+                  <EditObject
+                    object={Job(currentJob)}
+                    updateObject={props.updateJob}
+                    deleteObject={props.deleteJob}
+                  />
+                ) : (
+                  <div />
+                )}
+              </div>
+            </div>
+            <div className={cx(s.JobRow)}>
+              {enableCreateTasks ?(
+              <AddTask
+                job_id={currentJob.id}
+              />
               ) : (
                 <div />
-              )}
+              )
+            }
             </div>
           </div>
         ) : (

@@ -1,10 +1,6 @@
 // Note: Job model
 
-const Platforms = {
-    Windows: "Windows",
-    Linux: "Linux",
-    Mac: "Mac",
-};
+import Platforms from '../helpers/Platforms'
 
 export const Job = (json) => {
     return {

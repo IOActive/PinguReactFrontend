@@ -9,6 +9,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   
   const value = currentObject[key]["value"];
   const editable = currentObject[key]["editable"];
+  const required = currentObject[key]["required"]
   let object_enums = []
   const objectType = currentObject[key]["type"];
   // check if currentObject has get_enums function
@@ -28,10 +29,11 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         as="select"
         name={key}
         value={value}
+        required={required}
         onChange={onInputChange}
       >
         {Object.keys(object_enums[key]).map((enum_key, index) => {
-          return <option key={index} value={enum_key}>{object_enums[key][enum_key]}</option>;
+          return <option key={index} value={object_enums[key][enum_key]}>{object_enums[key][enum_key]}</option>;
         })}
       </Form.Control>
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -45,6 +47,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         type="date"
         name={key}
+        required={required}
         value={value.toISOString().split('T')[0]}
         onChange={onInputChange} />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -57,6 +60,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Check // prettier-ignore
         type="switch"
         id={key}
+        required={required}
         name={key}
         label="Check this switch"
         onChange={onInputChange}
@@ -73,6 +77,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         type="number"
         name={key}
         value={value}
+        required={required}
         onChange={onInputChange} />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
@@ -86,6 +91,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         type="text"
         name={key}
+        required={required}
         value={value}
         onChange={onInputChange} 
         />
@@ -99,6 +105,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
     <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
     <Form.Control
       type="file"
+      required={required}
       name={key}
       onChange={onInputChange} />
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>

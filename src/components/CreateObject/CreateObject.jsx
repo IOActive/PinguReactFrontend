@@ -112,7 +112,7 @@ function CreateObject(props) {
 
   return (
     <Card className={cx("mb-0", s.InformantionCard, "flex-fill")}>
-      <Card.Header>Create New {currentObject.name.value}</Card.Header>
+      <Card.Header>Create New Object</Card.Header>
       <Card.Body>
         <div responsive className={cx("mb-0", s.Card)}>
           {currentObject.submitted ? (
