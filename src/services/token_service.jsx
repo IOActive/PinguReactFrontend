@@ -16,7 +16,7 @@ class TokenService {
     }
 
     updateLocalAccessToken(token) {
-      localStorage.setItem("access_token", JSON.stringify(token));
+      localStorage.setItem("access_token", token);
     }
   
     getUser() {
