@@ -13,17 +13,21 @@
   // styles here
 }
 
+.DashboardWidget {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
 .DashboardTable {
 
   th,
   td {
     border-bottom: 2px solid $gray-200;
-    text-align: left;
+    text-align: center;
 
   }
-
-  // add space between header and table cells
-  
 
   thead {
     border-bottom: 3px solid $gray-400;
@@ -31,5 +35,13 @@
 }
 
 .Badge {
- margin-top: 5px;
+  margin-top: 5px;
+  justify-content: center;
 }
+
+.ViewAll {
+  margin-top:10px;
+  display:flex;
+  flex-direction:row;
+  float:right;
+ }

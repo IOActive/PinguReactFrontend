@@ -19,8 +19,6 @@ const FuzzersDashboardTable = (props) => {
 
 
   return (
-    <div>
-      {payload && (
         <DashboardTable
           objectName={"Fuzzers"}
           glyph={<FontAwesomeIcon icon={faRocket} />}
@@ -28,11 +26,9 @@ const FuzzersDashboardTable = (props) => {
           findObjectByName={props.findFuzzersByName}
           colums={["name", "revision", "supported_platforms"]}
           list_path={"/app/fuzzer/list"}
-          data={payload.results}
+          data={payload}
           isFetching={isFetching}
         />
-      )}
-    </div>
   );
 };
 

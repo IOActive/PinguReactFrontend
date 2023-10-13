@@ -19,8 +19,6 @@ const JobsDashboardTable = (props) => {
 
 
   return (
-    <div>
-      {payload && (
         <DashboardTable
           objectName={"Jobs"}
           glyph={<FontAwesomeIcon icon={faPersonDigging} />}
@@ -28,11 +26,9 @@ const JobsDashboardTable = (props) => {
           findObjectByName={props.findJobsByName}
           colums={["name", "project", "platform", "enabled"]}
           list_path={"/app/job/list"}
-          data={payload.results}
+          data={payload}
           isFetching={isFetching}
         />
-      )}
-    </div>
   );
 };
 

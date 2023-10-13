@@ -19,8 +19,6 @@ const BotsDashboardTable = (props) => {
 
 
   return (
-    <div>
-      {payload && (
         <DashboardTable
           objectName={"Bots"}
           glyph={<FontAwesomeIcon icon={faRobot} />}
@@ -28,11 +26,9 @@ const BotsDashboardTable = (props) => {
           findObjectByName={props.findBotsByName}
           colums={["name", "last_beat_time", "platform", "task_payload", "task_status"]}
           list_path={"/app/bot/list"}
-          data={payload.results}
+          data={payload}
           isFetching={isFetching}
         />
-      )}
-    </div>
   );
 };
 

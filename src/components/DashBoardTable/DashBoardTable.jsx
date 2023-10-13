@@ -31,7 +31,7 @@ const DashboardTable = (props) => {
 
 
     return (
-        <Widget
+        <Widget className={cx(s.DashboardWidget)}
             title={
                 <div>
                     {
@@ -70,10 +70,10 @@ const DashboardTable = (props) => {
                             </tr>
                         )}
                     {
-                        data &&
+                        data && data.results &&
                         !isFetching &&
 
-                        data.slice(0, 6).map((object, index) => (
+                        data.results.slice(0, 6).map((object, index) => (
                             <tr key={index}>
                                 {
                                     colums.map((colum, index2) => {
@@ -91,9 +91,9 @@ const DashboardTable = (props) => {
                                                     >
                                                         {object.task_status}
                                                     </Badge>
-                                                </td>;
+                                                </td>
                                             case 'enabled':
-                                                return <Badge
+                                                return <td><Badge
                                                     className={cx(s.Badge)}
                                                     color={
                                                         object.enabled === "false"
@@ -102,7 +102,8 @@ const DashboardTable = (props) => {
                                                     }
                                                 >
                                                     <FontAwesomeIcon icon={faCheckCircle} />
-                                                </Badge>;
+                                                </Badge>
+                                                </td>
                                             default:
                                                 if (isDateString(object[colum]))
                                                     return <td key={index2}>{beautify_date(object[colum])}</td>;
@@ -119,11 +120,11 @@ const DashboardTable = (props) => {
 
             </Table>
             {list_path != undefined && (
-                <div className="d-flex justify-content-end">
+                <section className={cx(s.ViewAll)}>
                     <Link to={list_path} className="btn btn-default">
                         View all {objectName}{" "}
                     </Link>
-                </div>
+                </section>
             )
             }
         </Widget>

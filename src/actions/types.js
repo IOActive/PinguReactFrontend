@@ -37,9 +37,9 @@ export const DELETE_FUZZER = "DELETE_FUZZER";
 export const FUZZER_FAILURE = "FUZZER_FAILURE";
 export const FUZZER_REQUEST = "FUZZER_REQUEST";
 
-export const CREATE_TASK = "CREATE_FUZZER";
-export const TASK_FAILURE = "FUZZER_FAILURE";
-export const TASK_REQUEST = "FUZZER_REQUEST";
+export const CREATE_TASK = "CREATE_TASK";
+export const TASK_FAILURE = "TASK_FAILURE";
+export const TASK_REQUEST = "TASK_REQUEST";
 export const READ_TASKS = "READ_TASKS";
 export const READ_ALL_TASKS = "READ_ALL_TASKS";
 

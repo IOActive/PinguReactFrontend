@@ -19,8 +19,6 @@ const TasksDashboardTable = (props) => {
 
 
   return (
-    <div>
-      {payload && (
         <DashboardTable
           objectName={"Tasks"}
           glyph={<FontAwesomeIcon icon={faTasks} />}
@@ -28,11 +26,9 @@ const TasksDashboardTable = (props) => {
           findObjectByName={null}
           colums={["job_id", "platform", "command", "argument"]}
           list_path={null}
-          data={payload.results}
+          data={payload}
           isFetching={isFetching}
         />
-      )}
-    </div>
   );
 };
 
