@@ -10,6 +10,10 @@ class TestCaseDataService {
     return  http.get(`/testcase/?page=${page_number}&job_id=${job_id}`);
   }
 
+  findByID(id){
+    return http.get(`/testcase/?id=${id}`);
+  }
+
 }
 
 export default new TestCaseDataService();

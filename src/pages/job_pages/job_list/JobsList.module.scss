@@ -26,6 +26,15 @@
     margin-top: 20px;
   }
 
+  .JobCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    float: none;
+    margin-bottom: 0px;
+  }
+
   .JobButtonGroup {
     display: flex;
     background-color: $widget-bg;
@@ -33,6 +42,7 @@
     border-style: solid;
     border-width: 1px;
     border-top-style: none;
+    margin-left: 0px;
   }
 
   .JobEditButton_red_bg {
@@ -97,6 +107,26 @@
     margin-left: auto !important;
     background-color: $blue;
     float: right;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+
+    &:hover {
+      background-color: $green;
+      color: $white;
+    }
+  }
+
+  .TestCaseDetailsButton {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: $blue;
+    float: right;
+    flex-grow: 0;
 
     // letters in white
     color: $white;

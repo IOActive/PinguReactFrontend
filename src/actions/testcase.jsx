@@ -57,3 +57,25 @@ export const retrieveJobTestCases = (page_number, job_id) => async (dispatch) =>
         return Promise.reject(err);
     }
 };
+
+export const retrieveTestCaseByID = (id) => (dispatch) => {
+    dispatch(testCaseRequest(id));
+    return TestCaseDataService.findByID(id).then(
+      (response) => {
+        dispatch(testCaseRecieved(RETRIEVE_TESTCASES, response.data));
+        return Promise.resolve(response.data);
+      },
+      (error) => {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+  
+        dispatch(testCaseError(message));
+  
+        return Promise.reject();
+      }
+    );
+  }

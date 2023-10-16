@@ -11,6 +11,11 @@
 
  .root {
    // styles here
+   margin-bottom:0px;
+   border-style:solid;
+   border-color: $gray-400;
+   border-width:1px;
+   margin-left: 0px;
  }
  
  .InteractiveTable{
@@ -29,4 +34,8 @@
     border-bottom: 3px solid $gray-400;
   }
 
- }
+}
+
+.Widget {
+  margin-bottom:0px
+}

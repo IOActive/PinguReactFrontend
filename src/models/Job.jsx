@@ -91,6 +91,14 @@ export const Job = (json) => {
             required: false,
 
         },
+        custom_binary_key: {
+            value: json.custom_binary_key,
+            editable: true,
+            header: "Blobstore key of the custom binary for this job",
+            type: String,
+            required: false,
+
+        },
         validated: false,
         submitted: false,
         get_enums: () => {

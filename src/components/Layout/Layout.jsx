@@ -25,6 +25,7 @@ import JobsList from "../../pages/job_pages/job_list/JobsList";
 import AddJob from "../../pages/job_pages/job_create/JobCreate"
 import AddFuzzer from "../../pages/fuzzer_pages/fuzzer_create/FuzzerCreate";
 import FuzzersList from "../../pages/fuzzer_pages/fuzzer_list/FuzzerList";
+import TestCaseDetails from "../../pages/testcase_page/testcase_details/testcase_details"
 
 function Layout(props) {
 
@@ -41,13 +42,22 @@ function Layout(props) {
         <main className={s.content}>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/bot/list" element={<BotsList />} />
-            <Route path="/bot/add" element={<AddBot />} />
-            <Route path='/job/list' element={<JobsList />} />
-            <Route path='/job/add' element={<AddJob />} />
-            <Route path='/fuzzer/add' element={<AddFuzzer />} />
-            <Route path='/fuzzer/list' element={<FuzzersList />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="bot">
+              <Route path="list" element={<BotsList />} />
+              <Route path="add" element={<AddBot />} />
+            </Route>
+            <Route path="job">
+              <Route path="list" element={<JobsList />} />
+              <Route path="add" element={<AddJob />} />
+            </Route>
+            <Route path="fuzzer">
+              <Route path="list" element={<FuzzersList />} />
+              <Route path="add" element={<AddFuzzer />} />
+            </Route>
+            <Route path="testcase">
+              <Route path=":id" element={<TestCaseDetails />} />
+            </Route>
           </Routes>
         </main>
         <Footer />

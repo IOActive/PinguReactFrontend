@@ -15,6 +15,8 @@ import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
 import { retrieveJobTestCases } from "../../../actions/testcase"
 import { TestCase } from "../../../models/TestCase";
+import { useNavigate } from "react-router-dom";
+
 
 const JobsList = (props) => {
   const [currentJob, setCurrentJob] = React.useState(null);
@@ -24,6 +26,8 @@ const JobsList = (props) => {
 
   const selector = useSelector((state) => state.jobs);
   const selector_testcase = useSelector((state) => state.testcases);
+
+  let navigate = useNavigate();
 
   function editJob() {
     // swtich state of editing
@@ -91,33 +95,31 @@ const JobsList = (props) => {
               )
               }
             </div>
-            <div className={cx(s.JobRow)}>
-              <div class="col-md-6">
-                <InteractiveTable
-                  glyph={<FontAwesomeIcon icon={faVial} />}
-                  search_fucntion={null}
-                  objectName={"TestCases"}
-                  setCurrentObject={setCurrentTestCase}
-                  retieve_data_function={props.retrieveJobTestCases}
-                  selector={selector_testcase}
-                  colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
-                  parent_object={currentJob}
-                />
-              </div>
-            </div>
-            <div className={cx(s.JobRow)}>
-              {
-                currentTestcase ? (
-                  <InformationTable
-                    id="Test Case Info Table"
-                    object={TestCase(currentTestcase)}
-                    objectName={"TestCase"}
+            <div responsive className={cx("mb-0", s.JobCardsGroup)}>
+              <div className={cx(s.JobRow)}>
+                <div class={cx(s.JobCol)}>
+                  <InteractiveTable
+                    glyph={<FontAwesomeIcon icon={faVial} />}
+                    search_fucntion={null}
+                    objectName={"TestCases"}
+                    setCurrentObject={setCurrentTestCase}
+                    retieve_data_function={props.retrieveJobTestCases}
+                    selector={selector_testcase}
+                    colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
+                    parent_object={currentJob}
                   />
-                ) : (
-                  <div />
-                )
-              }
+                  {
+                    currentTestcase ? (
+                      <ButtonGroup className={cx(s.JobButtonGroup)}>
+                        <Button className={cx(s.TestCaseDetailsButton)} onClick={() => navigate('/app/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
+                      </ButtonGroup>
 
+                    ) : (
+                      <div />
+                    )
+                  }
+                </div>
+              </div>
             </div>
           </div>
         ) : (

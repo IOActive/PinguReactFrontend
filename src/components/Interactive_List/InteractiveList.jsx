@@ -1,6 +1,6 @@
 import SearchBar from "../SearchBar/SearchBar";
 import React, { useEffect, useState } from "react";
-import { Table, Spinner,Badge} from "reactstrap";
+import { Table, Spinner, Badge } from "reactstrap";
 import Widget from "../Widget/Widget";
 import cx from "classnames";
 import Icon from "../Icon/Icon";
@@ -59,7 +59,7 @@ function InteractiveList(props) {
             setTotalData(payload.count);
     }, []);
 
-    useEffect (() => {
+    useEffect(() => {
         if (parent_object)
             retieve_data_function(1, parent_object.id)
         else
@@ -78,52 +78,54 @@ function InteractiveList(props) {
 
 
     return (
-        <Widget
-            title={
-                <div>
-                    {search_fucntion != undefined && (
-
-                        <SearchBar
-                            searchValue={searchName}
-                            onChangeSearchValue={onChangeSearchName}
-                            findByName={findByName}
-                            refreshData={refreshData}
-                        />
-                    )}
-                    <h5 className="mt-0 mb-3">
-                        {typeof glyph === "object" ? (
-                            <span> {glyph} </span>
-                        ) : (
-                            <Icon glyph={glyph} />
-                        )} {objectName}
-                    </h5>
-                </div>
-
-            }
-        >
-            {isFetching ? (
-                <Spinner animation="border" variant="primary" />
-            ) : (
-                payload && (
+        <div className={cx(s.root)}>
+            <Widget
+                title={
                     <div>
-                        <InteractiveTable
-                            listData={payload.results}
-                            setActiveObject={setActiveObject}
-                            currentIndex={currentIndex}
-                            colums={colums}
-                        />
+                        {search_fucntion != undefined && (
+
+                            <SearchBar
+                                searchValue={searchName}
+                                onChangeSearchValue={onChangeSearchName}
+                                findByName={findByName}
+                                refreshData={refreshData}
+                            />
+                        )}
+                        <h5 className="mt-0 mb-3">
+                            {typeof glyph === "object" ? (
+                                <span> {glyph} </span>
+                            ) : (
+                                <Icon glyph={glyph} />
+                            )} {objectName}
+                        </h5>
                     </div>
-                )
+
+                }
+            >
+                {isFetching ? (
+                    <Spinner animation="border" variant="primary" />
+                ) : (
+                    payload && (
+                        <div>
+                            <InteractiveTable
+                                listData={payload.results}
+                                setActiveObject={setActiveObject}
+                                currentIndex={currentIndex}
+                                colums={colums}
+                            />
+                        </div>
+                    )
 
 
-            )}
-            <ObjectPagination
-                dataPerPage={dataPerPage}
-                totalData={totalData}
-                paginate={paginate}
-                currentPage={currentPage}
-            />
-        </Widget>
+                )}
+                <ObjectPagination
+                    dataPerPage={dataPerPage}
+                    totalData={totalData}
+                    paginate={paginate}
+                    currentPage={currentPage}
+                />
+            </Widget>
+        </div>
     )
 }
 
