@@ -106,7 +106,7 @@ const JobsList = (props) => {
                     retieve_data_function={props.retrieveJobTestCases}
                     selector={selector_testcase}
                     colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
-                    parent_object={currentJob}
+                    parent_object_id={currentJob.id}
                   />
                   {
                     currentTestcase ? (

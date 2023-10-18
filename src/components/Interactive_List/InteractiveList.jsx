@@ -13,7 +13,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 function InteractiveList(props) {
     const [searchName, setSearchName] = useState("");
 
-    const { glyph, search_fucntion, objectName, setCurrentObject, retieve_data_function, selector, colums, parent_object } = props;
+    const { glyph, search_fucntion, objectName, setCurrentObject, retieve_data_function, selector, colums, parent_object_id } = props;
 
     const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -34,8 +34,8 @@ function InteractiveList(props) {
     };
 
     const refreshData = () => {
-        if (parent_object)
-            retieve_data_function(1, parent_object.id)
+        if (parent_object_id)
+            retieve_data_function(1, parent_object_id)
         else
             retieve_data_function(1);
         setCurrentObject(null);
@@ -51,8 +51,8 @@ function InteractiveList(props) {
     };
 
     useEffect(() => {
-        if (parent_object)
-            retieve_data_function(1, parent_object.id)
+        if (parent_object_id)
+            retieve_data_function(1, parent_object_id)
         else
             retieve_data_function(1);
         if (payload)
@@ -60,13 +60,13 @@ function InteractiveList(props) {
     }, []);
 
     useEffect(() => {
-        if (parent_object)
-            retieve_data_function(1, parent_object.id)
+        if (parent_object_id)
+            retieve_data_function(1, parent_object_id)
         else
             retieve_data_function(1);
         if (payload)
             setTotalData(payload.count);
-    }, [parent_object]);
+    }, [parent_object_id]);
 
 
 
