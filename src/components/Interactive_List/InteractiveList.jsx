@@ -73,7 +73,10 @@ function InteractiveList(props) {
     // Change page
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
-        retieve_data_function(pageNumber);
+        if (parent_object_id)
+            retieve_data_function(pageNumber, parent_object_id)
+        else
+            retieve_data_function(pageNumber);
     };
 
 

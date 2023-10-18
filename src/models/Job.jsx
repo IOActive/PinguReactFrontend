@@ -33,11 +33,11 @@ export const Job = (json) => {
             required: true,
         },
         date: {
-            value: new Date(json.date),
+            value: new Date(),
             editable: false,
             header: "The date when the job was created",
             type: Date,
-            required: false,
+            required: true,
         },
         enabled: {
             value: json.enabled === "true",
@@ -109,9 +109,9 @@ export const Job = (json) => {
         get_payload: (job) => {
             let payload =  {};
             for (let key in job) {
-                if (job[key].editable) {
+                //if (job[key].editable) {
                     payload[key] = job[key].value;
-                }
+                //}
             }
             return payload;
         }

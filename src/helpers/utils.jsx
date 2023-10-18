@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer';
+
 export function beautify_key_names(key) {
   key = key.replace(/_/g, " ");
   // uppercase first letter of each word
@@ -22,4 +24,9 @@ export function isDateString(str) {
   } else {
     return false;
   }
+}
+
+export function decode_base64(str) {
+  const buffer = Buffer.from(str, 'base64');
+  return buffer.toString();
 }

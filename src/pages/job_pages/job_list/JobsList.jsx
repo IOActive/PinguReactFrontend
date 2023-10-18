@@ -23,6 +23,7 @@ const JobsList = (props) => {
   const [currentTestcase, setCurrentTestCase] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
   const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
+  const [enableUploadFuzzTarget, setEnableUploadFuzzTarget] = React.useState(false);
 
   const selector = useSelector((state) => state.jobs);
   const selector_testcase = useSelector((state) => state.testcases);
@@ -36,6 +37,10 @@ const JobsList = (props) => {
 
   function createTask() {
     setEnableCreateTasks(!enableCreateTasks);
+  }
+
+  function UploadFuzzTarget() {
+    setEnableUploadFuzzTarget(!enableCreateTasks);
   }
 
   return (
@@ -71,6 +76,7 @@ const JobsList = (props) => {
                 <ButtonGroup className={cx(s.JobButtonGroup)}>
                   <Button className={cx(enableEditing ? s.JobEditButton_red_bg : s.JobEditButton_blue_bg)} onClick={editJob}>Edit {"Job"}</Button>
                   <Button className={cx(enableCreateTasks ? s.CreateTaskButton_red_bg : s.CreateTaskButton_blue_bg)} onClick={createTask}>Create {"Task"}</Button>
+                  <Button className={cx(enableUploadFuzzTarget ? s.UploadFuzzTarget_red_bg: s.UploadFuzzTarget_blue_bg)} onClick={UploadFuzzTarget}>Upload FuzzTarget</Button>
                 </ButtonGroup>
               </div>
               <div class="col-md-6">

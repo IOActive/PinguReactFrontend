@@ -12,8 +12,7 @@ import { retrieveTestCaseCrashes } from "../../../actions/crash"
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
-
-
+import { Crash } from "../../../models/Crash"
 
 const TestCaseDetails = (props) => {
 
@@ -48,11 +47,11 @@ const TestCaseDetails = (props) => {
             currentTestcase ? (
                 <div responsive className={cx("mb-0", s.TestCaseCardsGroup)}>
                     <div className={cx(s.TestCaseRow)}>
-                        <InformationTable
-                            id="Test Case Info Table"
-                            object={currentTestcase}
-                            objectName={"TestCase"}
-                        />
+                            <InformationTable
+                                id="Test Case Info Table"
+                                object={currentTestcase}
+                                objectName={"TestCase"}
+                            />
                     </div>
                     <div className={cx(s.TestCaseRow)}>
                         <InteractiveTable
@@ -65,6 +64,20 @@ const TestCaseDetails = (props) => {
                             colums={["id", "crash_type", "crash_time", "security_flag"]}
                             parent_object_id={currentTestcase.id.value}
                         />
+                    </div>
+                    <div className={cx(s.TestCaseCardsGroup)}>
+                        {currentCrash ? (
+                            <div className={cx(s.TestCaseRow)}>
+                                <InformationTable
+                                    id="Crash Info Table"
+                                    object={Crash(currentCrash)}
+                                    objectName={"Crash"}
+                                />
+                            </div>
+                        ) : (
+                            <div />
+                        )
+                        }
                     </div>
                 </div>
             ) : (
