@@ -29,14 +29,14 @@ export const TestCase = (json) => {
             required: false,
         },
         fixed: {
-            value: json.fixed,
+            value: json.fixed === true,
             editable: true,
             header: "The crash related to this test case has been fixed",
             type: Boolean,
             required: false,
         },
         one_time_crasher_flag: {
-            value: json.one_time_crasher_flag,
+            value: json.one_time_crasher_flag === true,
             editable: false,
             header: "Did the bug only reproduced once ?",
             type: Boolean,
@@ -64,7 +64,7 @@ export const TestCase = (json) => {
             required: false,
         },
         archived: {
-            value: json.archived,
+            value: json.archived === true,
             editable: true,
             header: "Queue to publish related tasks",
             type: Boolean,
@@ -85,14 +85,14 @@ export const TestCase = (json) => {
             required: false,
         },
         triaged: {
-            value: json.triaged,
+            value: json.triaged === true,
             editable: false,
             header: "Indicating if cleanup triage needs to be done.",
             type: Boolean,
             required: false,
         },
         has_bug_flag: {
-            value: json.has_bug_flag,
+            value: json.has_bug_flag === true,
             editable: false,
             header: "Whether testcase has a bug (either bug_information or group_bug_information).",
             type: Boolean,
@@ -141,7 +141,7 @@ export const TestCase = (json) => {
             required: false,
         },
         disable_ubsan: {
-            value: json.disable_ubsan,
+            value: json.disable_ubsan === true,
             editable: false,
             header: "Flag indicating if UBSan detection should be disabled. This is needed for" +
                 "cases when ASan and UBSan are bundled in the same build configuration" +

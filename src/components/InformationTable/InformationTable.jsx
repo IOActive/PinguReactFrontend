@@ -93,7 +93,7 @@ function generate_check_icon(index, key, currentObject) {
     <td>
       <Badge
         className="ml-xs"
-        color={currentObject[key]["value"] === "false"
+        color={currentObject[key]["value"] === false
           ? "danger"
           : "success"}
       >

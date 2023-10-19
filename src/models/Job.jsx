@@ -40,14 +40,14 @@ export const Job = (json) => {
             required: true,
         },
         enabled: {
-            value: json.enabled === "true",
+            value: json.enabled === true,
             editable: true,
             header: "Whether the job is enabled or not",
             type: Boolean,
             required: false,
         },
         archived: {
-            value: json.archived === "true",
+            value: json.archived === true,
             editable: true,
             header: "Whether the job is archived or not",
             type: Boolean,

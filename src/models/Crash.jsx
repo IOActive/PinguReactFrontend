@@ -47,7 +47,7 @@ export const Crash = (json) => {
             required: false,
         },
         verified: {
-            value: json.verified,
+            value: json.verified === true,
             editable: false,
             header: "Verified",
             type: Boolean,
@@ -117,14 +117,14 @@ export const Crash = (json) => {
             required: false,
         },
         security_flag: {
-            value: json.security_flag,
+            value: json.security_flag === true,
             editable: false,
             header: "Security flag", 
             type: Boolean,
             required: false,
         },
         reproducible_flag: {
-            value: json.reproducible_flag,
+            value: json.reproducible_flag === true,
             editable: false,
             header: "Reproducible flag", 
             type: Boolean,
@@ -159,7 +159,7 @@ export const Crash = (json) => {
             required: false,
         },
         should_be_ignored: {
-            value: json.should_be_ignored,
+            value: json.should_be_ignored === true,
             editable: false,
             header: "Should be ignored", 
             type: Boolean,

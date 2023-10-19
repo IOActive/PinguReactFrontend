@@ -6,7 +6,7 @@ import { beautify_key_names } from "../../helpers/utils";
 
 
 export function generateFormGroups(key, index, currentObject, onInputChange) {
-  
+
   const value = currentObject[key]["value"];
   const editable = currentObject[key]["editable"];
   const required = currentObject[key]["required"]
@@ -17,7 +17,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
     object_enums = currentObject.get_enums();
   }
 
-  
+
   //if (!editable) {
   //  return;
   //}
@@ -50,23 +50,37 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         required={required}
         value={value.toISOString().split('T')[0]}
         onChange={onInputChange} />
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
 
     </Form.Group>;
   } else if (objectType === Boolean) {
     return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
-      <Form.Check // prettier-ignore
-        type="switch"
-        id={key}
-        required={required}
-        name={key}
-        label="Check this switch"
-        onChange={onInputChange}
-      />
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+      {
+        value === true ? (
+          <Form.Check
+            type="switch"
+            id={key}
+            required={required}
+            name={key}
+            label="Check this switch"
+            onChange={onInputChange}
+            checked
+            
+          />) : (
+          <Form.Check 
+            type="switch"
+            id={key}
+            required={required}
+            name={key}
+            label="Check this switch"
+            onChange={onInputChange}
+          />
+        )
+      }
+      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
 
     </Form.Group>;
   }
@@ -79,8 +93,8 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         value={value}
         required={required}
         onChange={onInputChange} />
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
 
     </Form.Group>;
   }
@@ -93,21 +107,21 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         name={key}
         required={required}
         value={value}
-        onChange={onInputChange} 
-        />
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
+        onChange={onInputChange}
+      />
+      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
     </Form.Group>;
   }
 
   else if (objectType === File) {
     return <Form.Group key={index}>
-    <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
-    <Form.Control
-      type="file"
-      required={required}
-      name={key}
-      onChange={onInputChange} />
+      <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
+      <Form.Control
+        type="file"
+        required={required}
+        name={key}
+        onChange={onInputChange} />
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
     </Form.Group>
