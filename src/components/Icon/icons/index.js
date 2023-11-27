@@ -7,8 +7,9 @@ import logo from './logo.svg';
 import settings from './settings.svg';
 import notification from './notification.svg';
 import mail from './mail.svg';
-import logo2 from './logo2.svg'
-import robot from './robot.svg'
+import logo2 from './logo2.svg';
+import robot from './robot.svg';
+import check_circle_fill from './check_circle_fill.svg';
 
 export default { 
   components,
@@ -21,5 +22,6 @@ export default {
   notification,
   mail,
   logo2,
-  robot
+  robot,
+  check_circle_fill,
 }

@@ -1,10 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Icon from '../Icon/Icon';
 import LinksGroup from './LinksGroup/LinksGroup';
 
+
 import s from './Sidebar.module.scss';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPersonDigging,
+  faRocket,
+} from "@fortawesome/free-solid-svg-icons";
+
 
 function Sidebar() {
 
@@ -27,7 +34,7 @@ function Sidebar() {
           childrenLinks={[
             {
               name: 'Bot List',
-              link: '/app/bots/list',
+              link: '/app/bot/list',
             },
             {
               name: 'Bot Create',
@@ -35,6 +42,36 @@ function Sidebar() {
             }
           ]}
           glyph="robot" />
+
+        <LinksGroup
+          header="Jobs"
+          headerLink="/app/jobs"
+          childrenLinks={[
+            {
+              name: 'Job List',
+              link: '/app/job/list',
+            },
+            {
+              name: 'Job Create',
+              link: '/app/job/add',
+            }
+          ]}
+          glyph={<FontAwesomeIcon icon={faPersonDigging} />} />
+
+        <LinksGroup
+          header="Fuzzers"
+          headerLink="/app/fuzzers"
+          childrenLinks={[
+            {
+              name: 'Fuzzers List',
+              link: '/app/fuzzer/list',
+            },
+            {
+              name: 'Fuzzer Create',
+              link: '/app/fuzzer/add',
+            }
+          ]}
+          glyph={<FontAwesomeIcon icon={faRocket} />} />
       </ul>
     </nav>
   );

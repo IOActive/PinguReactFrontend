@@ -18,10 +18,14 @@ import Sidebar from '../Sidebar/Sidebar';
 
 
 // Dashboard component is loaded directly as an example of server side rendering
-import Dashboard from '../../pages/dashboard'
+import Dashboard from '../../pages/dashboard/Dashboard';
 import AddBot from "../../pages/bot_pages/bot_create/BotCreate";
-import Bot from "../../pages/bot_pages/BotEdit/BotEdit";
 import BotsList from "../../pages/bot_pages/bot_list/BotsList";
+import JobsList from "../../pages/job_pages/job_list/JobsList";
+import AddJob from "../../pages/job_pages/job_create/JobCreate"
+import AddFuzzer from "../../pages/fuzzer_pages/fuzzer_create/FuzzerCreate";
+import FuzzersList from "../../pages/fuzzer_pages/fuzzer_list/FuzzerList";
+import TestCaseDetails from "../../pages/testcase_page/testcase_details/testcase_details"
 
 function Layout(props) {
 
@@ -38,10 +42,22 @@ function Layout(props) {
         <main className={s.content}>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/bot/list" element={<BotsList />} />
-            <Route path="/bot/add" element={<AddBot />} />
-            <Route path="/bot/:id" element={<Bot />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="bot">
+              <Route path="list" element={<BotsList />} />
+              <Route path="add" element={<AddBot />} />
+            </Route>
+            <Route path="job">
+              <Route path="list" element={<JobsList />} />
+              <Route path="add" element={<AddJob />} />
+            </Route>
+            <Route path="fuzzer">
+              <Route path="list" element={<FuzzersList />} />
+              <Route path="add" element={<AddFuzzer />} />
+            </Route>
+            <Route path="testcase">
+              <Route path=":id" element={<TestCaseDetails />} />
+            </Route>
           </Routes>
         </main>
         <Footer />

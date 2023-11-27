@@ -1,0 +1,11 @@
+@import '../../styles/app';
+ @import "~@fortawesome/fontawesome-free/scss/solid";
+ 
+.select {
+    height: "100px";
+    border: none;
+    border-radius: 5px;
+    padding: 5px 0;
+    background-color: $widget-bg;
+    width: 100%;
+  }

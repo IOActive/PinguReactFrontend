@@ -1,0 +1,41 @@
+/**
+ * Flatlogic Dashboards (https://flatlogic.com/admin-dashboards)
+ *
+ * Copyright © 2015-present Flatlogic, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+ @import '../../styles/app.scss';
+
+ .root {
+   // styles here
+   margin-bottom:0px;
+   border-style:solid;
+   border-color: $gray-400;
+   border-width:1px;
+   margin-left: 0px;
+ }
+ 
+ .InteractiveTable{
+  th,
+  td {
+    border-bottom: 2px solid $gray-200;
+    text-align: center;
+    align-items: left;
+
+  }
+
+  // add space between header and table cells
+  
+
+  thead {
+    border-bottom: 3px solid $gray-400;
+  }
+
+}
+
+.Widget {
+  margin-bottom:0px
+}
