@@ -48,6 +48,8 @@ const FuzzersList = (props) => {
     link.click();
   }
 
+  //TODO: add bigquery view to see fuzzer performance with graphics etc
+
   return (
     <div className={s.root}>
       <Breadcrumb>
