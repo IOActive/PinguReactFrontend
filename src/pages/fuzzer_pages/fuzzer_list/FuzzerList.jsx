@@ -59,9 +59,9 @@ const FuzzersList = (props) => {
       </Breadcrumb>
       <h1 className="mb-lg">Fuzzers List</h1>
 
-      <div responsive className={cx("mb-0", s.FuzzerCardsGroup)}>
-        <div className={cx(s.FuzzerRow)}>
-          <div className={cx(s.FuzzerCol)}>
+      <div responsive className={cx("mb-0", s.CardsGroup)}>
+        <div className={cx(s.CardRow)}>
+          <div className={cx(s.CardCol)}>
             <InteractiveTable
               glyph={<FontAwesomeIcon icon={faRocket} />}
               search_fucntion={props.findFuzzersByName}
@@ -74,15 +74,14 @@ const FuzzersList = (props) => {
           </div>
         </div>
         {currentFuzzer ? (
-          <div className={cx(s.FuzzerRow)}>
-            <div class={cx(s.FuzzerCol)}>
+          <div className={cx(s.CardRow)}>
+            <div class={cx(s.CardCol)}>
               <InformationTable
-                className={cx(s.FuzzerInformationTable)}
                 object={Fuzzer(currentFuzzer)}
                 objectName={"Fuzzer"}
               />
-              <ButtonGroup className={cx(s.FuzzerButtonGroup)}>
-                <Button className={cx(enableEditing ? s.FuzzerEditButton_bg_red : s.FuzzerEditButton_bg_blue)} onClick={editFuzzer}>Edit {"Fuzzer"}</Button>
+              <ButtonGroup className={cx(s.CardButtonGroup)}>
+                <Button className={cx(enableEditing ? s.Button_bg_red : s.Button_bg_blue)} onClick={editFuzzer}>Edit {"Fuzzer"}</Button>
                 <Button className={cx(s.FuzzerDownloadButton)} onClick={DownloadFuzzer}>
                   Download Fuzzer
                 </Button>
@@ -91,7 +90,6 @@ const FuzzersList = (props) => {
             <div class="col-md-6">
               {enableEditing ? (
                 <EditObject
-                  className={cx(s.FuzzerEdit)}
                   object={Fuzzer(currentFuzzer)}
                   updateObject={props.updateFuzzer}
                   deleteObject={props.deleteFuzzer}

@@ -45,15 +45,15 @@ const TestCaseDetails = (props) => {
         <h1 className="mb-lg">TestCase Details</h1>
         {
             currentTestcase ? (
-                <div responsive className={cx("mb-0", s.TestCaseCardsGroup)}>
-                    <div className={cx(s.TestCaseRow)}>
+                <div responsive className={cx("mb-0", s.CardsGroup)}>
+                    <div className={cx(s.CardRow)}>
                             <InformationTable
                                 id="Test Case Info Table"
                                 object={currentTestcase}
                                 objectName={"TestCase"}
                             />
                     </div>
-                    <div className={cx(s.TestCaseRow)}>
+                    <div className={cx(s.CardRow)}>
                         <InteractiveTable
                             glyph={<FontAwesomeIcon icon={faBug} />}
                             search_fucntion={null}
@@ -65,9 +65,9 @@ const TestCaseDetails = (props) => {
                             parent_object_id={currentTestcase.id.value}
                         />
                     </div>
-                    <div className={cx(s.TestCaseCardsGroup)}>
+                    <div className={cx(s.CardsGroup)}>
                         {currentCrash ? (
-                            <div className={cx(s.TestCaseRow)}>
+                            <div className={cx(s.CardRow)}>
                                 <InformationTable
                                     id="Crash Info Table"
                                     object={Crash(currentCrash)}

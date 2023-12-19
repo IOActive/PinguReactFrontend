@@ -12,116 +12,37 @@
 
 .root {
   // styles here
-  
+
 }
 
-.FuzzerCardsGroup {
+.FuzzerDownloadButton {
+  background-color: $blue;
+  // letters in white
+  color: $white;
 
+  // add arrow icon
+  &:after {
+    content: "\f019";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+  }
+
+  &:hover {
+    background-color: $blue;
+    color: $white;
+  }
+
+  &:focus {
+    background-color: $blue;
+    color: $white;
+  }
+
+  // centert text
   display: flex;
-  flex-direction: column;
-
-  .FuzzerRow {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .FuzzerCol {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    float: none;
-    margin-bottom: 0px;
-  }
-  
-  .FuzzerDownloadButton {
-    background-color: $blue;
-    // letters in white
-    color: $white;
-
-    // add arrow icon
-    &:after {
-      content: "\f019";
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      font-size: 1.5em;
-      margin-left: 0.5em;
-    }
-
-    &:hover {
-      background-color: $blue;
-      color: $white;
-    }
-
-    &:focus {
-      background-color: $blue;
-      color: $white;
-    }
-
-    // centert text
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex:0 1 auto;
-    margin: 5px;
-  }
-
-  .FuzzerButtonGroup {
-    display:flex;
-    background-color: $widget-bg;
-    border-color: $gray-400;
-    border-style:solid;
-    border-width:1px;
-    border-top-style:none;
-  }
-
-  .FuzzerEditButton {
-    justify-content: center !important;
-    display: inline-flex !important;
-    margin-left: auto !important;
-    background-color: $blue;
-    float:right;
-    flex:0 0 auto;
-
-    // letters in white
-    color: $white;
-
-    // centert text
-    align-items: center;
-    margin: 5px;
-  }
-
-  .FuzzerEditButton_bg_red {
-    justify-content: center !important;
-    display: inline-flex !important;
-    margin-left: auto !important;
-    background-color: $red;
-    float:right;
-    flex:0 0 auto;
-
-    // letters in white
-    color: $white;
-
-    // centert text
-    align-items: center;
-    margin: 5px;
-  }
-
-  .FuzzerEditButton_bg_blue {
-    justify-content: center !important;
-    display: inline-flex !important;
-    margin-left: auto !important;
-    background-color: $blue;
-    float:right;
-    flex:0 0 auto;
-
-    // letters in white
-    color: $white;
-
-    // centert text
-    align-items: center;
-    margin: 5px;
-  }
-
+  justify-content: center;
+  align-items: center;
+  flex:0 1 auto;
+  margin: 5px;
 }
-

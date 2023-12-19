@@ -64,20 +64,20 @@ const JobsList = (props) => {
         colums={["id", "name", "date"]}
       />
 
-      <div responsive className={cx("mb-0", s.JobCardsGroup)}>
+      <div responsive className={cx("mb-0", s.CardsGroup)}>
         {currentJob ? (
-          <div responsive className={cx("mb-0", s.JobCardsGroup)}>
-            <div className={cx(s.JobRow)}>
+          <div responsive className={cx("mb-0", s.CardsGroup)}>
+            <div className={cx(s.CardRow)}>
               <div class="col-md-6">
                 <InformationTable
                   id="Job Info Table"
                   object={Job(currentJob)}
                   objectName={"Job"}
                 />
-                <ButtonGroup className={cx(s.JobButtonGroup)}>
-                  <Button className={cx(enableEditing ? s.JobEditButton_red_bg : s.JobEditButton_blue_bg)} onClick={editJob}>Edit {"Job"}</Button>
-                  <Button className={cx(enableCreateTasks ? s.CreateTaskButton_red_bg : s.CreateTaskButton_blue_bg)} onClick={createTask}>Create {"Task"}</Button>
-                  <Button className={cx(enableUploadFuzzTarget ? s.UploadFuzzTarget_red_bg: s.UploadFuzzTarget_blue_bg)} onClick={UploadFuzzTarget}>Upload FuzzTarget</Button>
+                <ButtonGroup className={cx(s.CardButtonGroup)}>
+                  <Button className={cx(enableEditing ? s.Button_bg_red : s.Button_bg_blue)} onClick={editJob}>Edit {"Job"}</Button>
+                  <Button className={cx(enableCreateTasks ? s.Button_bg_red : s.Button_bg_blue)} onClick={createTask}>Create {"Task"}</Button>
+                  <Button className={cx(enableUploadFuzzTarget ? s.Button_bg_red: s.Button_bg_blue)} onClick={UploadFuzzTarget}>Upload FuzzTarget</Button>
                 </ButtonGroup>
               </div>
               <div class="col-md-6">
@@ -92,7 +92,7 @@ const JobsList = (props) => {
                 )}
               </div>
             </div>
-            <div className={cx(s.JobRow)}>
+            <div className={cx(s.CardRow)}>
               {enableCreateTasks ? (
                 <AddTask
                   job_id={currentJob.id}
@@ -102,9 +102,9 @@ const JobsList = (props) => {
               )
               }
             </div>
-            <div responsive className={cx("mb-0", s.JobCardsGroup)}>
-              <div className={cx(s.JobRow)}>
-                <div class={cx(s.JobCol)}>
+            <div responsive className={cx("mb-0", s.CardsGroup)}>
+              <div className={cx(s.CardRow)}>
+                <div class={cx(s.CardCol)}>
                   <InteractiveTable
                     glyph={<FontAwesomeIcon icon={faVial} />}
                     search_fucntion={null}
@@ -117,7 +117,7 @@ const JobsList = (props) => {
                   />
                   {
                     currentTestcase ? (
-                      <ButtonGroup className={cx(s.JobButtonGroup)}>
+                      <ButtonGroup className={cx(s.ButtonGroup)}>
                         <Button className={cx(s.TestCaseDetailsButton)} onClick={() => navigate('/app/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
                       </ButtonGroup>
 
