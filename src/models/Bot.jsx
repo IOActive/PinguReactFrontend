@@ -1,4 +1,5 @@
 import Platforms from '../helpers/Platforms'
+import Code from "./Code";
 
 const TASK_STATUS = {
     STARTED: "STARTED",
@@ -59,6 +60,20 @@ export const Bot = (json) => {
             type: Object,
             required: true,
         },
+        blobstore_log_path: {
+            value: json.blobstore_log_path,
+            editable: true,
+            header: "The bucket were the bots logs are going to be stored",
+            type: String,
+            required: false,
+        },
+        bot_logs: {
+            value: decodeURIComponent(json.bot_logs.substring(1)),
+            editable: false,
+            header: "The platform that the bot is running on",
+            type: Code,
+            required: false,
+        },
         validated: false,
         submitted: false,
         get_enums: () => {
@@ -68,10 +83,14 @@ export const Bot = (json) => {
             };
         },
         get_payload: (bot) => {
-            return {
-                name: bot.name.value,
-                platform: bot.platform.value,
-            };
+            let payload = {};
+            for (let key in bot) {
+                if (bot[key].editable) {
+                    if (key !== "bot_logs")
+                        payload[key] = bot[key].value;
+                }
+            }
+            return payload;
         }
     };
 };

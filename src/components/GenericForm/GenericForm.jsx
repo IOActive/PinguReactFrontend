@@ -18,9 +18,9 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   }
 
 
-  //if (!editable) {
-  //  return;
-  //}
+  if (!editable) {
+    return;
+  }
 
   if (object_enums && object_enums[key]) {
     return <Form.Group key={index}>

@@ -17,13 +17,18 @@
  
  .BotCardsGroup {
  
-   display: flex;
-   flex-direction: column;
- 
    .BotRow {
-     display: flex;
-     flex-direction: row;
-   }
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+
+  .BotCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex:1 1 0%;
+  }
    
    .BotButtonGroup {
      display:flex;
@@ -65,7 +70,36 @@
     align-items: center;
     margin: 5px;
   }
- 
+
+  .BotLogButton_bg_red {
+    justify-content: center !important;
+    display: inline-flex !important;
+    background-color: $red;
+    float:right;
+    flex:0 0 auto;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+    margin: 5px;
+  }
+
+  .BotLogButton_bg_blue {
+   justify-content: center !important;
+   display: inline-flex !important;
+   background-color: $blue;
+   float:right;
+   flex:0 0 auto;
+
+   // letters in white
+   color: $white;
+
+   // centert text
+   align-items: center; 
+   margin: 5px;
  }
+}
  
  

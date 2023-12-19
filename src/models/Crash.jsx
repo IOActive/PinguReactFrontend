@@ -1,6 +1,4 @@
-export default class Code extends Object{
-
-}
+import Code from "./Code";
 
 export const Crash = (json) => {
     return {

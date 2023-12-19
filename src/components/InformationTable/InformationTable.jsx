@@ -10,7 +10,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { SimplePopper } from "../SimplePopper/SimplePopper";
 import { beautify_date, decode_base64 } from "../../helpers/utils";
-import Code from "../../models/Crash"
+import Code from "../../models/Code";
 import { Dropdown } from "../../components/Dropdown/Dropdown"
 import { Highlighter } from "../../components/Highlighter/Highlighter"
 import { defaultLanguage, defaultTheme } from "../../constants/index"
@@ -35,7 +35,7 @@ const languages = {
 
 export const InformationTable = (props) => {
 
-  const { object, objectName } = props;
+  const { object, objectName, ignored_fields=[] } = props;
 
   const [currentObject, setCurrentObject] = useState(object);
 
@@ -68,12 +68,15 @@ export const InformationTable = (props) => {
             <th>Parameter</th>
             <th>Value</th>
           </tr>
-        </thead>
+        
         <tbody>
           {Object.keys(currentObject).map((key, index) => {
-            return generateList(key, index, currentObject, language, theme);
+            if (!ignored_fields.includes(key)){
+              return generateList(key, index, currentObject, language, theme);
+            }
           })}
         </tbody>
+        </thead>
       </Table>
     </Card.Body>
   </Card>;
