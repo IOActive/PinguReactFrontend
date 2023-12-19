@@ -24,6 +24,15 @@
     display: flex;
     flex-direction: row;
   }
+
+  .FuzzerCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    float: none;
+    margin-bottom: 0px;
+  }
   
   .FuzzerDownloadButton {
     background-color: $blue;

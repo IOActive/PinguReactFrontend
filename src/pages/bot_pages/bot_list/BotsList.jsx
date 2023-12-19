@@ -52,22 +52,23 @@ const BotsList = (props) => {
       </Breadcrumb>
       <h1 className="mb-lg">Bots List</h1>
 
+
       <div responsive className={cx("mb-0", s.BotCardsGroup)}>
+        <div className={cx(s.BotRow)}>
+          <div class={cx(s.BotCol)}>
+            <InteractiveTable
+              glyph={<FontAwesomeIcon icon={faRobot} />}
+              search_fucntion={props.findBotsByName}
+              objectName={"Bots"}
+              setCurrentObject={setCurrentBot}
+              retieve_data_function={props.retrieveBots}
+              selector={selector}
+              colums={["name"]}
+            />
+          </div>
+        </div>
         {currentBot ? (
-          <div className={cx(s.BotCardsGroup)}>
-            <div className={cx(s.BotRow)}>
-              <div class={cx(s.BotCol)}>
-                <InteractiveTable
-                  glyph={<FontAwesomeIcon icon={faRobot} />}
-                  search_fucntion={props.findBotsByName}
-                  objectName={"Bots"}
-                  setCurrentObject={setCurrentBot}
-                  retieve_data_function={props.retrieveBots}
-                  selector={selector}
-                  colums={["name"]}
-                />
-              </div>
-            </div>
+          <div responsive className={cx("mb-0", s.BotCardsGroup)}>
             <div className={cx(s.BotRow)}>
               <div class={cx(s.BotCol)}>
                 <InformationTable
