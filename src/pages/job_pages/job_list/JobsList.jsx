@@ -43,7 +43,6 @@ const JobsList = (props) => {
     setEnableUploadFuzzTarget(!enableCreateTasks);
   }
 
-  //TODO: add logs view for each job based in the logs bucket
   return (
     <div className={s.root}>
       <Breadcrumb>
