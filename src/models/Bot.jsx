@@ -68,7 +68,7 @@ export const Bot = (json) => {
             required: false,
         },
         bot_logs: {
-            value: decodeURIComponent(json.bot_logs.substring(1)),
+            value: (json.bot_logs) ? decodeURIComponent(json.bot_logs.substring(1)): null,
             editable: false,
             header: "The platform that the bot is running on",
             type: Code,

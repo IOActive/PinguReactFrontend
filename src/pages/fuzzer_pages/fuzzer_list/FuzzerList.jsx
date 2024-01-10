@@ -33,19 +33,21 @@ const FuzzersList = (props) => {
 
   function DownloadFuzzer() {
     let fuzzer_zip_stream_b64 = currentFuzzer["fuzzer_zip"];
-    fuzzer_zip_stream_b64 = fuzzer_zip_stream_b64.substring(1);
-    const urlDecodedBase64 = decodeURIComponent(fuzzer_zip_stream_b64);
+    if (fuzzer_zip_stream_b64 != null) {
+      fuzzer_zip_stream_b64 = fuzzer_zip_stream_b64.substring(1);
+      const urlDecodedBase64 = decodeURIComponent(fuzzer_zip_stream_b64);
 
-    const buffer = Buffer.from(urlDecodedBase64, 'base64');
+      const buffer = Buffer.from(urlDecodedBase64, 'base64');
 
-    // Create a Blob object from the buffer
-    const blob = new Blob([buffer], { type: 'application/zip' });
+      // Create a Blob object from the buffer
+      const blob = new Blob([buffer], { type: 'application/zip' });
 
-    // Create a download link for the Blob object and simulate a click on the link to download the file
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = currentFuzzer["name"] + ".zip";
-    link.click();
+      // Create a download link for the Blob object and simulate a click on the link to download the file
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = currentFuzzer["name"] + ".zip";
+      link.click();
+    }
   }
 
   //TODO: add bigquery view to see fuzzer performance with graphics etc
