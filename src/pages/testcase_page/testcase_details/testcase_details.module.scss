@@ -5,3 +5,35 @@
    // styles here
    
  }
+
+ .DownloadTestCaseButton {
+  background-color: $blue;
+  // letters in white
+  color: $white;
+
+  // add arrow icon
+  &:after {
+    content: "\f019";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+  }
+
+  &:hover {
+    background-color: $blue;
+    color: $white;
+  }
+
+  &:focus {
+    background-color: $blue;
+    color: $white;
+  }
+
+  // centert text
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex:0 1 auto;
+  margin: 5px;
+}
