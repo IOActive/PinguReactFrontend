@@ -40,7 +40,7 @@ const JobsList = (props) => {
   }
 
   function UploadFuzzTarget() {
-    setEnableUploadFuzzTarget(!enableCreateTasks);
+    setEnableUploadFuzzTarget(!enableUploadFuzzTarget);
   }
 
   return (
@@ -79,7 +79,7 @@ const JobsList = (props) => {
                   <Button className={cx(enableUploadFuzzTarget ? s.Button_bg_red: s.Button_bg_blue)} onClick={UploadFuzzTarget}>Upload FuzzTarget</Button>
                 </ButtonGroup>
               </div>
-              <div class="col-md-6">
+              <div className={cx(s.CardRow)}>
                 {enableEditing ? (
                   <EditObject
                     object={Job(currentJob)}
@@ -101,6 +101,21 @@ const JobsList = (props) => {
               )
               }
             </div>
+
+            <div className={cx(s.CardRow)}>
+                {
+                  enableUploadFuzzTarget ? (
+                    <EditObject
+                    object={Job(currentJob)}
+                    updateObject={props.updateJob}
+                    deleteObject={props.deleteJob}
+                  />
+                  ) : (
+                    <div />
+                  )}
+              </div>
+
+
             <div responsive className={cx("mb-0", s.CardsGroup)}>
               <div className={cx(s.CardRow)}>
                 <div class={cx(s.CardCol)}>
