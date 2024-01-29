@@ -32,6 +32,7 @@ function AddJob(props) {
       object={newJob}
       createObject={props.createJob}
       errorMessage={errorMessage}
+      objectName={"Job"}
       />
   );
 }

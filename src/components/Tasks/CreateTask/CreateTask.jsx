@@ -26,6 +26,7 @@ function AddTask(props) {
             object={newTask}
             createObject={props.createTask}
             errorMessage={errorMessage}
+            objectName={"Task"}
         />
     );
 }

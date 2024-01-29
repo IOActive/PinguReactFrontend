@@ -14,6 +14,10 @@ class TestCaseDataService {
     return http.get(`/testcase?id=${id}`);
   }
 
+  create(data) {
+    return http.post("/testcase/", data);
+  }
+
 }
 
 export default new TestCaseDataService();
