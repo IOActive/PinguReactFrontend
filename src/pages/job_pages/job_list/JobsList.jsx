@@ -57,22 +57,25 @@ const JobsList = (props) => {
       </Breadcrumb>
       <h1 className="mb-lg">Jobs List</h1>
 
+      <div responsive className={cx(s.CardsGroup)}>
+        <div className={cx(s.CardRow)}>
+          <div className={cx(s.CardCol)}>
+            <InteractiveTable
+              glyph={<FontAwesomeIcon icon={faDigging} />}
+              search_fucntion={findJobsByName}
+              objectName={"Jobs"}
+              setCurrentObject={setCurrentJob}
+              retieve_data_function={props.retrieveJobs}
+              selector={selector}
+              colums={["id", "name", "date"]}
+            />
+          </div>
+        </div>
 
-      <InteractiveTable
-        glyph={<FontAwesomeIcon icon={faDigging} />}
-        search_fucntion={findJobsByName}
-        objectName={"Jobs"}
-        setCurrentObject={setCurrentJob}
-        retieve_data_function={props.retrieveJobs}
-        selector={selector}
-        colums={["id", "name", "date"]}
-      />
-
-      <div responsive className={cx("mb-0", s.CardsGroup)}>
         {currentJob ? (
-          <div responsive className={cx("mb-0", s.CardsGroup)}>
+          <div responsive className={cx(s.CardsGroup)}>
             <div className={cx(s.CardRow)}>
-              <div class="col-md-6">
+              <div className={cx(s.CardCol)}>
                 <InformationTable
                   id="Job Info Table"
                   object={Job(currentJob)}
@@ -86,7 +89,7 @@ const JobsList = (props) => {
                 </DropdownButton>
 
               </div>
-              <div className={cx(s.CardRow)}>
+              <div className={cx(s.CardCol)}>
                 {enableEditing ? (
                   <EditObject
                     object={Job(currentJob)}
@@ -99,6 +102,7 @@ const JobsList = (props) => {
                 )}
               </div>
             </div>
+
             <div className={cx(s.CardRow)}>
               {enableCreateTasks ? (
                 <AddTask
@@ -124,30 +128,28 @@ const JobsList = (props) => {
             </div>
 
 
-            <div responsive className={cx("mb-0", s.CardsGroup)}>
-              <div className={cx(s.CardRow)}>
-                <div class={cx(s.CardCol)}>
-                  <InteractiveTable
-                    glyph={<FontAwesomeIcon icon={faVial} />}
-                    search_fucntion={null}
-                    objectName={"TestCases"}
-                    setCurrentObject={setCurrentTestCase}
-                    retieve_data_function={props.retrieveJobTestCases}
-                    selector={selector_testcase}
-                    colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
-                    parent_object_id={currentJob.id}
-                  />
-                  {
-                    currentTestcase ? (
-                      <ButtonGroup className={cx(s.ButtonGroup)}>
-                        <Button className={cx(s.TestCaseDetailsButton)} onClick={() => navigate('/app/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
-                      </ButtonGroup>
+            <div className={cx(s.CardRow)}>
+              <div class={cx(s.CardCol)}>
+                <InteractiveTable
+                  glyph={<FontAwesomeIcon icon={faVial} />}
+                  search_fucntion={null}
+                  objectName={"TestCases"}
+                  setCurrentObject={setCurrentTestCase}
+                  retieve_data_function={props.retrieveJobTestCases}
+                  selector={selector_testcase}
+                  colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
+                  parent_object_id={currentJob.id}
+                />
+                {
+                  currentTestcase ? (
+                    <ButtonGroup className={cx(s.ButtonGroup)}>
+                      <Button className={cx(s.TestCaseDetailsButton)} onClick={() => navigate('/app/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
+                    </ButtonGroup>
 
-                    ) : (
-                      <div />
-                    )
-                  }
-                </div>
+                  ) : (
+                    <div />
+                  )
+                }
               </div>
             </div>
           </div>

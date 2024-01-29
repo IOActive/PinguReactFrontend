@@ -5,7 +5,7 @@ import Widget from "../Widget/Widget";
 import cx from "classnames";
 import Icon from "../Icon/Icon";
 import s from "./InteractiveList.module.scss";
-import ObjectPagination from "../ObjectPagination/ObjectPagination";
+import CustomPagination from "../ObjectPagination/ObjectPagination";
 import { beautify_key_names, isDateString, beautify_date } from "../../helpers/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -121,7 +121,7 @@ function InteractiveList(props) {
 
 
                 )}
-                <ObjectPagination
+                <CustomPagination
                     dataPerPage={dataPerPage}
                     totalData={totalData}
                     paginate={paginate}

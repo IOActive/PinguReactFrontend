@@ -1,5 +1,8 @@
 import React from "react";
 import Pagination from "react-bootstrap/Pagination";
+import cx from "classnames";
+import s from "./ObjectPagination.module.scss";
+
 
 const CustomPagination = ({
   dataPerPage,
@@ -23,7 +26,7 @@ const CustomPagination = ({
   }
 
   return (
-    <Pagination>
+    <Pagination className={cx(s.CustomPagination)}>
       <Pagination.First
         onClick={() => paginate(1)}
         disabled={currentPage === 1}
