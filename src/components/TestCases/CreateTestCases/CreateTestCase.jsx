@@ -6,7 +6,7 @@ import CreateObject from "../../CreateObject/CreateObject";
 
 function AddTestCase(props) {
 
-    const { job_id } = props;
+    const { job_id, closeConstant } = props;
 
     const newTestCase = TestCase({
         absolute_path: "",
@@ -30,6 +30,7 @@ function AddTestCase(props) {
             createObject={props.createTestCase}
             errorMessage={errorMessage}
             objectName={"TestCase"}
+            closeConstant={closeConstant}
         />
     );
 }
