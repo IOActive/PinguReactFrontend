@@ -8,7 +8,7 @@ import { connect, useDispatch } from "react-redux";
 import { TestCase } from "../../../models/TestCase"
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
-import { retrieveTestCaseCrashes } from "../../../actions/crash"
+import { retrieveTestCaseCrashes, retrieveCrashByID } from "../../../actions/crash"
 import { Breadcrumb, BreadcrumbItem, Button, ButtonGroup } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
@@ -84,7 +84,7 @@ const TestCaseDetails = (props) => {
                     <div className={cx(s.CardRow)}>
                         <InteractiveTable
                             glyph={<FontAwesomeIcon icon={faBug} />}
-                            search_fucntion={null}
+                            search_fucntion={props.retrieveCrashByID}
                             objectName={"Crashes"}
                             setCurrentObject={setCrash}
                             retieve_data_function={props.retrieveTestCaseCrashes}
@@ -128,4 +128,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     retrieveTestCaseByID,
     retrieveTestCaseCrashes,
+    retrieveCrashByID,
 })(TestCaseDetails);

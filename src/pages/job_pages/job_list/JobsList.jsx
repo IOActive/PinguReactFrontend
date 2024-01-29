@@ -14,7 +14,7 @@ import { Job } from "../../../models/Job";
 import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
 import AddTestCase from "../../../components/TestCases/CreateTestCases/CreateTestCase";
-import { retrieveJobTestCases, createTestcase } from "../../../actions/testcase";
+import { retrieveJobTestCases, createTestcase, retrieveTestCaseByID } from "../../../actions/testcase";
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -132,7 +132,7 @@ const JobsList = (props) => {
               <div class={cx(s.CardCol)}>
                 <InteractiveTable
                   glyph={<FontAwesomeIcon icon={faVial} />}
-                  search_fucntion={null}
+                  search_fucntion={props.retrieveTestCaseByID}
                   objectName={"TestCases"}
                   setCurrentObject={setCurrentTestCase}
                   retieve_data_function={props.retrieveJobTestCases}
@@ -181,4 +181,5 @@ export default connect(mapStateToProps, {
   deleteJob,
   retrieveJobTestCases,
   createTestcase,
+  retrieveTestCaseByID,
 })(JobsList);

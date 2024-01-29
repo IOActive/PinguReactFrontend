@@ -22,8 +22,8 @@ const TasksDashboardTable = (props) => {
         <DashboardTable
           objectName={"Tasks"}
           glyph={<FontAwesomeIcon icon={faTasks} />}
-          retrieveData={props.retrieveBots}
-          findObjectByName={null}
+          retrieveData={props.readAllTasks}
+          findObjectByName={props.readAllTasks}
           colums={["job_id", "platform", "command", "argument"]}
           list_path={null}
           data={payload}
