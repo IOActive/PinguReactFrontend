@@ -27,7 +27,7 @@ function AddTestCase(props) {
     return (
         <CreateObject
             object={newTestCase}
-            createObject={props.createTestCase}
+            createObject={props.createTestcase}
             errorMessage={errorMessage}
             objectName={"TestCase"}
             closeConstant={closeConstant}
