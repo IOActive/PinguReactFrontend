@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import cx from "classnames";
@@ -7,10 +6,12 @@ import s from "./CreateObject.module.scss";
 import Card from "react-bootstrap/Card";
 import { generateFormGroups } from "../GenericForm/GenericForm";
 import Dropdown from "react-bootstrap/Dropdown";
+import {CloseButton} from "../CloseButton/CloseButton";
+
 
 function CreateObject(props) {
 
-  const { createObject, object, errorMessage, objectName } = props;
+  const { createObject, object, errorMessage, objectName, closeConstant } = props;
 
   const [currentObject, setCurrentObject] = useState(object);
 
@@ -112,7 +113,17 @@ function CreateObject(props) {
 
   return (
     <Card className={cx("mb-0", s.InformantionCard, "flex-fill")}>
-      <Card.Header>Create New {objectName}</Card.Header>
+      <Card.Header>Create New {objectName}
+      {
+        closeConstant ? (
+          <CloseButton 
+          closeConstant={closeConstant}
+        />
+        ):(
+          <div></div>
+        )
+      }
+      </Card.Header>
       <Card.Body>
         <div responsive className={cx("mb-0", s.Card)}>
           {currentObject.submitted ? (

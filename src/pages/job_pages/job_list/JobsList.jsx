@@ -16,6 +16,8 @@ import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
 import AddTestCase from "../../../components/TestCases/CreateTestCases/CreateTestCase";
 import { retrieveJobTestCases, createTestcase } from "../../../actions/testcase";
 import { useNavigate } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 const JobsList = (props) => {
@@ -76,11 +78,13 @@ const JobsList = (props) => {
                   object={Job(currentJob)}
                   objectName={"Job"}
                 />
-                <ButtonGroup className={cx(s.CardButtonGroup)}>
-                  <Button className={cx(enableEditing ? s.Button_bg_red : s.Button_bg_blue)} onClick={editJob}>Edit {"Job"}</Button>
-                  <Button className={cx(enableCreateTasks ? s.Button_bg_red : s.Button_bg_blue)} onClick={createTask}>Create {"Task"}</Button>
-                  <Button className={cx(enableUploadTestCase ? s.Button_bg_red : s.Button_bg_blue)} onClick={UploadTestCase}>Upload New Testcase</Button>
-                </ButtonGroup>
+
+                <DropdownButton id="dropdown-basic-button" title="Actions">
+                  <Dropdown.Item onClick={editJob}>Edit {"Job"}</Dropdown.Item>
+                  <Dropdown.Item onClick={createTask}>Create {"Task"}</Dropdown.Item>
+                  <Dropdown.Item onClick={UploadTestCase}>Upload New Testcase</Dropdown.Item>
+                </DropdownButton>
+
               </div>
               <div className={cx(s.CardRow)}>
                 {enableEditing ? (
@@ -88,6 +92,7 @@ const JobsList = (props) => {
                     object={Job(currentJob)}
                     updateObject={props.updateJob}
                     deleteObject={props.deleteJob}
+                    closeConstant={setEnableEditing}
                   />
                 ) : (
                   <div />
@@ -98,6 +103,7 @@ const JobsList = (props) => {
               {enableCreateTasks ? (
                 <AddTask
                   job_id={currentJob.id}
+                  closeConstant={setEnableCreateTasks}
                 />
               ) : (
                 <div />
@@ -110,6 +116,7 @@ const JobsList = (props) => {
                 enableUploadTestCase ? (
                   <AddTestCase
                     job_id={currentJob.id}
+                    closeConstant={setEnableUploadTestCase}
                   />
                 ) : (
                   <div />

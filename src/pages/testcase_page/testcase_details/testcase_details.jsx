@@ -75,7 +75,6 @@ const TestCaseDetails = (props) => {
                                 objectName={"TestCase"}
                             />
                             <ButtonGroup className={cx(s.CardButtonGroup)}>
-
                                 <Button className={cx(s.DownloadTestCaseButton)} onClick={DownloadTestCase}>
                                     Download Testcase
                                 </Button>

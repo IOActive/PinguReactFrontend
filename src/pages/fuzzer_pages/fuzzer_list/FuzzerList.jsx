@@ -13,6 +13,8 @@ import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { InformationTable } from "../../../components/InformationTable/InformationTable";
 import { Fuzzer } from "../../../models/Fuzzer";
 import { Buffer } from 'buffer';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const FuzzersList = (props) => {
 
@@ -82,13 +84,13 @@ const FuzzersList = (props) => {
                 object={Fuzzer(currentFuzzer)}
                 objectName={"Fuzzer"}
               />
-              <ButtonGroup className={cx(s.CardButtonGroup)}>
-                <Button className={cx(enableEditing ? s.Button_bg_red : s.Button_bg_blue)} onClick={editFuzzer}>Edit {"Fuzzer"}</Button>
-                <Button className={cx(s.FuzzerDownloadButton)} onClick={DownloadFuzzer}>
-                  Download Fuzzer
-                </Button>
-              </ButtonGroup>
+
+              <DropdownButton id="dropdown-basic-button" title="Actions">
+                <Dropdown.Item onClick={editFuzzer}>Edit {"Fuzzer"}</Dropdown.Item>
+                <Dropdown.Item>Download Fuzzer</Dropdown.Item>
+              </DropdownButton>
             </div>
+
             <div class="col-md-6">
               {enableEditing ? (
                 <EditObject
@@ -96,6 +98,7 @@ const FuzzersList = (props) => {
                   updateObject={props.updateFuzzer}
                   deleteObject={props.deleteFuzzer}
                   errorMessage={errorMessage}
+                  closeConstant={setEnableEditing}
                 />
               ) : (
                 <div />

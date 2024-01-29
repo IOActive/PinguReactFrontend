@@ -7,16 +7,15 @@ import Form from "react-bootstrap/Form";
 import s from "./EditObject.module.scss";
 import Card from "react-bootstrap/Card";
 import { generateFormGroups } from "../GenericForm/GenericForm";
-
+import {CloseButton} from "../CloseButton/CloseButton";
 
 
 const EditObject = (props) => {
 
-  const { object, updateObject, deleteObject, errorMessage } = props;
+  const { object, updateObject, deleteObject, errorMessage, closeConstant } = props;
 
 
   const [currentObject, setCurrentObject] = useState(object);
-
 
   const onInputChange = (event) => {
 
@@ -96,7 +95,9 @@ const EditObject = (props) => {
     if (form.checkValidity() === true) {
 
       updateObject(currentObject.id.value, currentObject.get_payload(currentObject));
-    }
+    }<CloseButton 
+    closeConstant={closeConstant}
+  />
   };
 
   const removeObject = (event) => {
@@ -121,6 +122,9 @@ const EditObject = (props) => {
         <Card.Title tag="h5" className="mb-0">
           {currentObject.name.value}
         </Card.Title>
+        <CloseButton 
+          closeConstant={closeConstant}
+        />
       </Card.Header>
       <Card.Body>
         <div className={s.root}>

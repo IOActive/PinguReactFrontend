@@ -15,8 +15,9 @@ import { Bot } from "../../../models/Bot";
 import { Highlighter } from "../../../components/Highlighter/Highlighter"
 import { decode_base64 } from "../../../helpers/utils";
 import Card from "react-bootstrap/Card";
-
-
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import {CloseButton} from "../../../components/CloseButton/CloseButton";
 
 const BotsList = (props) => {
   const [currentBot, setCurrentBot] = React.useState(null);
@@ -76,10 +77,12 @@ const BotsList = (props) => {
                   objectName={"Bot"}
                   ignored_fields={['bot_logs']}
                 />
-                <ButtonGroup className={cx(s.CardButtonGroup)}>
-                  <Button className={cx(enableEditing ? s.Button_bg_red : s.Button_bg_blue)} onClick={editBot}>Edit {"Bot"}</Button>
-                  <Button className={cx(enableBotLog ? s.Button_bg_red : s.Button_bg_blue)} onClick={botLog}>Log {"Bot"}</Button>
-                </ButtonGroup>
+
+                <DropdownButton id="dropdown-basic-button" title="Actions">
+                  <Dropdown.Item onClick={editBot}>Edit {"Bot"}</Dropdown.Item>
+                  <Dropdown.Item onClick={botLog}>Log {"Bot"}</Dropdown.Item>
+                </DropdownButton>
+
               </div>
               <div class={cx(s.CardCol)}>
                 {enableEditing ? (
@@ -88,6 +91,7 @@ const BotsList = (props) => {
                     updateObject={props.updateBot}
                     deleteObject={props.deleteBot}
                     errorMessage={errorMessage}
+                    closeConstant={setEnableEditing}
                   />
                 ) : (
                   <div />
@@ -98,7 +102,11 @@ const BotsList = (props) => {
               <div class={cx(s.CardCol)}>
                 {enableBotLog ? (
                   <Card>
-                    <Card.Header>Bot Logs</Card.Header>
+                    <Card.Header>Bot Logs
+                      <CloseButton
+                        closeConstant={setEnableBotLog}
+                      />
+                    </Card.Header>
                     <Card.Body>
                       <Highlighter>
                         {decode_base64(Bot(currentBot)["bot_logs"]["value"])}
