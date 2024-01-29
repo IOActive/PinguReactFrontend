@@ -13,8 +13,8 @@ import { InformationTable } from "../../../components/InformationTable/Informati
 import { Job } from "../../../models/Job";
 import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
-import { retrieveJobTestCases } from "../../../actions/testcase"
-import { TestCase } from "../../../models/TestCase";
+import AddTestCase from "../../../components/TestCases/CreateTestCases/CreateTestCase";
+import { retrieveJobTestCases, createTestcase } from "../../../actions/testcase";
 import { useNavigate } from "react-router-dom";
 
 
@@ -23,10 +23,11 @@ const JobsList = (props) => {
   const [currentTestcase, setCurrentTestCase] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
   const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
-  const [enableUploadFuzzTarget, setEnableUploadFuzzTarget] = React.useState(false);
+  const [enableUploadTestCase, setEnableUploadTestCase] = React.useState(false);
 
   const selector = useSelector((state) => state.jobs);
   const selector_testcase = useSelector((state) => state.testcases);
+
 
   let navigate = useNavigate();
 
@@ -39,9 +40,11 @@ const JobsList = (props) => {
     setEnableCreateTasks(!enableCreateTasks);
   }
 
-  function UploadFuzzTarget() {
-    setEnableUploadFuzzTarget(!enableUploadFuzzTarget);
+  function UploadTestCase() {
+    setEnableUploadTestCase(!enableUploadTestCase);
   }
+
+
 
   return (
     <div className={s.root}>
@@ -76,7 +79,7 @@ const JobsList = (props) => {
                 <ButtonGroup className={cx(s.CardButtonGroup)}>
                   <Button className={cx(enableEditing ? s.Button_bg_red : s.Button_bg_blue)} onClick={editJob}>Edit {"Job"}</Button>
                   <Button className={cx(enableCreateTasks ? s.Button_bg_red : s.Button_bg_blue)} onClick={createTask}>Create {"Task"}</Button>
-                  <Button className={cx(enableUploadFuzzTarget ? s.Button_bg_red: s.Button_bg_blue)} onClick={UploadFuzzTarget}>Upload FuzzTarget</Button>
+                  <Button className={cx(enableUploadTestCase ? s.Button_bg_red : s.Button_bg_blue)} onClick={UploadTestCase}>Upload New Testcase</Button>
                 </ButtonGroup>
               </div>
               <div className={cx(s.CardRow)}>
@@ -103,17 +106,15 @@ const JobsList = (props) => {
             </div>
 
             <div className={cx(s.CardRow)}>
-                {
-                  enableUploadFuzzTarget ? (
-                    <EditObject
-                    object={Job(currentJob)}
-                    updateObject={props.updateJob}
-                    deleteObject={props.deleteJob}
+              {
+                enableUploadTestCase ? (
+                  <AddTestCase
+                    job_id={currentJob.id}
                   />
-                  ) : (
-                    <div />
-                  )}
-              </div>
+                ) : (
+                  <div />
+                )}
+            </div>
 
 
             <div responsive className={cx("mb-0", s.CardsGroup)}>
@@ -158,6 +159,7 @@ const mapStateToProps = (state) => {
   const { user } = state.auth;
   return {
     jobs: state.jobs,
+    testcases: state.testcases,
     user,
     job: state.currentJob,
   };
@@ -169,4 +171,5 @@ export default connect(mapStateToProps, {
   updateJob,
   deleteJob,
   retrieveJobTestCases,
+  createTestcase,
 })(JobsList);

@@ -27,6 +27,7 @@ function AddBot(props) {
       object={newBot}
       createObject={props.createBot}
       errorMessage={errorMessage}
+      objectName={"Bot"}
       />
   );
 }

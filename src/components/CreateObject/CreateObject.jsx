@@ -10,7 +10,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 function CreateObject(props) {
 
-  const { createObject, object, errorMessage } = props;
+  const { createObject, object, errorMessage, objectName } = props;
 
   const [currentObject, setCurrentObject] = useState(object);
 
@@ -112,7 +112,7 @@ function CreateObject(props) {
 
   return (
     <Card className={cx("mb-0", s.InformantionCard, "flex-fill")}>
-      <Card.Header>Create New Object</Card.Header>
+      <Card.Header>Create New {objectName}</Card.Header>
       <Card.Body>
         <div responsive className={cx("mb-0", s.Card)}>
           {currentObject.submitted ? (

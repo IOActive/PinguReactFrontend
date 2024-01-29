@@ -33,7 +33,7 @@ export const Job = (json) => {
             required: true,
         },
         date: {
-            value: new Date(),
+            value: new Date(json.date),
             editable: false,
             header: "The date when the job was created",
             type: Date,

@@ -5,7 +5,7 @@ import {
     RETRIEVE_TESTCASES,
     TESTCASE_REQUEST,
     TESTCASE_FAILURE,
-
+    CREATE_TESTCASE,
 } from "./types";
 
 function testCaseRequest(payload) {
@@ -79,3 +79,26 @@ export const retrieveTestCaseByID = (id) => (dispatch) => {
       }
     );
   }
+  
+  export const createTestcase = (payload) => (dispatch) => {
+    dispatch(testCaseRequest(payload));
+    return TestCaseDataService.create(payload).then(
+      (response) => {
+        dispatch(testCaseRecieved(CREATE_TESTCASE, response.data));
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+  
+        dispatch(testCaseError(message));
+  
+        return Promise.reject();
+      }
+    );
+  };
+  
