@@ -135,12 +135,6 @@ function InteractiveList(props) {
 //Table Section
 const InteractiveTable = ({ listData, setActiveObject, currentIndex, colums }) => {
 
-    const [currentData, setCurrentData] = useState([]);
-
-    useEffect(() => {
-        setCurrentData(listData);
-    }, [listData]);
-
     return (
         <Table bordered hover responsive className={cx("mb-0", s.InteractiveTable)}>
             <thead>
@@ -151,9 +145,13 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex, colums }) =
                 </tr>
             </thead>
             <tbody>
-                {currentData.map((listItem, index) => {
-                    return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} colums={colums} />;
-                })}
+                {
+                    
+                    listData.map((listItem, index) => {
+                        return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} colums={colums} />;
+                    }
+                    )
+                }
             </tbody>
         </Table>
     );

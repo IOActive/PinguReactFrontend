@@ -1,5 +1,5 @@
-import React from "react";
-import { retrieveBots, findBotsByName, updateBot, deleteBot } from "../../../actions/bot";
+import React, { useEffect } from "react";
+import { retrieveBots, findBotsByName, updateBot, deleteBot, getBot } from "../../../actions/bot";
 import { connect } from "react-redux";
 import { Breadcrumb, BreadcrumbItem, Button, ButtonGroup } from "reactstrap";
 import cx from "classnames";
@@ -17,8 +17,54 @@ import { decode_base64 } from "../../../helpers/utils";
 import Card from "react-bootstrap/Card";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {CloseButton} from "../../../components/CloseButton/CloseButton";
+import { CloseButton } from "../../../components/CloseButton/CloseButton";
+import { useDispatch } from "react-redux";
 
+
+const BotLog = (props) => {
+  const {monitoredBotId, setEnableBotLog, currentLogs} = props;
+
+  const [currentBotLog, setCurrentBotLog] = React.useState(decode_base64(currentLogs));
+
+  function clearLogs() {
+
+  };
+
+  const dispatch = useDispatch();
+
+  const { isFetching, payload } = useSelector((state) => state.bots);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (monitoredBotId) {
+        dispatch(getBot(monitoredBotId))
+        if (payload) {
+          setCurrentBotLog(decode_base64(payload.results[0]['bot_logs']));
+        }
+      }
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, [])
+
+  return (
+    <Card>
+      <Card.Header>Bot Logs
+        <CloseButton
+          closeConstant={setEnableBotLog}
+        />
+      </Card.Header>
+      <Card.Body>
+        <Highlighter>
+          {currentBotLog}
+        </Highlighter>
+      </Card.Body>
+      <ButtonGroup className={cx(s.CardButtonGroup)}>
+        <Button className={cx(s.Button_bg_blue)} onClick={clearLogs}>Clear Logs</Button>
+      </ButtonGroup>
+    </Card>
+  );
+}
 const BotsList = (props) => {
   const [currentBot, setCurrentBot] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
@@ -34,10 +80,6 @@ const BotsList = (props) => {
 
   function botLog() {
     setEnableBotLog(!enableBotLog);
-  }
-
-  function clearLogs() {
-
   }
 
   const { errorMessage } = useSelector(
@@ -101,25 +143,13 @@ const BotsList = (props) => {
             <div className={cx(s.CardRow)}>
               <div class={cx(s.CardCol)}>
                 {enableBotLog ? (
-                  <Card>
-                    <Card.Header>Bot Logs
-                      <CloseButton
-                        closeConstant={setEnableBotLog}
-                      />
-                    </Card.Header>
-                    <Card.Body>
-                      <Highlighter>
-                        {decode_base64(Bot(currentBot)["bot_logs"]["value"])}
-                      </Highlighter>
-                    </Card.Body>
-                    <ButtonGroup className={cx(s.CardButtonGroup)}>
-                      <Button className={cx(s.Button_bg_blue)} onClick={clearLogs}>Clear Logs</Button>
-                    </ButtonGroup>
-                  </Card>
-
-
-                ) : (
-                  <div />
+                  <BotLog
+                  monitoredBotId={currentBot.id}
+                  setEnableBotLog={setEnableBotLog}
+                  currentLogs={currentBot.bot_logs}
+                  />
+                ): (
+                    <div />
                 )}
               </div>
             </div>
@@ -149,5 +179,6 @@ export default connect(mapStateToProps, {
   retrieveBots,
   findBotsByName,
   updateBot,
-  deleteBot
+  deleteBot,
+  getBot,
 })(BotsList);
