@@ -38,7 +38,7 @@ function AddJob(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(retrieveJobTemplates(1))
+    dispatch(retrieveJobTemplates())
   }, [dispatch]);
 
   function apply_template(template_parameters) {
@@ -63,10 +63,10 @@ function AddJob(props) {
           )
         }
         {
-          payload && payload.results &&
+          payload &&
           !isFetching &&
 
-          payload.results.slice(0, 6).map((object, index) => (
+          payload.map((object, index) => (
 
             <Dropdown.Item onClick={(e) => apply_template(object.environment_string)}>{object.name}</Dropdown.Item>
 

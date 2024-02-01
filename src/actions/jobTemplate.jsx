@@ -56,10 +56,10 @@ export const createJobTemplate = (payload) => (dispatch) => {
     );
   };
 
-export const retrieveJobTemplates = (page_number) => async (dispatch) => {
+export const retrieveJobTemplates = () => async (dispatch) => {
   try {
-    dispatch(jobTemplateRequest(page_number));
-    const response = await JobTemplateDataService.getPage(page_number);
+    dispatch(jobTemplateRequest());
+    const response = await JobTemplateDataService.getAll();
 
     dispatch(jobTemplateRecieved(RETRIEVE_JOBTEMPLATES, response.data));
     return Promise.resolve(response.data);

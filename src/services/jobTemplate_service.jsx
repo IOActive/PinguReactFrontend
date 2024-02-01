@@ -2,11 +2,11 @@ import http from "../helpers/http-common";
 
 class JobTemplateDataService {
   getAll() {
-    return http.get("/job/");
+    return http.get("/jobtemplate/");
   }
 
   get(id) {
-    return http.get(`/job/?id=${id}`);
+    return http.get(`/jobtemplate/?id=${id}`);
   }
 
   create(data) {
