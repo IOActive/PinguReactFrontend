@@ -28,6 +28,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         as="select"
         name={key}
+        id={key}
         value={value}
         required={required}
         onChange={onInputChange}
@@ -47,6 +48,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         type="date"
         name={key}
+        id={key}
         required={required}
         value={value.toISOString().split('T')[0]}
         onChange={onInputChange} />
@@ -90,6 +92,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         type="number"
         name={key}
+        id={key}
         value={value}
         required={required}
         onChange={onInputChange} />
@@ -105,6 +108,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         type="text"
         name={key}
+        id={key}
         required={required}
         value={value}
         onChange={onInputChange}
@@ -121,6 +125,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         type="file"
         required={required}
         name={key}
+        id={key}
         onChange={onInputChange} />
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
