@@ -69,9 +69,9 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
             label="Check this switch"
             onChange={onInputChange}
             checked
-            
+
           />) : (
-          <Form.Check 
+          <Form.Check
             type="switch"
             id={key}
             required={required}
@@ -105,14 +105,26 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   else if (objectType === String) {
     return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
-      <Form.Control
-        type="text"
-        name={key}
-        id={key}
-        required={required}
-        value={value}
-        onChange={onInputChange}
-      />
+      {key === "environment_string" ? (
+        <Form.Control
+          type="text"
+          name={key}
+          id={key}
+          required={required}
+          value={value}
+          as="textarea"
+          onChange={onInputChange}
+        />
+      ) : (
+        <Form.Control
+          type="text"
+          name={key}
+          id={key}
+          required={required}
+          value={value}
+          onChange={onInputChange}
+        />
+      )}
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
     </Form.Group>;

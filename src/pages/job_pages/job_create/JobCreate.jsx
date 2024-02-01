@@ -8,7 +8,7 @@ import React, { useEffect } from "react";
 import { retrieveJobTemplates } from "../../../actions/jobTemplate";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-
+import s from './JobCreate.module.scss'
 
 function AddJob(props) {
 
@@ -45,7 +45,7 @@ function AddJob(props) {
     const environment_string = document.getElementById("environment_string");
     if (environment_string) {
       let current_value = environment_string.value;
-      environment_string.value = [current_value,template_parameters].join("\n");
+      environment_string.value = [current_value, template_parameters].join("\n");
     }
 
   }
