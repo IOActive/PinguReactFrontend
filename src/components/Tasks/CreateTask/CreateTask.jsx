@@ -6,12 +6,12 @@ import CreateObject from "../../CreateObject/CreateObject";
 
 function AddTask(props) {
 
-    const { job_id, closeConstant } = props;
+    const { job_id, closeConstant, platform, command="analyze" } = props;
 
     const newTask = Task({
         job_id: job_id,
-        platform: "",
-        command: "",
+        platform: platform,
+        command: command,
         argument: "",
         validated: false,
         submitted: false,

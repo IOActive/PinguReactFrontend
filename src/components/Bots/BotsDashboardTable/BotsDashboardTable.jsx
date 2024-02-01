@@ -17,6 +17,14 @@ const BotsDashboardTable = (props) => {
     dispatch(retrieveBots(1))
   }, [dispatch]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(retrieveBots(1))
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [dispatch])
+
 
   return (
         <DashboardTable

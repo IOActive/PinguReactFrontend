@@ -108,6 +108,7 @@ const JobsList = (props) => {
                 <AddTask
                   job_id={currentJob.id}
                   closeConstant={setEnableCreateTasks}
+                  platform={currentJob.platform}
                 />
               ) : (
                 <div />
