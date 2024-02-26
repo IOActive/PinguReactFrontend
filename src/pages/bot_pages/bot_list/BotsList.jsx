@@ -24,7 +24,7 @@ import { useDispatch } from "react-redux";
 const BotLog = (props) => {
   const {monitoredBotId, setEnableBotLog, currentLogs} = props;
 
-  const [currentBotLog, setCurrentBotLog] = React.useState(currentLogs);
+  const [currentBotLog, setCurrentBotLog] = React.useState(decode_base64(currentLogs));
 
   function clearLogs() {
 
@@ -39,7 +39,7 @@ const BotLog = (props) => {
       if (monitoredBotId) {
         dispatch(getBot(monitoredBotId))
         if (payload) {
-          setCurrentBotLog(payload.results[0].bot_logs);
+          setCurrentBotLog(decode_base64(Bot(payload.results[0]).bot_logs.value));
         }
       }
     }, 20000);
@@ -146,7 +146,7 @@ const BotsList = (props) => {
                   <BotLog
                   monitoredBotId={currentBot.id}
                   setEnableBotLog={setEnableBotLog}
-                  currentLogs={currentBot.bot_logs}
+                  currentLogs={Bot(currentBot).bot_logs.value}
                   />
                 ): (
                     <div />
