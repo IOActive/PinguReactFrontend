@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# Pingucrew frontend documentation.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Login
 
-## Available Scripts
+The login section is the first section users will see when they navigate to the platform. By providing their credentials, users can access their account and all the features associated with it.
 
-In the project directory, you can run:
+![Login](docs/pics/login.png)
 
-### `npm start`
+## Dashboard
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The dashboard is the second section of the Pingucrei frontend, where users can get an overview of the platform. This section should display information about the platform, including the number of bots currently running, the number of jobs scheduled, and the number of test cases in the test suite. It should also display a graph showing the platform's overall performance and a quick overview of any pending tasks.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![Dashboard](docs/pics/dashboard.png)
 
-### `npm test`
+## Bots Page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The bots view is the third section of the Pingucrew frontend. This section should display a list of all the bots currently running on the platform, along with their status and any related tasks.
 
-### `npm run build`
+![Bots](docs/pics/bots.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Jobs Page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The jobs view is the fourth section of the Pingucrew frontend. This section should display a list of all the scheduled jobs on the platform, including their related test cases and any associated crashes. Users should be able to view the details of each task, along with any crashes that occurred during the execution of the job as well as creating new tasks assosiated to the current job for the bots to be executed.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Jobs](docs/pics/job_info.png)
+![Task](docs/pics/job_tasks.png)
 
-### `npm run eject`
+## Test Cases Details and Crashes
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The test cases details and crashes section is the fifth and final section of the Pingucrew frontend. This section should display information about the test cases in the test suite, including the name of the test case, any related crashes, and the status of the last run. Users should also be able to view the details of any crashes that occurred during the execution of the test case, including the stack trace and any associated error logs.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Testcase](docs/pics/job_testcase.png)
+![Crash](docs/pics/testcase_crash_info.png)
