@@ -13,9 +13,11 @@ import { InformationTable } from "../../../components/InformationTable/Informati
 import { Job } from "../../../models/Job";
 import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
-import { retrieveJobTestCases } from "../../../actions/testcase"
-import { TestCase } from "../../../models/TestCase";
+import AddTestCase from "../../../components/TestCases/CreateTestCases/CreateTestCase";
+import { retrieveJobTestCases, createTestcase, retrieveTestCaseByID } from "../../../actions/testcase";
 import { useNavigate } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 const JobsList = (props) => {
@@ -23,10 +25,11 @@ const JobsList = (props) => {
   const [currentTestcase, setCurrentTestCase] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
   const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
-  const [enableUploadFuzzTarget, setEnableUploadFuzzTarget] = React.useState(false);
+  const [enableUploadTestCase, setEnableUploadTestCase] = React.useState(false);
 
   const selector = useSelector((state) => state.jobs);
   const selector_testcase = useSelector((state) => state.testcases);
+
 
   let navigate = useNavigate();
 
@@ -39,9 +42,11 @@ const JobsList = (props) => {
     setEnableCreateTasks(!enableCreateTasks);
   }
 
-  function UploadFuzzTarget() {
-    setEnableUploadFuzzTarget(!enableCreateTasks);
+  function UploadTestCase() {
+    setEnableUploadTestCase(!enableUploadTestCase);
   }
+
+
 
   return (
     <div className={s.root}>
@@ -52,79 +57,100 @@ const JobsList = (props) => {
       </Breadcrumb>
       <h1 className="mb-lg">Jobs List</h1>
 
+      <div responsive className={cx(s.CardsGroup)}>
+        <div className={cx(s.CardRow)}>
+          <div className={cx(s.CardCol)}>
+            <InteractiveTable
+              glyph={<FontAwesomeIcon icon={faDigging} />}
+              search_fucntion={findJobsByName}
+              objectName={"Jobs"}
+              setCurrentObject={setCurrentJob}
+              retieve_data_function={props.retrieveJobs}
+              selector={selector}
+              colums={["id", "name", "date"]}
+            />
+          </div>
+        </div>
 
-      <InteractiveTable
-        glyph={<FontAwesomeIcon icon={faDigging} />}
-        search_fucntion={findJobsByName}
-        objectName={"Jobs"}
-        setCurrentObject={setCurrentJob}
-        retieve_data_function={props.retrieveJobs}
-        selector={selector}
-        colums={["id", "name", "date"]}
-      />
-
-      <div responsive className={cx("mb-0", s.JobCardsGroup)}>
         {currentJob ? (
-          <div responsive className={cx("mb-0", s.JobCardsGroup)}>
-            <div className={cx(s.JobRow)}>
-              <div class="col-md-6">
+          <div responsive className={cx(s.CardsGroup)}>
+            <div className={cx(s.CardRow)}>
+              <div className={cx(s.CardCol)}>
                 <InformationTable
                   id="Job Info Table"
                   object={Job(currentJob)}
                   objectName={"Job"}
                 />
-                <ButtonGroup className={cx(s.JobButtonGroup)}>
-                  <Button className={cx(enableEditing ? s.JobEditButton_red_bg : s.JobEditButton_blue_bg)} onClick={editJob}>Edit {"Job"}</Button>
-                  <Button className={cx(enableCreateTasks ? s.CreateTaskButton_red_bg : s.CreateTaskButton_blue_bg)} onClick={createTask}>Create {"Task"}</Button>
-                  <Button className={cx(enableUploadFuzzTarget ? s.UploadFuzzTarget_red_bg: s.UploadFuzzTarget_blue_bg)} onClick={UploadFuzzTarget}>Upload FuzzTarget</Button>
-                </ButtonGroup>
+
+                <DropdownButton id="dropdown-basic-button" title="Actions">
+                  <Dropdown.Item onClick={editJob}>Edit {"Job"}</Dropdown.Item>
+                  <Dropdown.Item onClick={createTask}>Create {"Task"}</Dropdown.Item>
+                  <Dropdown.Item onClick={UploadTestCase}>Upload New Testcase</Dropdown.Item>
+                </DropdownButton>
+
               </div>
-              <div class="col-md-6">
+              <div className={cx(s.CardCol)}>
                 {enableEditing ? (
                   <EditObject
                     object={Job(currentJob)}
                     updateObject={props.updateJob}
                     deleteObject={props.deleteJob}
+                    closeConstant={setEnableEditing}
                   />
                 ) : (
                   <div />
                 )}
               </div>
             </div>
-            <div className={cx(s.JobRow)}>
+
+            <div className={cx(s.CardRow)}>
               {enableCreateTasks ? (
                 <AddTask
                   job_id={currentJob.id}
+                  closeConstant={setEnableCreateTasks}
+                  platform={currentJob.platform}
                 />
               ) : (
                 <div />
               )
               }
             </div>
-            <div responsive className={cx("mb-0", s.JobCardsGroup)}>
-              <div className={cx(s.JobRow)}>
-                <div class={cx(s.JobCol)}>
-                  <InteractiveTable
-                    glyph={<FontAwesomeIcon icon={faVial} />}
-                    search_fucntion={null}
-                    objectName={"TestCases"}
-                    setCurrentObject={setCurrentTestCase}
-                    retieve_data_function={props.retrieveJobTestCases}
-                    selector={selector_testcase}
-                    colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
-                    parent_object_id={currentJob.id}
-                  />
-                  {
-                    currentTestcase ? (
-                      <ButtonGroup className={cx(s.JobButtonGroup)}>
-                        <Button className={cx(s.TestCaseDetailsButton)} onClick={() => navigate('/app/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
-                      </ButtonGroup>
 
-                    ) : (
-                      <div />
-                    )
-                  }
-                </div>
+            <div className={cx(s.CardRow)}>
+              {
+                enableUploadTestCase ? (
+                  <AddTestCase
+                    job_id={currentJob.id}
+                    closeConstant={setEnableUploadTestCase}
+                  />
+                ) : (
+                  <div />
+                )}
+            </div>
+
+
+            <div className={cx(s.CardRow)}>
+              <div class={cx(s.CardCol)}>
+                <InteractiveTable
+                  glyph={<FontAwesomeIcon icon={faVial} />}
+                  search_fucntion={props.retrieveTestCaseByID}
+                  objectName={"TestCases"}
+                  setCurrentObject={setCurrentTestCase}
+                  retieve_data_function={props.retrieveJobTestCases}
+                  selector={selector_testcase}
+                  colums={["id", "status", "has_bug_flag", "triaged", "timestamp"]}
+                  parent_object_id={currentJob.id}
+                />
+                {
+                  currentTestcase ? (
+                    <ButtonGroup className={cx(s.ButtonGroup)}>
+                      <Button className={cx(s.TestCaseDetailsButton)} onClick={() => navigate('/app/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
+                    </ButtonGroup>
+
+                  ) : (
+                    <div />
+                  )
+                }
               </div>
             </div>
           </div>
@@ -143,6 +169,7 @@ const mapStateToProps = (state) => {
   const { user } = state.auth;
   return {
     jobs: state.jobs,
+    testcases: state.testcases,
     user,
     job: state.currentJob,
   };
@@ -154,4 +181,6 @@ export default connect(mapStateToProps, {
   updateJob,
   deleteJob,
   retrieveJobTestCases,
+  createTestcase,
+  retrieveTestCaseByID,
 })(JobsList);

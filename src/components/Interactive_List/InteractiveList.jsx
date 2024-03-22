@@ -5,7 +5,7 @@ import Widget from "../Widget/Widget";
 import cx from "classnames";
 import Icon from "../Icon/Icon";
 import s from "./InteractiveList.module.scss";
-import ObjectPagination from "../ObjectPagination/ObjectPagination";
+import CustomPagination from "../ObjectPagination/ObjectPagination";
 import { beautify_key_names, isDateString, beautify_date } from "../../helpers/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -121,7 +121,7 @@ function InteractiveList(props) {
 
 
                 )}
-                <ObjectPagination
+                <CustomPagination
                     dataPerPage={dataPerPage}
                     totalData={totalData}
                     paginate={paginate}
@@ -135,12 +135,6 @@ function InteractiveList(props) {
 //Table Section
 const InteractiveTable = ({ listData, setActiveObject, currentIndex, colums }) => {
 
-    const [currentData, setCurrentData] = useState([]);
-
-    useEffect(() => {
-        setCurrentData(listData);
-    }, [listData]);
-
     return (
         <Table bordered hover responsive className={cx("mb-0", s.InteractiveTable)}>
             <thead>
@@ -151,9 +145,13 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex, colums }) =
                 </tr>
             </thead>
             <tbody>
-                {currentData.map((listItem, index) => {
-                    return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} colums={colums} />;
-                })}
+                {
+                    
+                    listData.map((listItem, index) => {
+                        return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} colums={colums} />;
+                    }
+                    )
+                }
             </tbody>
         </Table>
     );

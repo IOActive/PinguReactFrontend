@@ -23,7 +23,7 @@ export const Fuzzer = (json) => {
             required: true,
         },
         fuzzer_zip: {
-            value: json.fuzzer_zip.substring(1),
+            value: (json.fuzzer_zip != null) ? json.fuzzer_zip.substring(1): null,
             editable: true,
             header: "The fuzzer archive that the user uploaded",
             type: File,

@@ -43,6 +43,7 @@ function AddFuzzer(props) {
             object={newFuzzer}
             createObject={props.createFuzzer}
             errorMessage={errorMessage}
+            objectName={"Fuzzer"}
         />
     );
 }

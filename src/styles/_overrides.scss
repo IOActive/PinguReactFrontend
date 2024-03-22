@@ -215,3 +215,31 @@ pre {
     }
   }
 }
+
+// Cards
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-title {
+  display: flex;
+}
+
+// dropdowns
+
+.dropdown{
+  display:flex;
+  justify-content:flex-end;
+  background-color: $widget-bg;
+  //border-color: $gray-400;
+  //border-style:solid;
+  //border-width:1px;
+  border-top-style:none;
+ }
+
+#dropdown-basic-button{
+  background-color:$blue;
+  margin: 1%;
+ }
+ 

@@ -8,6 +8,7 @@ import runtime from './runtime';
 import tasks from "./tasks";
 import testcases from "./testcase"
 import crashes from "./crashes";
+import jobTemplates from "./jobTemplates"
 
 
 
@@ -21,4 +22,5 @@ export default combineReducers({
   tasks,
   testcases,
   crashes,
+  jobTemplates,
 });

@@ -7,65 +7,13 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
- @import '../../../styles/app';
+ @import '../../../styles/app.scss';
  @import "~@fortawesome/fontawesome-free/scss/solid";
  
  .root {
    // styles here
    
  }
- 
- .BotCardsGroup {
- 
-   display: flex;
-   flex-direction: column;
- 
-   .BotRow {
-     display: flex;
-     flex-direction: row;
-   }
-   
-   .BotButtonGroup {
-     display:flex;
-     background-color: $widget-bg;
-     border-color: $gray-400;
-     border-style:solid;
-     border-width:1px;
-     border-top-style:none;
-   }
- 
-   .BotEditButton_bg_red {
-     justify-content: center !important;
-     display: inline-flex !important;
-     margin-left: auto !important;
-     background-color: $red;
-     float:right;
-     flex:0 0 auto;
- 
-     // letters in white
-     color: $white;
- 
-     // centert text
-     align-items: center;
-     margin: 5px;
-   }
 
-   .BotEditButton_bg_blue {
-    justify-content: center !important;
-    display: inline-flex !important;
-    margin-left: auto !important;
-    background-color: $blue;
-    float:right;
-    flex:0 0 auto;
-
-    // letters in white
-    color: $white;
-
-    // centert text
-    align-items: center;
-    margin: 5px;
-  }
- 
- }
  
  

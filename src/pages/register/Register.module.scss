@@ -1,0 +1,29 @@
+@import '../../styles/app';
+
+.root {
+  padding-top: 25vh;
+}
+
+.widget {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 30px !important;
+
+  :global .form-control {
+    font-size: 14px;
+  }
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: $navbar-height;
+  width: 100%;
+  margin-bottom: 10%;
+  
+
+  a img {
+    width: $sidebar-width-open - 40px;
+  }
+}

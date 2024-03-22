@@ -18,9 +18,9 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   }
 
 
-  //if (!editable) {
-  //  return;
-  //}
+  if (!editable) {
+    return;
+  }
 
   if (object_enums && object_enums[key]) {
     return <Form.Group key={index}>
@@ -28,6 +28,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         as="select"
         name={key}
+        id={key}
         value={value}
         required={required}
         onChange={onInputChange}
@@ -47,6 +48,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         type="date"
         name={key}
+        id={key}
         required={required}
         value={value.toISOString().split('T')[0]}
         onChange={onInputChange} />
@@ -67,9 +69,9 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
             label="Check this switch"
             onChange={onInputChange}
             checked
-            
+
           />) : (
-          <Form.Check 
+          <Form.Check
             type="switch"
             id={key}
             required={required}
@@ -90,6 +92,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
       <Form.Control
         type="number"
         name={key}
+        id={key}
         value={value}
         required={required}
         onChange={onInputChange} />
@@ -102,13 +105,26 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   else if (objectType === String) {
     return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
-      <Form.Control
-        type="text"
-        name={key}
-        required={required}
-        value={value}
-        onChange={onInputChange}
-      />
+      {key === "environment_string" ? (
+        <Form.Control
+          type="text"
+          name={key}
+          id={key}
+          required={required}
+          value={value}
+          as="textarea"
+          onChange={onInputChange}
+        />
+      ) : (
+        <Form.Control
+          type="text"
+          name={key}
+          id={key}
+          required={required}
+          value={value}
+          onChange={onInputChange}
+        />
+      )}
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>
     </Form.Group>;
@@ -121,6 +137,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
         type="file"
         required={required}
         name={key}
+        id={key}
         onChange={onInputChange} />
       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       <Form.Text className="text-muted"> {currentObject[key]["header"]} </Form.Text>

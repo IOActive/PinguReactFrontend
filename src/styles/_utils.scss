@@ -43,3 +43,61 @@ $opacity-variants: (10: 0.1, 20: 0.2, 30: 0.3, 40: 0.4, 50: 0.5, 60: 0.6, 70: 0.
 .widget-table-overflow {
   margin: 0 #{-$widget-padding-x} #{-$widget-padding-y};
 }
+
+.CardsGroup {
+ 
+  .CardRow {
+   display: flex;
+   flex-direction: row;
+   margin-top: 20px;
+ }
+
+ .CardCol {
+   display: flex;
+   flex-direction: column;
+   justify-content: normal;
+   flex:1 1 0%;
+ }
+  
+  .CardButtonGroup {
+    display:flex;
+    background-color: $widget-bg;
+    border-color: $gray-400;
+    border-style:solid;
+    border-width:1px;
+    border-top-style:none;
+    align-self: flex-end;
+  }
+
+  .Button_bg_red {
+    justify-content: center !important;
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: $red;
+    float:right;
+    flex:1 1 0%;
+
+    // letters in white
+    color: $white;
+
+    // centert text
+    align-items: center;
+    margin: 5px;
+  }
+
+  .Button_bg_blue {
+   justify-content: center !important;
+   display: inline-flex !important;
+   margin-left: auto !important;
+   background-color: $blue;
+   float:right;
+   flex:1 1 0%;
+
+   // letters in white
+   color: $white;
+
+   // centert text
+   align-items: center;
+   margin: 5px;
+ }
+}

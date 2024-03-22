@@ -10,14 +10,14 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { SimplePopper } from "../SimplePopper/SimplePopper";
 import { beautify_date, decode_base64 } from "../../helpers/utils";
-import Code from "../../models/Crash"
+import Code from "../../models/Code";
 import { Dropdown } from "../../components/Dropdown/Dropdown"
 import { Highlighter } from "../../components/Highlighter/Highlighter"
 import { defaultLanguage, defaultTheme } from "../../constants/index"
 import { googlecode, dark, dracula, a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { shell, javascript, markdown, bash } from "react-syntax-highlighter/dist/esm/languages/hljs";
 
-const themes = {
+/*const themes = {
   googlecode,
   dark,
   dracula,
@@ -29,28 +29,24 @@ const languages = {
   javascript,
   markdown,
   bash,
-}
+}*/
 
 
 
 export const InformationTable = (props) => {
 
-  const { object, objectName } = props;
+  const { object, objectName, ignored_fields=[] } = props;
 
   const [currentObject, setCurrentObject] = useState(object);
 
-  const [language, setLanguage] = useState(defaultLanguage);
-  const [theme, setTheme] = useState(defaultTheme);
+  /*const [language, setLanguage] = useState(defaultLanguage);
+  const [theme, setTheme] = useState(defaultTheme);*/
 
   useEffect(() => {
     setCurrentObject(object);
   }, [object]);
 
-  return <Card className={cx(s.BotInformantionCard)}>
-    <Card.Header>{objectName}</Card.Header>
-    <Card.Body>
-      <div className={cx(s.ControlsBox)}>
-
+  /* <div className={cx(s.ControlsBox)}>
         <Dropdown
           defaultTheme={defaultLanguage}
           onChange={(e) => setLanguage(e.target.value)}
@@ -61,19 +57,26 @@ export const InformationTable = (props) => {
           onChange={(e) => setTheme(e.target.value)}
           data={themes}
         />
-      </div>
+      </div> */
+
+  return <Card className={cx(s.BotInformantionCard)}>
+    <Card.Header>{objectName}</Card.Header>
+    <Card.Body>
       <Table className={cx(s.InformationTable)}>
         <thead>
           <tr>
             <th>Parameter</th>
             <th>Value</th>
           </tr>
-        </thead>
+        
         <tbody>
           {Object.keys(currentObject).map((key, index) => {
-            return generateList(key, index, currentObject, language, theme);
+            if (!ignored_fields.includes(key)){
+              return generateList(key, index, currentObject);
+            }
           })}
         </tbody>
+        </thead>
       </Table>
     </Card.Body>
   </Card>;
@@ -103,7 +106,7 @@ function generate_check_icon(index, key, currentObject) {
   </tr>;
 }
 
-function generateList(key, index, currentObject, language, theme) {
+function generateList(key, index, currentObject) {
 
   const objectType = currentObject[key]["type"];
 
@@ -168,7 +171,7 @@ function generateList(key, index, currentObject, language, theme) {
           currentObject[key]["value"] && currentObject[key]["value"].length > 200 ? (
             <td>
               <div className={cx(s.PanelsBox)}>
-                <Highlighter language={language} theme={themes[theme]}>
+                <Highlighter language={shell} theme={a11yDark}>
                   {currentObject[key]["value"]}
                 </Highlighter>
               </div>
@@ -194,7 +197,7 @@ function generateList(key, index, currentObject, language, theme) {
         </td>
         <td>
           <div className={cx(s.PanelsBox)}>
-            <Highlighter language={language} theme={themes[theme]}>
+            <Highlighter language={shell} theme={a11yDark}>
               {decode_base64(currentObject[key]["value"])}
             </Highlighter>
           </div>

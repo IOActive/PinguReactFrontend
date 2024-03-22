@@ -23,16 +23,16 @@ export const TestCase = (json) => {
         },
         test_case: {
             value: json.test_case,
-            editable: false,
+            editable: true,
             header: "Test Case Source File",
             type: File,
-            required: false,
+            required: true,
         },
         fixed: {
-            value: json.fixed === true,
+            value: json.fixed,
             editable: true,
             header: "The crash related to this test case has been fixed",
-            type: Boolean,
+            type: String,
             required: false,
         },
         one_time_crasher_flag: {
@@ -51,7 +51,7 @@ export const TestCase = (json) => {
         },
         absolute_path: {
             value: json.absolute_path,
-            editable: false,
+            editable: true,
             header: "The file on the bot that generated the testcase.",
             type: String,
             required: false,
@@ -72,10 +72,10 @@ export const TestCase = (json) => {
         },
         timestamp: {
             value: new Date(json.timestamp),
-            editable: false,
+            editable: true,
             header: "Time when the test case was registered",
             type: Date,
-            required: false,
+            required: true,
         },
         status: {
             value: json.status,
@@ -100,7 +100,7 @@ export const TestCase = (json) => {
         },
         testcase_path: {
             value: json.testcase_path,
-            editable: false,
+            editable: true,
             header: "store paths for various things like original testcase, minimized testcase, etc.",
             type: String,
             required: false,
@@ -171,19 +171,26 @@ export const TestCase = (json) => {
             type: Number,
             required: false,
         },
+        archive_state: {
+            value: json.archive_state,
+            editable: false,
+            header: "State representing whether the fuzzed or minimized testcases are archived.",
+            type: Number,
+            required: false,
+        },
         job_id: {
             value: json.job_id,
-            editable: false,
+            editable: true,
             header: "Job ID associated with this test case",
             type: String,
-            required: false,
+            required: true,
         },
         fuzzer_id: {
             value: json.fuzzer_id,
-            editable: false,
+            editable: true,
             header: "Fuzzer ID associated with this test case",
             type: String,
-            required: false,
+            required: true,
         },
 
         validated: false,

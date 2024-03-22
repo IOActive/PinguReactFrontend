@@ -6,35 +6,34 @@
    
  }
 
- .TestCaseCardsGroup {
+ .DownloadTestCaseButton {
+  background-color: $blue;
+  // letters in white
+  color: $white;
 
+  // add arrow icon
+  &:after {
+    content: "\f019";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+  }
+
+  &:hover {
+    background-color: $blue;
+    color: $white;
+  }
+
+  &:focus {
+    background-color: $blue;
+    color: $white;
+  }
+
+  // centert text
   display: flex;
-  flex-direction: column;
-
-  .TestCaseRow {
-    display: flex;
-    flex-direction: row;
-    margin-top: 20px;
-  }
-
-  .TestCaseCol {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    float: none;
-    margin-bottom: 0px;
-  }
-
-  .TestCaseButtonGroup {
-    display: flex;
-    background-color: $widget-bg;
-    border-color: $gray-400;
-    border-style: solid;
-    border-width: 1px;
-    border-top-style: none;
-    margin-left: 0px;
-  }
-
-
+  justify-content: center;
+  align-items: center;
+  flex:0 1 auto;
+  margin: 5px;
 }
