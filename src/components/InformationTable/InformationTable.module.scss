@@ -1,0 +1,61 @@
+/**
+ * Flatlogic Dashboards (https://flatlogic.com/admin-dashboards)
+ *
+ * Copyright © 2015-present Flatlogic, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@import '../../styles/app.scss';
+
+.root {
+  // styles here
+}
+
+.Card {
+  display: flex;
+  flex-direction: row;
+}
+
+.InformationTable {
+  flex-direction: row;
+  justify-content: normal;
+  display: flex;
+
+  th,
+  thead {
+    border-bottom: 1px solid $gray-200;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+  }
+
+  // center text in table
+  td {
+    text-align: left;
+    border-color: $gray-400;
+    display: flex;
+    flex: 1 1 0%
+  }
+
+  tr {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: row;
+    align-self: auto;
+  }
+
+  .tbody {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+.InformantionCard {
+  border-bottom-style: none;
+  margin-top: 10px;
+  display: flex;
+}

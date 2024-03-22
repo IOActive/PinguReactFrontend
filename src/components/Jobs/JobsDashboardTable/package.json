@@ -1,0 +1,6 @@
+{
+  "name": "BootWidget",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BootWidget.js"
+}

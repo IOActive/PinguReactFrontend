@@ -1,0 +1,48 @@
+/**
+ * Flatlogic Dashboards (https://flatlogic.com/admin-dashboards)
+ *
+ * Copyright © 2015-present Flatlogic, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@import '../../styles/app.scss';
+
+.root {
+  // styles here
+}
+
+.DashboardWidget {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.DashboardTable {
+
+  th,
+  td {
+    border-bottom: 2px solid $gray-200;
+    text-align: center;
+
+  }
+
+  thead {
+    border-bottom: 3px solid $gray-400;
+  }
+}
+
+.Badge {
+  margin-top: 5px;
+  justify-content: center;
+}
+
+.ViewAll {
+  margin-top:10px;
+  display:flex;
+  flex-direction:row;
+  float:right;
+ }

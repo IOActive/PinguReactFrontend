@@ -1,0 +1,45 @@
+@import '../../styles/app.scss';
+
+.root {
+  // styles here
+}
+
+.Table {
+  th,
+  td {
+    border-color: $white;
+  }
+
+  thead {
+    border-bottom: 1px solid $gray-200;
+  }
+}
+
+.Card {
+ th,
+ td {
+   border-color: $red;
+ }
+
+ thead {
+   border-bottom: 1px solid $gray-200;
+ }
+
+ button {
+  // position to bottom of form and aligned with the input fields
+  float: right;   
+ }
+
+.toggle_dropdown  {
+  float: left;
+}
+
+.buttons_container {
+  // position to bottom of form and aligned with the input fields
+  margin-top: 10px;  
+}
+
+ margin-left: 25%;
+ margin-right: 25%;
+    
+}

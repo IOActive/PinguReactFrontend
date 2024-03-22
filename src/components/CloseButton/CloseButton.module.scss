@@ -1,0 +1,12 @@
+@import '../../styles/app.scss';
+
+.root {
+ // styles here
+}
+
+.CloseButton {
+    background-color: $gray-200;
+    border-color: $gray-400;
+    display:flex;
+    flex-direction: row;
+}
