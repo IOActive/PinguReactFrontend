@@ -21,7 +21,7 @@ import s from "./CreateObject.module.scss";
 import Card from "react-bootstrap/Card";
 import { generateFormGroups } from "../GenericForm/GenericForm";
 import Dropdown from "react-bootstrap/Dropdown";
-import {CloseButton} from "../CloseButton/CloseButton";
+import { CloseButton } from "../CloseButton/CloseButton";
 
 
 function CreateObject(props) {
@@ -107,13 +107,11 @@ function CreateObject(props) {
       createObject(currentObject.get_payload(currentObject));
 
       setCurrentObject({
-          ...currentObject,
-          submitted: true,
+        ...currentObject,
+        submitted: true,
 
       });
-      if (closeConstant){
-        closeConstant(false);
-      }
+      //navigate("/app/dashboard");
 
     }
   };
@@ -131,64 +129,66 @@ function CreateObject(props) {
   return (
     <Card className={cx("mb-0", s.InformantionCard, "flex-fill")}>
       <Card.Header>Create New {objectName}
-      {
-        closeConstant ? (
-          <CloseButton 
-          closeConstant={closeConstant}
-        />
-        ):(
-          <div></div>
-        )
-      }
+        {
+          closeConstant ? (
+            <CloseButton
+              closeConstant={closeConstant}
+            />
+          ) : (
+            <div></div>
+          )
+        }
       </Card.Header>
       <Card.Body>
         <div responsive className={cx("mb-0", s.Card)}>
-          {currentObject.submitted ? (
-            <div>
-              <h4>You submitted successfully!</h4>
-            </div>
-          ) : (
-            <Form noValidate validated={currentObject.validated} onSubmit={saveObject}>
+          <Form noValidate validated={currentObject.validated} onSubmit={saveObject}>
 
-              <Form.Group>
-                {Object.keys(currentObject).map((key, index) => {
-                  if (currentObject[key].required && currentObject[key].editable)
-                    return generateFormGroups(key, index, currentObject, onInputChange);
-                })}
-              </Form.Group>
+            <Form.Group>
+              {Object.keys(currentObject).map((key, index) => {
+                if (currentObject[key].required && currentObject[key].editable)
+                  return generateFormGroups(key, index, currentObject, onInputChange);
+              })}
+            </Form.Group>
 
 
-              <Form.Group id="optional" hidden>
-                {Object.keys(currentObject).map((key, index) => {
-                  if (!currentObject[key].required && currentObject[key].editable)
-                    return generateFormGroups(key, index, currentObject, onInputChange);
-                })}
-              </Form.Group>
+            <Form.Group id="optional" hidden>
+              {Object.keys(currentObject).map((key, index) => {
+                if (!currentObject[key].required && currentObject[key].editable)
+                  return generateFormGroups(key, index, currentObject, onInputChange);
+              })}
+            </Form.Group>
 
-              {errorMessage && (
-                <div className="form-group">required
-                  <div className="alert alert-danger" role="alert">
-                    {errorMessage}
-                  </div>
+            {errorMessage && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {errorMessage}
                 </div>
-              )}
-
-              <div className={cx(s.buttons_container)}>
-                <Button variant="primary" type="submit"> Submit</Button>
-
-
-                <Dropdown className={cx(s.toggle_dropdown)}>
-                  <Dropdown.Toggle id="dropdown-basic">
-                    Optional fields
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={show_options_field}>Toggle optional fields</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
               </div>
-            </Form>
-          )}
+            )}
+
+            {currentObject.submitted && (
+              <div className="form-group">
+                <div className="alert alert-success" role="alert">
+                  <p>submmited</p>
+                </div>
+              </div>
+            )}
+
+            <div className={cx(s.buttons_container)}>
+              <Button variant="primary" type="submit"> Submit</Button>
+
+
+              <Dropdown className={cx(s.toggle_dropdown)}>
+                <Dropdown.Toggle id="dropdown-basic">
+                  Optional fields
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={show_options_field}>Toggle optional fields</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </Form>
         </div>
       </Card.Body>
     </Card>
