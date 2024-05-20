@@ -52,7 +52,7 @@ import {
       type: LOGIN_FAILURE,
       isFetching: false,
       isAuthenticated: false,
-      message,
+      payload: message,
     };
   }
 
@@ -65,13 +65,7 @@ import {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        
+        const message = error.response.data.detail;
         dispatch(loginError(message));
 
         return Promise.reject();
@@ -112,13 +106,7 @@ import {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        dispatch(RegistrationError(message));
+        const message = error.response.data.detail;        dispatch(RegistrationError(message));
         return Promise.reject();
       }
     );
@@ -161,7 +149,7 @@ import {
           return Promise.resolve();
         },
         (error) => {          
-          dispatch(loginError(error.response.message));
+          dispatch(loginError(error.response.detail));
           return Promise.reject();
         }
       );

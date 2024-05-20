@@ -106,12 +106,14 @@ function CreateObject(props) {
     if (form.checkValidity() === true) {
       createObject(currentObject.get_payload(currentObject));
 
-      /*setCurrentObject({
+      setCurrentObject({
           ...currentObject,
           submitted: true,
 
-      });*/
-      //navigate("/app/dashboard");
+      });
+      if (closeConstant){
+        closeConstant(false);
+      }
 
     }
   };

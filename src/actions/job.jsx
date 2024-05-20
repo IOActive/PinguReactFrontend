@@ -93,12 +93,7 @@ export const getJob = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobError(message));
 
@@ -115,12 +110,7 @@ export const updateJob = (id, data) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobError(message));
       return Promise.reject();
@@ -136,12 +126,7 @@ export const deleteJob = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobError(message));
       return Promise.reject();
@@ -157,12 +142,7 @@ export const findJobsByName = (name) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobError(message));
 
