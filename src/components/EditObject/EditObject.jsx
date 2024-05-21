@@ -22,7 +22,7 @@ import Form from "react-bootstrap/Form";
 import s from "./EditObject.module.scss";
 import Card from "react-bootstrap/Card";
 import { generateFormGroups } from "../GenericForm/GenericForm";
-import {CloseButton} from "../CloseButton/CloseButton";
+import { CloseButton } from "../CloseButton/CloseButton";
 
 
 const EditObject = (props) => {
@@ -110,9 +110,15 @@ const EditObject = (props) => {
     if (form.checkValidity() === true) {
 
       updateObject(currentObject.id.value, currentObject.get_payload(currentObject));
-    }<CloseButton 
-    closeConstant={closeConstant}
-  />
+    } <CloseButton
+      closeConstant={closeConstant}
+    />
+
+    setCurrentObject({
+      ...currentObject,
+      submitted: true,
+
+    });
   };
 
   const removeObject = (event) => {
@@ -129,6 +135,12 @@ const EditObject = (props) => {
     if (form.checkValidity() === true) {
       deleteObject(currentObject.id.value);
     }
+
+    setCurrentObject({
+      ...currentObject,
+      submitted: true,
+
+    });
   };
 
   return (
@@ -137,7 +149,7 @@ const EditObject = (props) => {
         <Card.Title tag="h5" className="mb-0">
           {currentObject.name.value}
         </Card.Title>
-        <CloseButton 
+        <CloseButton
           closeConstant={closeConstant}
         />
       </Card.Header>
@@ -153,9 +165,17 @@ const EditObject = (props) => {
                 })}
 
                 {errorMessage && (
-                  <div className={cx(s.ErrorMessage)}>
+                  <div className="form-group">
                     <div className="alert alert-danger" role="alert">
                       {errorMessage}
+                    </div>
+                  </div>
+                )}
+
+                {currentObject.submitted && !errorMessage && (
+                  <div className="form-group">
+                    <div className="alert alert-success" role="alert">
+                      <p>submmited</p>
                     </div>
                   </div>
                 )}

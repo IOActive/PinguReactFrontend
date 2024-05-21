@@ -52,10 +52,9 @@ export const retrieveCrashes = (page_number) => async (dispatch) => {
         const response = await CrashDataService.getPage(page_number);
         dispatch(crashRecieved(RETRIEVE_CRASHES, response.data));
         return Promise.resolve(response.data);
-    } catch (err) {
-        const message = err.response.data.message || err.message || err.toString();
-        dispatch(crashError(message));
-        return Promise.reject(err);
+    } catch (error) {
+        const message = error.response.data.message || error.response.data.msg | error.toString();        dispatch(crashError(message));
+        return Promise.reject(error);
     }
 };
 
@@ -65,10 +64,9 @@ export const retrieveTestCaseCrashes = (page_number, testcase_id) => async (disp
         const response = await CrashDataService.getPageByTestCaseID(testcase_id, page_number);
         dispatch(crashRecieved(RETRIEVE_CRASHES, response.data));
         return Promise.resolve(response.data);
-    } catch (err) {
-        const message = err.response.data.message || err.message || err.toString();
-        dispatch(crashError(message));
-        return Promise.reject(err);
+    } catch (error) {
+        const message = error.response.data.message || error.response.data.msg | error.toString();        dispatch(crashError(message));
+        return Promise.reject(error);
     }
 };
 
@@ -80,13 +78,7 @@ export const retrieveCrashByID = (id) => (dispatch) => {
         return Promise.resolve(response.data);
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
+        const message = error.response.data.message || error.response.data.msg | error.toString(); 
         dispatch(crashError(message));
   
         return Promise.reject();

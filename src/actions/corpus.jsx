@@ -14,23 +14,23 @@
 */
 
 
-import CustomBinaryDataService from "../services/custon_binary_service";
+import CorpusDataService from "../services/corpus_service";
 
 import {
-  CREATE_CUSTOM_BINARY,
-  CUSTOM_BINARY_REQUEST,
-  CUSTOM_BINARY_FAILURE,
+  CREATE_CORPUS,
+  CORPUS_REQUEST,
+  CORPUS_FAILURE,
 } from "./types";
 
-function custom_binaryRequest(payload) {
+function corpusRequest(payload) {
   return {
-    type: CUSTOM_BINARY_REQUEST,
+    type: CORPUS_REQUEST,
     isFetching: true,
     payload,
   };
 }
 
-export function custom_binaryRecieved(type, data) {
+export function corpusRecieved(type, data) {
   return {
     type: type,
     isFetching: false,
@@ -38,25 +38,24 @@ export function custom_binaryRecieved(type, data) {
   };
 }
 
-function custom_binaryError(message) {
+function corpusError(message) {
   return {
-    type: CUSTOM_BINARY_FAILURE,
+    type: CORPUS_FAILURE,
     isFetching: false,
     payload: message,
   };
 }
 
-export const upload_custom_binary = (payload) => (dispatch) => {
-    dispatch(custom_binaryRequest(payload));
-    return CustomBinaryDataService.create(payload).then(
+export const upload_corpus = (payload) => (dispatch) => {
+    dispatch(corpusRequest(payload));
+    return CorpusDataService.create(payload).then(
       (response) => {
-        dispatch(custom_binaryRecieved(CREATE_CUSTOM_BINARY,response.data));
+        dispatch(corpusRecieved(CREATE_CORPUS,response.data));
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.message || error.response.data.msg | error.toString(); 
-  
-        dispatch(custom_binaryError(message));
+        const message = error.response.data.msg;  
+        dispatch(corpusError(message));
  
         return Promise.reject();
       }

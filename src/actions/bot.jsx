@@ -57,7 +57,7 @@ export const createBot = (payload) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
-      const message = error.response.data.detail;
+      const message = error.response.data.message || error.response.data.msg | error.toString();
       dispatch(botError(message));
 
       return Promise.reject();
@@ -72,10 +72,10 @@ export const retrieveBots = (page_number) => async (dispatch) => {
 
     dispatch(botRecieved(RETRIEVE_BOTS, response.data));
     return Promise.resolve(response.data);
-  } catch (err) {
-    const message = err.response.data.detail;
+  } catch (error) {
+    const message = error.response.data.message || error.response.data.msg | error.toString();
     dispatch(botError(message));
-    return Promise.reject(err);
+    return Promise.reject(error);
   }
 };
 
@@ -87,8 +87,7 @@ export const getBot = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.detail;
-
+      const message = error.response.data.message || error.response.data.msg | error.toString();
       dispatch(botError(message));
 
       return Promise.reject();
@@ -104,8 +103,7 @@ export const updateBot = (id, data) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.detail;
-
+      const message = error.response.data.message || error.response.data.msg | error.toString();
       dispatch(botError(message));
       return Promise.reject();
     }
@@ -120,8 +118,7 @@ export const deleteBot = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.detail;
-
+      const message = error.response.data.message || error.response.data.msg | error.toString();
       dispatch(botError(message));
       return Promise.reject();
     }
@@ -136,8 +133,7 @@ export const findBotsByName = (name) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.detail;
-
+      const message = error.response.data.message || error.response.data.msg | error.toString();
       dispatch(botError(message));
 
       return Promise.reject();

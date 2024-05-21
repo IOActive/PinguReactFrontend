@@ -106,7 +106,8 @@ import {
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.detail;        dispatch(RegistrationError(message));
+        const message = error.response.data.detail;        
+        dispatch(RegistrationError(message));
         return Promise.reject();
       }
     );
