@@ -39,7 +39,7 @@ function corpusReducer(corpuses = initialState, action) {
         case CORPUS_FAILURE:
             return {
                 isFetching: false,
-                errorMessage: payload,
+                errorMessage: payload
             };
         default:
             return corpuses;

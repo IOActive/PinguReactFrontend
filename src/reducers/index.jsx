@@ -25,7 +25,7 @@ import testcases from "./testcase"
 import crashes from "./crashes";
 import jobTemplates from "./jobTemplates"
 import custom_binaries from "./custom_binaries"
-import corpus from "./corpus"
+import corpuses from "./corpus"
 
 
 
@@ -41,5 +41,5 @@ export default combineReducers({
   crashes,
   jobTemplates,
   custom_binaries,
-  corpus,
+  corpuses,
 });

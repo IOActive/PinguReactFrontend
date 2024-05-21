@@ -54,13 +54,7 @@ export const upload_corpus = (payload) => (dispatch) => {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
+        const message = error.response.data.msg;  
         dispatch(corpusError(message));
  
         return Promise.reject();

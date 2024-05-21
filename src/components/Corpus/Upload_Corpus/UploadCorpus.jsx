@@ -32,7 +32,7 @@ function UploadCorpus(props) {
       });
 
     const { errorMessage } = useSelector(
-        (state) => state.custom_binaries
+        (state) => state.corpuses
     );
 
     return (

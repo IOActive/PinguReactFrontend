@@ -54,12 +54,7 @@ export const upload_custom_binary = (payload) => (dispatch) => {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+        const message = error.response.data.message || error.response.data.msg | error.toString(); 
   
         dispatch(custom_binaryError(message));
  
