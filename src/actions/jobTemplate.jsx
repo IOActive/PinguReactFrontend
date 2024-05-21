@@ -93,12 +93,7 @@ export const getJobTemplate = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobTemplateError(message));
 
@@ -115,12 +110,7 @@ export const updateJobTemplate = (id, data) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobTemplateError(message));
       return Promise.reject();
@@ -136,12 +126,7 @@ export const deleteJobTemplate = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobTemplateError(message));
       return Promise.reject();

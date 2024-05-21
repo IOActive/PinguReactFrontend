@@ -53,7 +53,7 @@ const TestCaseDetails = (props) => {
     }, [payload])
 
     function DownloadTestCase() {
-        let testcase_stream_b64 = currentTestcase["test_case"].value;
+        let testcase_stream_b64 = currentTestcase["test_case"].value.split(',')[1];
         if (testcase_stream_b64 != null) {
             const urlDecodedBase64 = decodeURIComponent(testcase_stream_b64);
 
