@@ -30,6 +30,7 @@ import React from "react";
 import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
 import AddTestCase from "../../../components/TestCases/CreateTestCases/CreateTestCase";
 import UploadCustomBinary from "../../../components/Custom_Binary/Upload_Custom_Binary/UploadCustomBinary";
+import UploadCorpus from "../../../components/Corpus/Upload_Corpus/UploadCorpus"
 import { retrieveJobTestCases, createTestcase, retrieveTestCaseByID } from "../../../actions/testcase";
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -43,6 +44,7 @@ const JobsList = (props) => {
   const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
   const [enableUploadTestCase, setEnableUploadTestCase] = React.useState(false);
   const [enableCreateCustomBinary, setEnableCustomBianry] = React.useState(false);
+  const [enableUploadCorpus, setEnableUploadCorpus] = React.useState(false);
 
   const selector = useSelector((state) => state.jobs);
   const selector_testcase = useSelector((state) => state.testcases);
@@ -65,6 +67,10 @@ const JobsList = (props) => {
 
   function display_UploadCustomBinary() {
     setEnableCustomBianry(!enableCreateCustomBinary);
+  }
+
+  function display_UploadCorpus() {
+    setEnableUploadCorpus(!enableCreateCustomBinary);
   }
 
 
@@ -108,6 +114,7 @@ const JobsList = (props) => {
                   <Dropdown.Item onClick={display_createTask}>Create {"Task"}</Dropdown.Item>
                   <Dropdown.Item onClick={display_UploadTestCase}>Upload New Testcase</Dropdown.Item>
                   <Dropdown.Item onClick={display_UploadCustomBinary}>Upload New Custom Binary</Dropdown.Item>
+                  <Dropdown.Item onClick={display_UploadCorpus}>Upload Corpus Bundle</Dropdown.Item>
                 </DropdownButton>
 
               </div>
@@ -156,6 +163,18 @@ const JobsList = (props) => {
                   <UploadCustomBinary
                     job_id={currentJob.id}
                     closeConstant={setEnableCustomBianry}
+                  />
+                ) : (
+                  <div />
+                )}
+            </div>
+
+            <div className={cx(s.CardRow)}>
+              {
+                enableUploadCorpus ? (
+                  <UploadCorpus
+                    job_id={currentJob.id}
+                    closeConstant={setEnableUploadCorpus}
                   />
                 ) : (
                   <div />
