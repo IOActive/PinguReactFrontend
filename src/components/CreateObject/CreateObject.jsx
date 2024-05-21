@@ -166,7 +166,7 @@ function CreateObject(props) {
               </div>
             )}
 
-            {currentObject.submitted && (
+            {currentObject.submitted && !errorMessage && (
               <div className="form-group">
                 <div className="alert alert-success" role="alert">
                   <p>submmited</p>
