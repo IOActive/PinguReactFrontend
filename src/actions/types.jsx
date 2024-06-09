@@ -85,3 +85,12 @@ export const CORPUS_REQUEST = "CORPUS_REQUEST";
 export const CORPUS_FAILURE = "CORPUS_FAILURE";
 
 
+export const CREATE_BUILD = "CREATE_BUILD";
+export const RETRIEVE_BUILDS = "RETRIEVE_BUILDS";
+export const UPDATE_BUILD = "UPDATE_BUILD";
+export const DELETE_BUILD = "DELETE_BUILD";
+export const BUILD_FAILURE = "BUILD_FAILURE";
+export const BUILD_REQUEST = "BUILD_REQUEST";
+
+
+

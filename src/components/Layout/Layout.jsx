@@ -1,11 +1,4 @@
-/**
- * Flatlogic Dashboards (https://flatlogic.com/admin-dashboards)
- *
- * Copyright © 2015-present Flatlogic, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+
 
 import React from 'react';
 import cx from 'classnames';
@@ -26,6 +19,8 @@ import AddJob from "../../pages/job_pages/job_create/JobCreate"
 import AddFuzzer from "../../pages/fuzzer_pages/fuzzer_create/FuzzerCreate";
 import FuzzersList from "../../pages/fuzzer_pages/fuzzer_list/FuzzerList";
 import TestCaseDetails from "../../pages/testcase_page/testcase_details/testcase_details"
+import BuildManagerList from "../../pages/build_manager_pages/build_manger_list/BuildManagerList"
+import AddBuild from "../../pages/build_manager_pages/build_manger_add/BuildCreate";
 
 function Layout(props) {
 
@@ -54,6 +49,10 @@ function Layout(props) {
             <Route path="fuzzer">
               <Route path="list" element={<FuzzersList />} />
               <Route path="add" element={<AddFuzzer />} />
+            </Route>
+            <Route path="build_manager">
+              <Route path="list" element={<BuildManagerList />} />
+              <Route path="add" element={<AddBuild />} />
             </Route>
             <Route path="testcase">
               <Route path=":id" element={<TestCaseDetails />} />

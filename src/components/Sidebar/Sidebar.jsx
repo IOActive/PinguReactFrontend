@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPersonDigging,
   faRocket,
+  faBoxArchive,
 } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -87,6 +88,21 @@ function Sidebar() {
             }
           ]}
           glyph={<FontAwesomeIcon icon={faRocket} />} />
+
+        <LinksGroup
+          header="Build Manger"
+          headerLink="/app/build_manager"
+          childrenLinks={[
+            {
+              name: 'Build  List',
+              link: '/app/build_manager/list',
+            },
+            {
+              name: 'Build Create',
+              link: '/app/build_manager/add',
+            }
+          ]}
+          glyph={<FontAwesomeIcon icon={faBoxArchive} />} />
       </ul>
     </nav>
   );

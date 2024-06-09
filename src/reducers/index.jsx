@@ -26,6 +26,7 @@ import crashes from "./crashes";
 import jobTemplates from "./jobTemplates"
 import custom_binaries from "./custom_binaries"
 import corpuses from "./corpus"
+import builds from "./build";
 
 
 
@@ -42,4 +43,5 @@ export default combineReducers({
   jobTemplates,
   custom_binaries,
   corpuses,
+  builds,
 });
