@@ -53,10 +53,9 @@ export const retrieveTestCases = (page_number) => async (dispatch) => {
         const response = await TestCaseDataService.getPage(page_number);
         dispatch(testCaseRecieved(RETRIEVE_TESTCASES, response.data));
         return Promise.resolve(response.data);
-    } catch (err) {
-        const message = err.response.data.message || err.message || err.toString();
-        dispatch(testCaseError(message));
-        return Promise.reject(err);
+    } catch (error) {
+      const message = error.response.data.message || error.response.data.msg | error.toString();         dispatch(testCaseError(message));
+        return Promise.reject(error);
     }
 };
 
@@ -66,10 +65,9 @@ export const retrieveJobTestCases = (page_number, job_id) => async (dispatch) =>
         const response = await TestCaseDataService.getPageByJobID(job_id, page_number);
         dispatch(testCaseRecieved(RETRIEVE_TESTCASES, response.data));
         return Promise.resolve(response.data);
-    } catch (err) {
-        const message = err.response.data.message || err.message || err.toString();
-        dispatch(testCaseError(message));
-        return Promise.reject(err);
+    } catch (error) {
+      const message = error.response.data.message || error.response.data.msg | error.toString();         dispatch(testCaseError(message));
+        return Promise.reject(error);
     }
 };
 
@@ -81,12 +79,7 @@ export const retrieveTestCaseByID = (id) => (dispatch) => {
         return Promise.resolve(response.data);
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+        const message = error.response.data.message || error.response.data.msg | error.toString(); 
   
         dispatch(testCaseError(message));
   
@@ -103,12 +96,7 @@ export const retrieveTestCaseByID = (id) => (dispatch) => {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+        const message = error.response.data.message || error.response.data.msg | error.toString(); 
   
         dispatch(testCaseError(message));
   

@@ -57,15 +57,8 @@ export const createFuzzer = (payload) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(fuzzerError(message));
-
       return Promise.reject();
     }
   );
@@ -78,10 +71,9 @@ export const retrieveFuzzers = (page_number) => async (dispatch) => {
 
     dispatch(fuzzerRecieved(RETRIEVE_FUZZERS, response.data));
     return Promise.resolve(response.data);
-  } catch (err) {
-    const message = err.response.data.message || err.message || err.toString();
-    dispatch(fuzzerError(message));
-    return Promise.reject(err);
+  } catch (error) {
+    const message = error.response.data.message || error.response.data.msg | error.toString();     dispatch(fuzzerError(message));
+    return Promise.reject(error);
   }
 };
 
@@ -93,13 +85,7 @@ export const getFuzzer = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(fuzzerError(message));
 
       return Promise.reject();
@@ -115,13 +101,7 @@ export const updateFuzzer = (id, data) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(fuzzerError(message));
       return Promise.reject();
     }
@@ -136,13 +116,7 @@ export const deleteFuzzer = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(fuzzerError(message));
       return Promise.reject();
     }
@@ -157,13 +131,7 @@ export const findFuzzersByName = (name) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(fuzzerError(message));
 
       return Promise.reject();

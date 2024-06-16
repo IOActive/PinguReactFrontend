@@ -57,13 +57,7 @@ export const createJob = (payload) => (dispatch) => {
         return Promise.resolve();
       },
       (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-  
+        const message = error.response.data.message || error.response.data.msg | error.toString(); 
         dispatch(jobError(message));
  
         return Promise.reject();
@@ -78,10 +72,9 @@ export const retrieveJobs = (page_number) => async (dispatch) => {
 
     dispatch(jobRecieved(RETRIEVE_JOBS, response.data));
     return Promise.resolve(response.data);
-  } catch (err) {
-    const message = err.response.data.message || err.message || err.toString();
-    dispatch(jobError(message));
-    return Promise.reject(err);
+  } catch (error) {
+    const message = error.response.data.message || error.response.data.msg | error.toString();     dispatch(jobError(message));
+    return Promise.reject(error);
   }
 };
 
@@ -93,13 +86,7 @@ export const getJob = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(jobError(message));
 
       return Promise.reject();
@@ -115,13 +102,7 @@ export const updateJob = (id, data) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(jobError(message));
       return Promise.reject();
     }
@@ -136,13 +117,7 @@ export const deleteJob = (id) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = error.response.data.message || error.response.data.msg | error.toString(); 
       dispatch(jobError(message));
       return Promise.reject();
     }
@@ -157,12 +132,7 @@ export const findJobsByName = (name) => (dispatch) => {
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = error.response.data.detail;
 
       dispatch(jobError(message));
 
