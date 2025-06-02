@@ -20,7 +20,7 @@ import {
   DELETE_BOT,
   BOT_REQUEST,
   BOT_FAILURE,
-} from "../actions/types";
+} from "actions/types";
 
 const initialState = [];
 
@@ -67,7 +67,7 @@ function botReducer(bots = initialState, action) {
     case BOT_FAILURE:
       return {
         isFetching: false,
-        errorMessage: payload,
+        errorMessage: payload.message,
       };
     default:
       return bots;

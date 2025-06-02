@@ -1,0 +1,23 @@
+@import 'styles/app.scss';
+
+.root {
+
+}
+
+.SelectLabel {
+  background-color: var(--brand-info);
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+
+.container {
+  justify-content: center !important;
+  display: inline-flex !important;
+  margin-left: auto !important;
+  float: right;
+  flex-grow: 0;
+  flex-direction: column;
+}

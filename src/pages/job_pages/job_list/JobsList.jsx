@@ -13,33 +13,36 @@
  limitations under the License.
 */
 
-import { retrieveJobs, findJobsByName, updateJob, deleteJob } from "../../../actions/job";
+import { retrieveJobs, findJobsByName, updateJob, deleteJob } from "actions/job";
 import { connect } from "react-redux";
-import { Breadcrumb, BreadcrumbItem, Button, ButtonGroup } from "reactstrap";
+import { Button, ButtonGroup } from "reactstrap";
 import cx from "classnames";
 
 import s from "./JobsList.module.scss";
 import { useSelector } from "react-redux";
-import EditObject from "../../../components/EditObject/EditObject";
-import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
+import EditObject from "components/EditObject/EditObject";
+import InteractiveTable from "components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDigging, faVial } from "@fortawesome/free-solid-svg-icons";
-import { InformationTable } from "../../../components/InformationTable/InformationTable";
-import { Job } from "../../../models/Job";
+import { faDigging, faVial, faList } from "@fortawesome/free-solid-svg-icons";
+import { InformationTable } from "components/InformationTable/InformationTable";
+import { Job } from "models/Job";
 import React from "react";
-import AddTask from "../../../components/Tasks/CreateTask/CreateTask";
-import AddTestCase from "../../../components/TestCases/CreateTestCases/CreateTestCase";
-import UploadCustomBinary from "../../../components/Custom_Binary/Upload_Custom_Binary/UploadCustomBinary";
-import UploadCorpus from "../../../components/Corpus/Upload_Corpus/UploadCorpus"
-import { retrieveJobTestCases, createTestcase, retrieveTestCaseByID } from "../../../actions/testcase";
+import AddTask from "components/Tasks/CreateTask/CreateTask";
+import AddTestCase from "components/TestCases/CreateTestCases/CreateTestCase";
+import UploadCustomBinary from "components/Custom_Binary/Upload_Custom_Binary/UploadCustomBinary";
+import UploadCorpus from "components/Corpus/Upload_Corpus/UploadCorpus"
+import { retrieveJobTestCases, createTestcase, retrieveTestCaseByID } from "actions/testcase";
+import { retrieveTasksByJobId, retrieveTaskByID } from "actions/task";
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import { PageHeader } from "components/PageHeader/PageHeader";
 
 
 const JobsList = (props) => {
   const [currentJob, setCurrentJob] = React.useState(null);
   const [currentTestcase, setCurrentTestCase] = React.useState(null);
+  const [currentTask, setCurrentTask] = React.useState(null);
   const [enableEditing, setEnableEditing] = React.useState(false);
   const [enableCreateTasks, setEnableCreateTasks] = React.useState(false);
   const [enableUploadTestCase, setEnableUploadTestCase] = React.useState(false);
@@ -48,8 +51,10 @@ const JobsList = (props) => {
 
   const selector = useSelector((state) => state.jobs);
   const selector_testcase = useSelector((state) => state.testcases);
+  const selector_task = useSelector((state) => state.tasks);
 
-
+  const active_project = useSelector((state) => state.active_project);
+  
   let navigate = useNavigate();
 
   function editJob() {
@@ -77,13 +82,7 @@ const JobsList = (props) => {
 
   return (
     <div className={s.root}>
-      <Breadcrumb>
-        <BreadcrumbItem>YOU ARE HERE</BreadcrumbItem>
-        <BreadcrumbItem>Jobs</BreadcrumbItem>
-        <BreadcrumbItem active>Jobs List</BreadcrumbItem>
-      </Breadcrumb>
-      <h1 className="mb-lg">Jobs List</h1>
-
+      <PageHeader title="Job List"/>
       <div responsive className={cx(s.CardsGroup)}>
         <div className={cx(s.CardRow)}>
           <div className={cx(s.CardCol)}>
@@ -95,6 +94,7 @@ const JobsList = (props) => {
               retieve_data_function={props.retrieveJobs}
               selector={selector}
               colums={["id", "name", "date"]}
+              parent_object_id={active_project}
             />
           </div>
         </div>
@@ -181,6 +181,35 @@ const JobsList = (props) => {
                 )}
             </div>
 
+            <div className={cx(s.CardRow)}>
+              {
+
+                <div class={cx(s.CardCol)}>
+                  <InteractiveTable
+                    glyph={<FontAwesomeIcon icon={faList} />}
+                    search_fucntion={props.retrieveTaskByID}
+                    objectName={"Tasks"}
+                    setCurrentObject={setCurrentTask}
+                    retieve_data_function={props.retrieveTasksByJobId}
+                    selector={selector_task}
+                    colums={["id", "status", "create_time", "argument", "command"]}
+                    parent_object_id={currentJob.id}
+                  />
+                  {
+                    currentTask ? (
+                      <ButtonGroup className={cx(s.ButtonGroup)}>
+                        <Button className={cx(s.DetailsButton)} onClick={() => navigate('/task/' + currentTask['id'])}> Task {currentTask['id']} Details</Button>
+                      </ButtonGroup>
+
+                    ) : (
+                      <div />
+                    )
+                  }
+                </div>
+
+              }
+            </div>
+
 
             <div className={cx(s.CardRow)}>
               <div class={cx(s.CardCol)}>
@@ -197,7 +226,7 @@ const JobsList = (props) => {
                 {
                   currentTestcase ? (
                     <ButtonGroup className={cx(s.ButtonGroup)}>
-                      <Button className={cx(s.TestCaseDetailsButton)} onClick={() => navigate('/app/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
+                      <Button className={cx(s.DetailsButton)} onClick={() => navigate('/testcase/' + currentTestcase['id'])}> TestCase {currentTestcase['id']} Details</Button>
                     </ButtonGroup>
 
                   ) : (
@@ -236,4 +265,6 @@ export default connect(mapStateToProps, {
   retrieveJobTestCases,
   createTestcase,
   retrieveTestCaseByID,
+  retrieveTaskByID,
+  retrieveTasksByJobId,
 })(JobsList);

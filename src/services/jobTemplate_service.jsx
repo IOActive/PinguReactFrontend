@@ -13,45 +13,45 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
+
 
 class JobTemplateDataService {
   getAll() {
-    return http.get("/jobtemplate/");
+    return getHttpInstance().get("/jobtemplate/");
   }
 
   get(id) {
-    return http.get(`/jobtemplate/?id=${id}`);
+    return getHttpInstance().get(`/jobtemplate/?id=${id}`);
   }
 
   create(data) {
-    return http.post("/jobtemplate/", data);
+    return getHttpInstance().post("/jobtemplate/", data);
   }
 
   update(id, data) {
-    return http.patch(`/jobtemplate/${id}/`, data).catch((e) => {
-      console.log(e);
-    });
+    return getHttpInstance().patch(`/jobtemplate/${id}/`, data);
   }
 
   delete(id) {
-    return http.delete(`/jobtemplate/${id}/`);
+    return getHttpInstance().delete(`/jobtemplate/${id}/`);
   }
 
   deleteAll() {
-    return http.delete(`/jobtemplate/`);
+    return getHttpInstance().delete(`/jobtemplate/`);
   }
 
   findByName(name) {
-    return http.get(`/jobtemplate/?name=${name}`);
+    return getHttpInstance().get(`/jobtemplate/?name=${name}`);
   }
 
   findByID(id){
-    return http.get(`/jobtemplate/?id=${id}`);
+    return getHttpInstance().get(`/jobtemplate/?id=${id}`);
   }
 
   getPage(page_number) {
-    return  http.get(`/jobtemplate/?page=${page_number}`);
+    return  getHttpInstance().get(`/jobtemplate/?page=${page_number}`);
   }
 }
 

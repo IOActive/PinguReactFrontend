@@ -15,9 +15,9 @@
 
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { retrieveJobs, findJobsByName } from "../../../actions/job";
+import { retrieveJobs, findJobsByName } from "actions/job";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DashboardTable from "../../DashBoardTable/DashBoardTable";
+import DashboardTable from "components/DashBoardTable/DashBoardTable";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { faPersonDigging } from "@fortawesome/free-solid-svg-icons";
@@ -26,10 +26,12 @@ const JobsDashboardTable = (props) => {
 
   const { isFetching, payload } = useSelector(state => state.jobs);
 
+  const active_project = useSelector((state) => state.active_project);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(retrieveJobs(1))
+    dispatch(retrieveJobs(1, active_project))
   }, [dispatch]);
 
 
@@ -39,8 +41,8 @@ const JobsDashboardTable = (props) => {
           glyph={<FontAwesomeIcon icon={faPersonDigging} />}
           retrieveData={props.retrieveJobs}
           findObjectByName={props.findJobsByName}
-          colums={["name", "project", "platform", "enabled"]}
-          list_path={"/app/job/list"}
+          colums={["id", "name", "platform", "enabled"]}
+          list_path={"/job/list"}
           data={payload}
           isFetching={isFetching}
         />

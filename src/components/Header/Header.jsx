@@ -17,11 +17,12 @@ import {
 
 import { NavLink } from "react-router-dom";
 
-import Icon from "../Icon";
+import Icon from "components/Icon";
 
-import photo from "../../images/pingu.png";
-import { logoutUser } from "../../actions/auth";
+import photo from "images/pingu.png";
+import { logoutUser } from "actions/auth";
 import s from "./Header.module.scss";
+import ThemeSwitcher from "components/theme_switcher";
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -89,6 +90,9 @@ const Header = (props) => {
             <Icon glyph="settings" />
           </Button>
         </NavItem>
+        <NavItem className={cx("", s.headerIcon)}>
+          <ThemeSwitcher/>
+        </NavItem>
         {currentUser && (
           <Dropdown isOpen={isOpen} toggle={toggleDropdown}>
             <DropdownToggle nav>
@@ -106,10 +110,10 @@ const Header = (props) => {
             </DropdownToggle>
             <DropdownMenu style={{ width: "100%" }}>
               <DropdownItem>
-                <NavLink to="/app/posts">Posts</NavLink>
+                <NavLink to="/posts">Posts</NavLink>
               </DropdownItem>
               <DropdownItem>
-                <NavLink to="/app/profile">Profile</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
               </DropdownItem>
               <DropdownItem onClick={doLogout}>Logout</DropdownItem>
             </DropdownMenu>

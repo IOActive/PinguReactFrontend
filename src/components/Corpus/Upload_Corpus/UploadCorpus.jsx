@@ -14,10 +14,10 @@
 */
 
 import { connect } from "react-redux";
-import { upload_corpus } from "../../../actions/corpus";
+import { upload_corpus } from "actions/corpus";
 import { useSelector } from "react-redux";
-import { Corpus } from "../../../models/Corpus";
-import CreateObject from "../../CreateObject/CreateObject";
+import { Corpus } from "models/Corpus";
+import CreateObject from "components/CreateObject/CreateObject";
 
 function UploadCorpus(props) {
 
@@ -42,6 +42,7 @@ function UploadCorpus(props) {
             errorMessage={errorMessage}
             objectName={"Corpus"}
             closeConstant={closeConstant}
+            display_header={false}
         />
     );
 }

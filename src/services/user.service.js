@@ -1,18 +1,22 @@
 //import axios from 'axios';
-import authHeader from './auth-header';
-import http from "../http-common";
+
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
 
 class UserService {
   getPublicContent() {
-    return http.get('/all');
+    
+    return getHttpInstance().get('/all');
   }
 
   getUserBoard() {
-    return http.get('/user');
+    
+    return getHttpInstance().get('/user');
   }
 
   getAdminBoard() {
-    return http.get('/admin');
+    
+    return getHttpInstance().get('/admin');
   }
 }
 

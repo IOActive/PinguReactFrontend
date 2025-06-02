@@ -1,4 +1,4 @@
- @import '../../styles/app.scss';
+ @import 'styles/app.scss';
 
  .root {
    // styles here
@@ -14,7 +14,7 @@
    }
  
    thead {
-     border-bottom: 1px solid $gray-200;
+     border-bottom: 1px solid var(--gray-200);
    }
  }
  

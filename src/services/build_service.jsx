@@ -13,45 +13,58 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
 
 class BuildDataService {
-  getAll() {
-    return http.get("/build/");
+  getAll(project) {
+    return getHttpInstance().get(`/build/?project=${project}`);
   }
 
   get(id) {
-    return http.get(`/build/?id=${id}`);
+    return getHttpInstance().get(`/build/?id=${id}`);
   }
 
   create(data) {
-    return http.post("/build/", data);
+    return getHttpInstance().post("/build/", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",  // ✅ Override for file uploads
+      },
+    });
   }
 
   update(id, data) {
-    return http.patch(`/build/${id}/`, data).catch((e) => {
-      console.log(e);
+    return getHttpInstance().patch(`/build/${id}/`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",  // ✅ Override for file uploads
+      },
     });
   }
 
   delete(id) {
-    return http.delete(`/build/${id}/`);
+    return getHttpInstance().delete(`/build/${id}/`);
   }
 
   deleteAll() {
-    return http.delete(`/build/`);
+    return getHttpInstance().delete(`/build/`);
   }
 
-  findByName(name) {
-    return http.get(`/build/?name=${name}`);
+  findByName(name, project) {
+    return getHttpInstance().get(`/build/?name=${name}&project=${project}`);
   }
 
-  findByID(id){
-    return http.get(`/build/?id=${id}`);
+  findByID(id) {
+    return getHttpInstance().get(`/build/?id=${id}`);
   }
 
-  getPage(page_number) {
-    return  http.get(`/build/?page=${page_number}`);
+  getPage(page_number, project) {
+    return getHttpInstance().get(`/build/?page=${page_number}&project=${project}`);
+  }
+
+  download_build(id) {
+    return getHttpInstance().get(`/build/${id}/download/`, {
+      responseType: "blob",
+    });
   }
 }
 

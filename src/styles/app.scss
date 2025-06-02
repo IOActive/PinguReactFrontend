@@ -4,13 +4,13 @@
  */
  
 
- @import '../../node_modules/bootstrap/scss/functions';
+ @import '~bootstrap/scss/functions';
  @import '_variables';
- @import '../../node_modules/bootstrap/scss/variables';
- @import '../../node_modules/bootstrap/scss/mixins';
+ @import '~bootstrap/scss/variables';
+ @import '~bootstrap/scss/mixins';
  @import '_mixins';
  @import '_utils';
  @font-face {
     font-family: 'Font Awesome 5 Free';
-    src: url('../../node_modules/font-awesome/css/font-awesome.min.css');
+    src: url('~font-awesome/css/font-awesome.min.css');
  }

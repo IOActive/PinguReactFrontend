@@ -14,48 +14,33 @@
 */
 
 
-import CorpusDataService from "../services/corpus_service";
-
+import CorpusDataService from "services/corpus_service";
+import {action_request, action_recieved, action_error} from "./action"
 import {
   CREATE_CORPUS,
   CORPUS_REQUEST,
   CORPUS_FAILURE,
 } from "./types";
 
-function corpusRequest(payload) {
-  return {
-    type: CORPUS_REQUEST,
-    isFetching: true,
-    payload,
-  };
-}
-
-export function corpusRecieved(type, data) {
-  return {
-    type: type,
-    isFetching: false,
-    payload: data
-  };
-}
-
-function corpusError(message) {
-  return {
-    type: CORPUS_FAILURE,
-    isFetching: false,
-    payload: message,
-  };
-}
-
 export const upload_corpus = (payload) => (dispatch) => {
-    dispatch(corpusRequest(payload));
-    return CorpusDataService.create(payload).then(
+
+    dispatch(action_request(CORPUS_REQUEST, payload));
+
+    const formData = new FormData();
+    formData.append("corpus_binary", payload.corpus_binary);  // Attach file
+    formData.append("filename", payload.filename);
+    formData.append("job_id", payload.job_id);
+    formData.append("fuzzer_id", payload.fuzzer_id);
+    formData.append("fuzztarget_name", payload.fuzztarget_name);
+
+    return CorpusDataService.create(formData).then(
       (response) => {
-        dispatch(corpusRecieved(CREATE_CORPUS,response.data));
+        dispatch(action_recieved(CREATE_CORPUS,response.data));
         return Promise.resolve();
       },
       (error) => {
         const message = error.response.data.msg;  
-        dispatch(corpusError(message));
+        dispatch(action_error(CORPUS_FAILURE, message));
  
         return Promise.reject();
       }

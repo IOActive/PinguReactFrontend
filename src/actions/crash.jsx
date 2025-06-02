@@ -13,8 +13,8 @@
  limitations under the License.
 */
 
-import CrashDataService from "../services/crash_service";
-
+import CrashDataService from "services/crash_service";
+import {action_request, action_recieved, action_error} from "./action"
 import {
     RETRIEVE_CRASHES,
     CRASH_REQUEST,
@@ -22,66 +22,44 @@ import {
 
 } from "./types";
 
-function crashRequest(payload) {
-    return {
-        type: CRASH_REQUEST,
-        isFetching: true,
-        payload,
-    };
-}
-
-function crashRecieved(type, data) {
-    return {
-        type: type,
-        isFetching: false,
-        payload: data
-    };
-}
-
-function crashError(message) {
-    return {
-        type: CRASH_FAILURE,
-        isFetching: false,
-        payload: message,
-    };
-}
-
 export const retrieveCrashes = (page_number) => async (dispatch) => {
     try {
-        dispatch(crashRequest(page_number));
+        dispatch(action_request(CRASH_REQUEST, page_number));
         const response = await CrashDataService.getPage(page_number);
-        dispatch(crashRecieved(RETRIEVE_CRASHES, response.data));
+        dispatch(action_recieved(RETRIEVE_CRASHES, response.data));
         return Promise.resolve(response.data);
     } catch (error) {
-        const message = error.response.data.message || error.response.data.msg | error.toString();        dispatch(crashError(message));
+        const message = error.response.data;        
+        dispatch(action_error(CRASH_FAILURE, message));
         return Promise.reject(error);
     }
 };
 
 export const retrieveTestCaseCrashes = (page_number, testcase_id) => async (dispatch) => {
     try {
-        dispatch(crashRequest(page_number));
+        dispatch(action_request(CRASH_REQUEST, page_number));
         const response = await CrashDataService.getPageByTestCaseID(testcase_id, page_number);
-        dispatch(crashRecieved(RETRIEVE_CRASHES, response.data));
+        dispatch(action_recieved(RETRIEVE_CRASHES, response.data));
         return Promise.resolve(response.data);
     } catch (error) {
-        const message = error.response.data.message || error.response.data.msg | error.toString();        dispatch(crashError(message));
+        const message = error.response.data;        
+        dispatch(action_error(CRASH_FAILURE, message));
         return Promise.reject(error);
     }
 };
 
 export const retrieveCrashByID = (id) => (dispatch) => {
-    dispatch(crashRequest(id));
+    dispatch(action_request(CRASH_REQUEST, id));
     return CrashDataService.findByID(id).then(
       (response) => {
-        dispatch(crashRecieved(RETRIEVE_CRASHES, response.data));
+        dispatch(action_recieved(RETRIEVE_CRASHES, response.data));
         return Promise.resolve(response.data);
       },
       (error) => {
-        const message = error.response.data.message || error.response.data.msg | error.toString(); 
-        dispatch(crashError(message));
+        const message = error.response.data; 
+        dispatch(action_error(CRASH_FAILURE, message));
   
         return Promise.reject();
       }
     );
-  }
+  } 

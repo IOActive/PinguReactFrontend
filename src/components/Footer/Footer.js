@@ -21,11 +21,11 @@ class Footer extends React.Component {
       <footer className={cx(s.root, this.props.className)}>
         <div className={s.container}>
           <span className={s.spacer}>·</span>
-          <Link to="/app/tos">Terms of Service</Link>
+          <Link to="/tos">Terms of Service</Link>
           <span className={s.spacer}>·</span>
-          <Link to="/app/privacy">Privacy Policy</Link>
+          <Link to="/privacy">Privacy Policy</Link>
           <span className={s.spacer}>·</span>
-          <Link to="/app/not-found">Support</Link>
+          <Link to="/not-found">Support</Link>
         </div>
       </footer>
     );

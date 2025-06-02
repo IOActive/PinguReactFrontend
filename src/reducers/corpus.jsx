@@ -17,7 +17,7 @@ import {
     CREATE_CORPUS,
     CORPUS_REQUEST,
     CORPUS_FAILURE,
-} from "../actions/types";
+} from "actions/types";
 
 const initialState = [];
 
@@ -39,7 +39,7 @@ function corpusReducer(corpuses = initialState, action) {
         case CORPUS_FAILURE:
             return {
                 isFetching: false,
-                errorMessage: payload
+                errorMessage: payload.message
             };
         default:
             return corpuses;

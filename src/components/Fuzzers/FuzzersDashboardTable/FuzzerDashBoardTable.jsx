@@ -15,9 +15,9 @@
 
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { retrieveFuzzers, findFuzzersByName } from "../../../actions/fuzzer";
+import { retrieveFuzzers, findFuzzersByName } from "actions/fuzzer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DashboardTable from "../../DashBoardTable/DashBoardTable";
+import DashboardTable from "components/DashBoardTable/DashBoardTable";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { faRocket } from "@fortawesome/free-solid-svg-icons";

@@ -15,10 +15,10 @@
 
 import React, { useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { readAllTasks } from "../../../actions/task";
+import { readAllTasks } from "actions/task";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTasks } from "@fortawesome/free-solid-svg-icons";
-import DashboardTable from "../../DashBoardTable/DashBoardTable";
+import DashboardTable from "components/DashBoardTable/DashBoardTable";
 
 
 const TasksDashboardTable = (props) => {
@@ -28,12 +28,18 @@ const TasksDashboardTable = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      dispatch(readAllTasks())
+    dispatch(readAllTasks())
+      .catch((error) => {
+        console.error("error", error);
+      });
   }, [dispatch]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(readAllTasks())
+        .catch((error) => {
+          console.error("error", error);
+        });
     }, 10000);
 
     return () => clearInterval(interval);
@@ -42,16 +48,16 @@ const TasksDashboardTable = (props) => {
 
 
   return (
-        <DashboardTable
-          objectName={"Tasks"}
-          glyph={<FontAwesomeIcon icon={faTasks} />}
-          retrieveData={props.readAllTasks}
-          findObjectByName={props.readAllTasks}
-          colums={["job_id", "platform", "command", "argument"]}
-          list_path={null}
-          data={payload}
-          isFetching={isFetching}
-        />
+    <DashboardTable
+      objectName={"Tasks Queue"}
+      glyph={<FontAwesomeIcon icon={faTasks} />}
+      retrieveData={props.readAllTasks}
+      findObjectByName={props.readAllTasks}
+      colums={["job_id", "platform", "command", "argument"]}
+      list_path={null}
+      data={payload}
+      isFetching={isFetching}
+    />
   );
 };
 

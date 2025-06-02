@@ -17,14 +17,14 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import cx from "classnames";
 import s from "./GenericForm.module.scss";
-import { beautify_key_names } from "../../helpers/utils";
+import { beautify_key_names } from "helpers/utils";
 
 
 export function generateFormGroups(key, index, currentObject, onInputChange) {
 
   const value = currentObject[key]["value"];
   const editable = currentObject[key]["editable"];
-  const required = currentObject[key]["required"]
+  const required = currentObject[key]["required"];
   let object_enums = []
   const objectType = currentObject[key]["type"];
   // check if currentObject has get_enums function
@@ -120,7 +120,7 @@ export function generateFormGroups(key, index, currentObject, onInputChange) {
   else if (objectType === String) {
     return <Form.Group key={index}>
       <Form.Label className={cx(s.FormLabel)}>{beautify_key_names(key)}</Form.Label>
-      {key === "environment_string" ? (
+      {key === "environment_string" || key === "stats_columns" || key === "stats_column_descriptions" ? (
         <Form.Control
           type="text"
           name={key}

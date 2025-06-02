@@ -1,5 +1,5 @@
 
- @import '../../styles/app.scss';
+ @import 'styles/app.scss';
 
  .root {
   // styles here
@@ -8,11 +8,15 @@
  .UpdateButton {
   margin-right: 10px;
   margin-left: 10px;
+  background-color: $brand-button;
+  color: var(--text-color);
   }
 
   .RemoveButton {
     margin-right: 10px;
     margin-left: 10px;
+    background-color: $brand-button;
+    color: var(--text-color);
   }
 
   .ButtonGroupEditBot {

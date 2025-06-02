@@ -1,0 +1,42 @@
+@import 'styles/app';
+
+.root {
+    // styles here
+}
+
+.BackButton {
+    display: inline-flex !important;
+    margin-left: auto !important;
+    background-color: var(--gray-300);
+    float: right;
+    flex-grow: 0;
+
+    // letters in white
+    color: var(--text-color);
+
+    // centert text
+    border: 0px;
+    padding: 20px 30px;
+    border-radius: 30%;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    /* Space between arrow and text */
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: var(--brand-info);
+        color: var(--text-color);
+    }
+
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-left: 2px solid white;
+        border-top: 2px solid white;
+        transform: rotate(-45deg);
+        margin-right: 5px;
+    }
+}

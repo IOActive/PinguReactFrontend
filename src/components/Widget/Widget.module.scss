@@ -1,17 +1,25 @@
-@import '../../styles/app';
+@import 'styles/app';
 
 .widget {
-  display: block;
+  display: flex;
   position: relative;
-  //margin-bottom: 30px;
   padding: $widget-padding-y $widget-padding-x;
   background: $widget-bg;
+  flex-direction: column;
 }
+
+.widget_header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 0.75rem; /* Fixed division */
+}
+
 
 .title {
   margin-top: 0;
   margin-bottom: 1.5rem / 2;
   color: $widget-title-color;
-
+  font-size: $h4-font-size;
   @include clearfix();
 }

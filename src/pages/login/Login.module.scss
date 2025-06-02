@@ -1,4 +1,4 @@
-@import '../../styles/app';
+@import 'styles/app';
 
 .root {
   padding-top: 25vh;
@@ -14,6 +14,7 @@
   }
 }
 
+
 .logo {
   display: flex;
   justify-content: center;
@@ -21,9 +22,15 @@
   height: $navbar-height;
   width: 100%;
   margin-bottom: 10%;
-  
 
   a img {
     width: $sidebar-width-open - 40px;
   }
+
+  img {
+    filter: drop-shadow(0 0 0 white); /* White fill effect */
+  }
+  
+  
+
 }

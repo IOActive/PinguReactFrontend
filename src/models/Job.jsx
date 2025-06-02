@@ -15,7 +15,7 @@
 
 // Note: Job model
 
-import Platforms from '../helpers/Platforms'
+import Platforms from 'helpers/Platforms'
 
 export const Job = (json) => {
     return {
@@ -40,8 +40,8 @@ export const Job = (json) => {
             type: String,
             required: true,
         },
-        project: {
-            value: json.project,
+        project_id: {
+            value: json.project_id,
             editable: true,
             header: "The project that the job belongs to",
             type: String,

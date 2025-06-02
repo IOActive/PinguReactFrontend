@@ -1,160 +1,227 @@
-
-
 /*
  * Typography
  * ======================================================================== */
- $font-size-base: 1rem;
- $font-size-lg: 1.25rem !default;
- $font-size-sm: 0.875rem !default;
- $font-size-large: 1.1rem;
- $font-size-small: 0.9rem;
- $font-size-index: 0.7rem;
- $font-family-base: 'Nunito', 'HelveticaNeue-Light', sans-serif;
- 
- $line-height-computed: 1.5rem;
- 
- $font-weight-thin: 300;
- $font-weight-normal: 400;
- $font-weight-semi-bold: 600;
- $font-weight-bold: 700;
- 
- $glyphicons-halflings-include-bonus: false !default;
- $glyphicons-halflings-class-prefix: glyphicon !default;
- $glyphicons-halflings-font-base-size: 14px !default;
- 
- $glyphicons-halflings-font-path: '../fonts/glyphicons' !default;
- 
- $gray-100: #f9f6f2;
- $gray-200: #efedea;
- $gray-300: #cccbca;
- $gray-400: #ccc;
- $gray-500: #666;
- $gray-600: #6c757d;
- $gray-700: #4d4d4d;
- $gray-800: #343a40;
- $gray-900: #212529;
- 
- $gray-light: $gray-100;
- $text-muted: $gray-300 !default;
- 
- $brand-primary:         #4d4ded !default; // #337ab7
- $brand-secondary:       #beccfd !default;
- $brand-success:         #1ab394 !default;
- $brand-info:            #5d80f9 !default;
- $brand-warning:         #f3c363 !default;
- $brand-danger:          #eb3349 !default;
- 
- $theme-colors: (
-   primary: $brand-primary,
-   secondary: $brand-secondary,
-   success: $brand-success,
-   info: $brand-info,
-   warning: $brand-warning,
-   danger: $brand-danger,
-   light: $gray-300,
-   dark: $gray-800,
-   inverse: $gray-700,
-   gray: $gray-400,
-   default: #f8f8f8
- );
- 
- $text-color:                     $gray-700;
- $link-color:                     #337ab7;
- 
- $state-success-text:             $brand-success !default;
- $state-success-bg:               lighten($brand-success, 70%) !default;
- 
- $state-info-text:                $brand-info !default;
- $state-info-bg:                  lighten($brand-info, 70%) !default;
- 
- $state-warning-text:             $brand-warning !default;
- $state-warning-bg:               lighten($brand-warning, 70%) !default;
- 
- $state-danger-text:              $brand-danger !default;
- $state-danger-bg:                lighten($brand-danger, 70%) !default;
- 
- $alert-success-bg:            #e6fff2 !default;
- $alert-success-text:          $state-success-text !default;
- $alert-success-border:        rgba($alert-success-text, 0.15) !default;
- 
- $alert-info-bg:               #d2f1fb !default;
- $alert-info-text:             $link-color !default;
- $alert-info-border:           rgba($alert-info-text, 0.09) !default;
- 
- $alert-warning-bg:            #fff8e6 !default;
- $alert-warning-text:          darken($state-warning-text, 5%) !default;
- $alert-warning-border:        rgba($state-warning-text, 0.2) !default;
- 
- $alert-danger-bg:             #fbdcd7 !default;
- $alert-danger-text:           $state-danger-text !default;
- $alert-danger-border:         rgba($alert-danger-text, 0.09) !default;
- 
- //== Gradients
- //
- 
- $logo-gradient: linear-gradient(to right,  #fbdcd7,  $brand-primary);
- 
- //== Iconography
- //
- $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/'; // overriding bootstrap variable
- 
- /*
+$font-size-base: 1.1rem;
+$font-size-lg: 1.25rem !default;
+$font-size-sm: 0.875rem !default;
+$font-size-large: 1.1rem;
+$font-size-small: 0.9rem;
+$font-size-index: 0.7rem;
+$font-family-base: 'Nunito', 'HelveticaNeue-Light', sans-serif;
+
+$line-height-computed: 1.5rem;
+
+$font-weight-thin: 300;
+$font-weight-normal: 400;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+$glyphicons-halflings-include-bonus: false !default;
+$glyphicons-halflings-class-prefix: glyphicon !default;
+$glyphicons-halflings-font-base-size: 14px !default;
+
+$glyphicons-halflings-font-path: 'fonts/glyphicons' !default;
+
+// Light Theme Colors
+$light-body-bg: #f8f8f8;
+$light-gray-100: #f9f6f2;
+$light-gray-200: #efedea;
+$light-gray-300: #cccbca;
+$light-gray-400: #ccc;
+$light-gray-500: #666;
+$light-gray-600: #6c757d;
+$light-gray-700: #4d4d4d;
+$light-gray-800: #343a40;
+$light-gray-900: #212529;
+
+$text-muted-light: $light-gray-300;
+
+$brand-primary: #4d4ded !default;
+$brand-secondary: #beccfd !default;
+$brand-success: #1ab394 !default;
+$brand-info: #5d80f9 !default;
+$brand-warning: #f3c363 !default;
+$brand-danger: #eb3349 !default;
+$brand-button: #0d6efd !default;
+
+$text-color-light: #fff;
+$text-hover-color-light:$brand-info;
+$link-color-light: #337ab7;
+
+$text-color-dark: #343a40;
+$text-hover-color-dark:$brand-info;
+$link-color-dark: #6c7ae0;
+
+$alert-success-bg-light: #e6fff2 !default;
+$alert-info-bg-light: #d2f1fb !default;
+$alert-warning-bg-light: #fff8e6 !default;
+$alert-danger-bg-light: #fbdcd7 !default;
+
+// Dark Theme Colors
+$dark-body-bg: #212529;
+$dark-gray-100: #212529;
+$dark-gray-200: #343a40;
+$dark-gray-300: #495057;
+$dark-gray-400: #6c757d;
+$dark-gray-500: #adb5bd;
+$dark-gray-600: #ced4da;
+$dark-gray-700: #f8f9fa;
+
+$text-muted-dark: $dark-gray-400;
+
+$alert-success-bg-dark: #2d3338 !default; // Dark variant
+$alert-info-bg-dark: #3b4043 !default; // Dark variant
+$alert-warning-bg-dark: #7d7d7d !default; // Dark variant
+$alert-danger-bg-dark: #c64c47 !default; // Dark variant
+
+// Gradients
+$logo-gradient-light: linear-gradient(to right, #fbdcd7, $brand-primary);
+$logo-gradient-dark: linear-gradient(to right, #2b2e32, $brand-primary);
+
+/*
   * Layout
   * ======================================================================== */
- 
- $max-content-width: 1000px;
- 
- $grid-float-breakpoint: 0;
- 
- $body-bg: $gray-100;
- 
- /*
+
+$max-content-width: 1000px;
+
+$grid-float-breakpoint: 0;
+
+/*
   * Media queries breakpoints
   * ======================================================================== */
- 
- $screen-xs-min: 480px;  /* Extra small screen / phone */
- $screen-sm-min: 768px;  /* Small screen / tablet */
- $screen-md-min: 992px;  /* Medium screen / desktop */
- $screen-lg-min: 1200px; /* Large screen / wide desktop */
- 
- //== Components
- //
- 
- $content-padding-horizontal: 30px;
- $content-padding-vertical: 40px;
- 
- $navbar-bg-color: #fff;
- $navbar-height:  75px !default;
- $navbar-border-radius: 0;
- $navbar-margin-bottom: -$navbar-height !default;
- 
- $sidebar-width-open: 200px;
- $sidebar-transition-time: 0.3s !default;
- 
- $sidebar-bg-color: #fff;
- $sidebar-color: #4d4d4d;
- 
- $breadcrumb-separator: '>';
- $breadcrumb-padding-horizontal: 0;
- $breadcrumb-bg: transparent;
- 
- $badge-font-weight: 600;
- 
- $breadcrumb-divider: '>';
- $breadcrumb-padding-y: 0;
- $breadcrumb-padding-x: 0;
- $breadcrumb-bg: transparent;
- 
- $widget-bg: #fff;
- $widget-title-color: #444;
- $widget-padding-y: 15px;
- $widget-padding-x:  20px;
- 
- $btn-inverse-color: #fff;
- $btn-inverse-bg: $gray-700;
- $btn-inverse-border: #414749;
- 
- $input-height-small: 2rem;
- 
- $enable-rounded: false;
- 
+
+$screen-xs-min: 480px;
+/* Extra small screen / phone */
+$screen-sm-min: 768px;
+/* Small screen / tablet */
+$screen-md-min: 992px;
+/* Medium screen / desktop */
+$screen-lg-min: 1200px;
+/* Large screen / wide desktop */
+
+//== Components
+//
+
+$content-padding-horizontal: 30px;
+$content-padding-vertical: 40px;
+
+$navbar-bg-color: var(--component-bg); // Default to light theme
+$navbar-height: 75px !default;
+$navbar-border-radius: 0;
+$navbar-margin-bottom: -$navbar-height !default;
+
+$sidebar-width-open: 200px;
+$sidebar-transition-time: 0.3s !default;
+
+$sidebar-bg-color: var(--component-bg); // Default to light theme
+$sidebar-color: var(--gray-700);
+
+$breadcrumb-separator: '>';
+$breadcrumb-padding-horizontal: 0;
+$breadcrumb-bg: transparent;
+
+$badge-font-weight: 600;
+
+$breadcrumb-divider: '>';
+$breadcrumb-padding-y: 0;
+$breadcrumb-padding-x: 0;
+$breadcrumb-bg: transparent;
+
+$widget-bg: var(--component-bg); // Default to light theme
+$widget-title-color: var(--light-gray-700);
+$widget-padding-y: 15px;
+$widget-padding-x: 20px;
+
+$btn-inverse-color: #fff;
+$btn-inverse-bg: $dark-gray-700;
+$btn-inverse-border: #414749;
+
+$input-height-small: 2rem;
+
+$enable-rounded: false;
+
+// Pagination styles
+$pagination-disabled-bg: $widget-bg;
+$pagination-active-bg: $widget-bg;
+$pagination-bg: $widget-bg;
+$pagination-disabled-color: var(--text-color);
+$pagination-enabled-color: var(--text-color);
+$pagination-active-border-color: var(--text-color);
+$pagination-active-color: var(--brand-primary);
+
+$table-striped-color: var(--text-color);
+$table-hover-color: var(--text-hover-color);
+
+/*
+  * CSS Variables for Themes
+  * ======================================================================== */
+:root {
+  --body-bg: #{$light-gray-200};
+  --component-bg: #{$light-body-bg};
+  --gray-100: #{$light-gray-100};
+  --gray-200: #{$light-gray-200};
+  --gray-300: #{$light-gray-300};
+  --gray-400: #{$light-gray-400};
+  --gray-500: #{$light-gray-500};
+  --gray-600: #{$light-gray-600};
+  --gray-700: #{$light-gray-700};
+  --gray-800: #{$light-gray-800};
+  --gray-900: #{$light-gray-900};
+
+  --text-muted: #{$text-muted-light};
+  --brand-primary: #{$brand-primary};
+  --brand-secondary: #{$brand-secondary};
+  --brand-success: #{$brand-success};
+  --brand-info: #{$brand-info};
+  --brand-warning: #{$brand-warning};
+  --brand-danger: #{$brand-danger};
+  --brand-button: #{$brand-button};
+
+  --border-color: #{$text-color-dark};
+
+  --text-color: #{$text-color-dark};
+  --text-hover-color: #{$text-hover-color-dark};
+  --link-color: #{$link-color-dark};
+
+  --alert-success-bg: #{$alert-success-bg-light};
+  --alert-info-bg: #{$alert-info-bg-light};
+  --alert-warning-bg: #{$alert-warning-bg-light};
+  --alert-danger-bg: #{$alert-danger-bg-light};
+
+  --logo-gradient: #{$logo-gradient-light};
+
+}
+
+[data-theme='dark'] {
+  --body-bg: #{$dark-gray-300};
+  --component-bg: #{$dark-body-bg};
+  --gray-100: #{$dark-gray-100};
+  --gray-200: #{$dark-gray-200};
+  --gray-300: #{$dark-gray-300};
+  --gray-400: #{$dark-gray-400};
+  --gray-500: #{$dark-gray-500};
+  --gray-600: #{$dark-gray-600};
+  --gray-700: #{$dark-gray-700};
+
+  --text-muted: #{$text-muted-dark};
+  --brand-primary: #{$brand-primary};
+  --brand-secondary: #{$brand-secondary};
+  --brand-success: #{$brand-success};
+  --brand-info: #{$brand-info};
+  --brand-warning: #{$brand-warning};
+  --brand-danger: #{$brand-danger};
+  --brand-button: #{$brand-button};
+
+  --border-color: #{$text-color-light};
+
+  --text-color: #{$text-color-light};
+  --text-hover-color: #{$text-hover-color-light};
+  --link-color: #8ab4f8;
+
+  --alert-success-bg: #{$alert-success-bg-dark};
+  --alert-info-bg: #{$alert-info-bg-dark};
+  --alert-warning-bg: #{$alert-warning-bg-dark};
+  --alert-danger-bg: #{$alert-danger-bg-dark};
+
+  --logo-gradient: #{$logo-gradient-dark};
+}

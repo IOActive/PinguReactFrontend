@@ -15,26 +15,41 @@
 
 // Task model
 
-import Platforms from '../helpers/Platforms'
+import Platforms from 'helpers/Platforms'
+import Code from "./Code";
 
 const COMMAND_MAP = {
     analyze_task: 'analyze',
-    blame_task: 'blame',
     corpus_pruning_task: 'corpus_pruning',
     fuzz_task: 'fuzz',
-    impact_task: 'impact',
+    //impact_task: 'impact',
     minimize_task: 'minimize',
     train_rnn_generator_task: 'train_rnn_generator',
     progression_task: 'progression',
     regression_task: 'regression',
     symbolize_task: 'symbolize',
-    unpack_task: 'unpack',
+    //unpack_task: 'unpack',
     upload_reports_task: 'upload_reports',
-    variant_task: 'variant',
+    //variant_task: 'variant',
 }
+
+const TASK_STATUS = {
+    STARTED: "STARTED",
+    WIP: "WIP",
+    FINISHED: "FINISHED",
+    ERROR: "ERROR",
+    NA: "NA",
+};
 
 export const Task = (json) => {
     return {
+        id: {
+            value: json.id ,
+            editable: false,
+            header: "UUID",
+            type: String,
+            required: false,
+        },
         job_id: {
             value: json.job_id,
             editable: true,
@@ -53,7 +68,7 @@ export const Task = (json) => {
             value: json.command,
             editable: true,
             header: "Command to execute",
-            type: Object,
+            type: String,
             required: true,
         },
         argument: {
@@ -63,12 +78,62 @@ export const Task = (json) => {
             type: String,
             required: true,
         },
+        end_time: {
+            value: new Date(json.end_time),
+            editable: false,
+            header: "The time when the task should be finished",
+            type: Date,
+            required: false,
+        },
+        create_time: {
+            value: new Date(json.create_time),
+            editable: false,
+            header: "The time when the task was created",
+            type: Date,
+            required: false,
+        },
+        status: {
+            value: TASK_STATUS[json.status],
+            editable: false,
+            header: "The status of the task",
+            type: Object,
+            required: false,
+        },
+        bot_log: {
+            value: (json.bot_log) ? decodeURIComponent(json.bot_log.substring(1)): null,
+            editable: false,
+            header: "Bot execution log",
+            type: Code,
+            required: false,
+        },
+        heartbeat_log: {
+            value: (json.heartbeat_log) ? decodeURIComponent(json.heartbeat_log.substring(1)): null,
+            editable: false,
+            header: "Bot heartbeat log",
+            type: Code,
+            required: false,
+        },
+        run_fuzzer_log: {
+            value: (json.run_fuzzer_log) ? decodeURIComponent(json.run_fuzzer_log.substring(1)): null,
+            editable: false,
+            header: "Bot run fuzzer process log",
+            type: Code,
+            required: false,
+        },
+        run_heartbeat_log: {
+            value: (json.run_heartbeat_log) ? decodeURIComponent(json.run_heartbeat_log.substring(1)): null,
+            editable: false,
+            header: "Bot run heartbeat process log",
+            type: Code,
+            required: false,
+        },
         validated: false,
         submitted: false,
         get_enums: () => {
             return {
                 platform: Platforms,
                 command: COMMAND_MAP,
+                task_status: TASK_STATUS,
             };
         },
         get_payload: (task) => {

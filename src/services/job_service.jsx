@@ -13,45 +13,45 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
+
 
 class JobDataService {
-  getAll() {
-    return http.get("/job/");
+  getAll(project) {
+    return getHttpInstance().get(`/job/?project=${project}`);
   }
 
   get(id) {
-    return http.get(`/job/?id=${id}`);
+    return getHttpInstance().get(`/job/?id=${id}`);
   }
 
   create(data) {
-    return http.post("/job/", data);
+    return getHttpInstance().post("/job/", data);
   }
 
   update(id, data) {
-    return http.patch(`/job/${id}/`, data).catch((e) => {
-      console.log(e);
-    });
+    return getHttpInstance().patch(`/job/${id}/`, data);
   }
 
   delete(id) {
-    return http.delete(`/job/${id}/`);
+    return getHttpInstance().delete(`/job/${id}/`);
   }
 
   deleteAll() {
-    return http.delete(`/job/`);
+    return getHttpInstance().delete(`/job/`);
   }
 
-  findByName(name) {
-    return http.get(`/job/?name=${name}`);
+  findByName(name, project) {
+    return getHttpInstance().get(`/job/?name=${name}&project=${project}`);
   }
 
   findByID(id){
-    return http.get(`/job/?id=${id}`);
+    return getHttpInstance().get(`/job/?id=${id}`);
   }
 
-  getPage(page_number) {
-    return  http.get(`/job/?page=${page_number}`);
+  getPage(page_number, project) {
+    return  getHttpInstance().get(`/job/?page=${page_number}&project=${project}`);
   }
 }
 

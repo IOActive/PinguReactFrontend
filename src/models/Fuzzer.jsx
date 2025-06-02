@@ -13,7 +13,7 @@
  limitations under the License.
 */
 
-import Platforms from '../helpers/Platforms';
+import Platforms from 'helpers/Platforms';
 
 export const Fuzzer = (json) => {
     return {
@@ -38,11 +38,11 @@ export const Fuzzer = (json) => {
             required: true,
         },
         fuzzer_zip: {
-            value: (json.fuzzer_zip != null) ? json.fuzzer_zip.substring(1): null,
+            value: (json.fuzzer_zip != null) ? json.fuzzer_zip.substring(1) : null,
             editable: true,
             header: "The fuzzer archive that the user uploaded",
             type: File,
-            required: true,
+            required: false,
         },
         filename: {
             value: json.filename,
@@ -84,7 +84,7 @@ export const Fuzzer = (json) => {
             editable: false,
             header: "Last Testcase timeout",
             type: Number,
-            require : false,
+            require: false,
         },
         supported_platforms: {
             value: Platforms[json.supported_platforms],
@@ -98,7 +98,14 @@ export const Fuzzer = (json) => {
             editable: true,
             header: "Custom script that should be used to launch chrome for this fuzzer",
             type: String,
-            required: false,    
+            required: false,
+        },
+        install_script: {
+            value: json.install_script,
+            editable: true,
+            header: "Custom script that should be used if the fuzzer needs to be install or has depencies",
+            type: String,
+            required: false,
         },
         result: {
             value: json.result,
@@ -126,7 +133,7 @@ export const Fuzzer = (json) => {
             editable: false,
             header: "The return code from the last fuzzer run",
             type: Number,
-            require : false,
+            require: false,
         },
         sample_testcase: {
             value: json.sample_testcase,
@@ -150,17 +157,17 @@ export const Fuzzer = (json) => {
             required: false,
         },
         stats_columns: {
-            value: json.stats_columns,
-            editable: false,
+            value: typeof json.stats_columns === 'object' ? JSON.stringify(json.stats_columns) : json.stats_columns,
+            editable: true,
             header: "The columns that should be displayed in the stats table",
-            type: Object,
+            type: String,
             required: false,
         },
         stats_column_descriptions: {
-            value: json.stats_column_descriptions,
-            editable: false,
+            value: typeof json.stats_column_descriptions === 'object' ? JSON.stringify(json.stats_column_descriptions) : json.stats_column_descriptions,
+            editable: true,
             header: "The descriptions of the columns that should be displayed in the stats table",
-            type: Object,
+            type: String,
             required: false,
         },
         builtin: {
@@ -191,6 +198,13 @@ export const Fuzzer = (json) => {
             type: String,
             required: false,
         },
+        project_id: {
+            value: json.project_id,
+            editable: true,
+            header: "The project that this fuzzer belongs to",
+            type: String,
+            required: false,
+        },
         validated: false,
         submitted: false,
         get_enums: () => {
@@ -199,16 +213,18 @@ export const Fuzzer = (json) => {
             };
         },
         get_payload: (fuzzer) => {
-            let payload = {};
+            const formData = new FormData();
+
             for (let key in fuzzer) {
                 if (fuzzer[key].editable) {
-                    if (key === "fuzzer_zip")
-                        payload[key] = fuzzer[key].value.split(",").pop();
-                    else
-                        payload[key] = fuzzer[key].value;
+                    const value = fuzzer[key].value;
+                    if (value != null) { // Optional: skip null/undefined values
+                        formData.append(key, value);
+                    }
                 }
             }
-            return payload;
-        }
+
+            return formData;
+        },
     };
 };

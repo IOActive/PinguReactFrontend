@@ -14,22 +14,23 @@
 */
 
 import React from "react";
-import { upload_build, get_builds, get_build_by_id, delete_build, update_build } from "../../../actions/build";
+import { upload_build, get_builds, get_build_by_id, delete_build, update_build, download_build } from "actions/build";
 import { connect } from "react-redux";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import cx from "classnames";
 
 import s from "./BuildManagerList.module.scss";
 import { useSelector } from "react-redux";
-import EditObject from "../../../components/EditObject/EditObject";
-import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
+import EditObject from "components/EditObject/EditObject";
+import InteractiveTable from "components/Interactive_List/InteractiveList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
-import { InformationTable } from "../../../components/InformationTable/InformationTable";
-import { Build } from "../../../models/Build";
+import { InformationTable } from "components/InformationTable/InformationTable";
+import { Build } from "models/Build";
 import { Buffer } from 'buffer';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import { PageHeader } from "components/PageHeader/PageHeader";
 
 
 const BuildManagerList = (props) => {
@@ -38,6 +39,7 @@ const BuildManagerList = (props) => {
     const [enableEditing, setEnableEditing] = React.useState(false);
 
     const selector = useSelector((state) => state.builds);
+    const active_project = useSelector((state) => state.active_project);
 
     function editBuild() {
         // swtich state of editing
@@ -50,31 +52,14 @@ const BuildManagerList = (props) => {
     );
 
     function DownloadBuild() {
-        let build_zip_stream_b64 = currentBuild["build_zip"];
-        if (build_zip_stream_b64 != null) {
-            build_zip_stream_b64 = build_zip_stream_b64.substring(1);
-            const urlDecodedBase64 = decodeURIComponent(build_zip_stream_b64);
-
-            const buffer = Buffer.from(urlDecodedBase64, 'base64');
-
-            // Create a Blob object from the buffer
-            const blob = new Blob([buffer], { type: 'application/zip' });
-
-            // Create a download link for the Blob object and simulate a click on the link to download the file
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = currentBuild["name"] + ".zip";
-            link.click();
-        }
+        download_build(currentBuild['id'])
+            .then(() => console.log("Download successful"))
+            .catch(() => alert("Failed to download the file"))
     }
 
     return (
         <div className={s.root}>
-            <Breadcrumb>
-                <BreadcrumbItem>Builds</BreadcrumbItem>
-                <BreadcrumbItem active>Builds Manager List</BreadcrumbItem>
-            </Breadcrumb>
-            <h1 className="mb-lg">Builds Manager List</h1>
+            <PageHeader title="Builds Manager List"/>
             <div responsive className={cx("mb-0", s.CardsGroup)}>
                 <div className={cx(s.CardRow)}>
                     <div className={cx(s.CardCol)}>
@@ -86,6 +71,7 @@ const BuildManagerList = (props) => {
                             retieve_data_function={props.get_builds}
                             selector={selector}
                             colums={["id", "type", "filename"]}
+                            parent_object_id={active_project}
                         />
                     </div>
                 </div>

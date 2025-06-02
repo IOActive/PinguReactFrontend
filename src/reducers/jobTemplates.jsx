@@ -20,7 +20,7 @@ import {
   DELETE_JOBTEMPLATE,
   JOBTEMPLATE_REQUEST,
   JOBTEMPLATE_FAILURE,
-} from "../actions/types";
+} from "actions/types";
 
 const initialState = [];
 
@@ -67,7 +67,7 @@ function jobTemplateReducer(jobTemplates = initialState, action) {
     case JOBTEMPLATE_FAILURE:
       return {
         isFetching: false,
-        errorMessage: payload,
+        errorMessage: payload.message,
       };
     default:
       return jobTemplates;

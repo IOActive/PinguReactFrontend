@@ -7,8 +7,8 @@ import logo from './logo.svg';
 import settings from './settings.svg';
 import notification from './notification.svg';
 import mail from './mail.svg';
-import logo2 from './logo2.svg';
 import robot from './robot.svg';
+import pingucrew from './pingucrew.svg';
 import check_circle_fill from './check_circle_fill.svg';
 
 export default { 
@@ -21,7 +21,7 @@ export default {
   settings,
   notification,
   mail,
-  logo2,
+  pingucrew,
   robot,
   check_circle_fill,
 }

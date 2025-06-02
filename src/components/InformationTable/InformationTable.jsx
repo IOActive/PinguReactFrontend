@@ -23,14 +23,12 @@ import s from "./InformationTable.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { SimplePopper } from "../SimplePopper/SimplePopper";
-import { beautify_date, decode_base64 } from "../../helpers/utils";
-import Code from "../../models/Code";
-import { Dropdown } from "../../components/Dropdown/Dropdown"
-import { Highlighter } from "../../components/Highlighter/Highlighter"
-import { defaultLanguage, defaultTheme } from "../../constants/index"
-import { googlecode, dark, dracula, a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { shell, javascript, markdown, bash } from "react-syntax-highlighter/dist/esm/languages/hljs";
+import { SimplePopper } from "components/SimplePopper/SimplePopper";
+import { beautify_date, decode_base64 } from "helpers/utils";
+import Code from "models/Code";
+import { Highlighter } from "components/Highlighter/Highlighter"
+import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { shell} from "react-syntax-highlighter/dist/esm/languages/hljs";
 
 /*const themes = {
   googlecode,
@@ -128,7 +126,7 @@ function generateList(key, index, currentObject) {
   if (typeof currentObject[key] === "function") {
     return;
   }
-  if (key === "task_status") {
+  if (key === "status") {
     return <tr key={index}>
       <td>
         <td>

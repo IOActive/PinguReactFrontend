@@ -13,20 +13,21 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
 
 class CrashDataService {
 
   getPage(page_number) {
-    return  http.get(`/crash?page=${page_number}`);
+    return  getHttpInstance().get(`/crash?page=${page_number}`);
   }
 
   getPageByTestCaseID(testcase_id, page_number) {
-    return  http.get(`/crash?page=${page_number}&testcase_id=${testcase_id}`);
+    return  getHttpInstance().get(`/crash?page=${page_number}&testcase=${testcase_id}`);
   }
 
   findByID(id){
-    return http.get(`/crash?id=${id}`);
+    return getHttpInstance().get(`/crash?id=${id}`);
   }
 
 }

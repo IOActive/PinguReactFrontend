@@ -14,49 +14,31 @@
 */
 
 
-import CustomBinaryDataService from "../services/custon_binary_service";
-
+import CustomBinaryDataService from "services/custon_binary_service";
+import {action_request, action_recieved, action_error} from "./action"
 import {
   CREATE_CUSTOM_BINARY,
   CUSTOM_BINARY_REQUEST,
   CUSTOM_BINARY_FAILURE,
 } from "./types";
 
-function custom_binaryRequest(payload) {
-  return {
-    type: CUSTOM_BINARY_REQUEST,
-    isFetching: true,
-    payload,
-  };
-}
-
-export function custom_binaryRecieved(type, data) {
-  return {
-    type: type,
-    isFetching: false,
-    payload: data
-  };
-}
-
-function custom_binaryError(message) {
-  return {
-    type: CUSTOM_BINARY_FAILURE,
-    isFetching: false,
-    payload: message,
-  };
-}
 
 export const upload_custom_binary = (payload) => (dispatch) => {
-    dispatch(custom_binaryRequest(payload));
-    return CustomBinaryDataService.create(payload).then(
+
+    const formData = new FormData();
+    formData.append("custom_binary", payload.custom_binary);  // Attach file
+    formData.append("job_id", payload.job_id);
+
+    dispatch(action_request(CUSTOM_BINARY_REQUEST, payload));
+    return CustomBinaryDataService.create(formData).then(
       (response) => {
-        dispatch(custom_binaryRecieved(CREATE_CUSTOM_BINARY,response.data));
+        dispatch(action_recieved(CREATE_CUSTOM_BINARY,response.data));
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.message || error.response.data.msg | error.toString(); 
+        const message = error.response.data; 
   
-        dispatch(custom_binaryError(message));
+        dispatch(action_error(CUSTOM_BINARY_FAILURE, message));
  
         return Promise.reject();
       }

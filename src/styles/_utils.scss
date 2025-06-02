@@ -31,10 +31,10 @@ $opacity-variants: (10: 0.1, 20: 0.2, 30: 0.3, 40: 0.4, 50: 0.5, 60: 0.6, 70: 0.
 }
 
 .text-default {
-  color: $text-color;
+  color: var(--text-color);
 }
 
-//@include bg-variant('.bg-dark', $text-color);
+//@include bg-variant('.bg-dark', var(--text-color);
 
 .td-underline {
   text-decoration: underline;
@@ -49,7 +49,7 @@ $opacity-variants: (10: 0.1, 20: 0.2, 30: 0.3, 40: 0.4, 50: 0.5, 60: 0.6, 70: 0.
   .CardRow {
    display: flex;
    flex-direction: row;
-   margin-top: 20px;
+   margin-top: 2%;
  }
 
  .CardCol {

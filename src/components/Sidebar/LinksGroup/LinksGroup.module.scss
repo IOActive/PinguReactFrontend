@@ -1,9 +1,9 @@
-@import '../../../styles/app';
+@import 'styles/app';
 
 .headerLink {
   a {
     display: flex;
-    color: $gray-500;
+    color:  var(--text-color);
     align-items: center;
     text-decoration: none;
     cursor: pointer;
@@ -23,7 +23,7 @@
 
     &:hover {
       font-weight: $font-weight-thin;
-      background-color: $gray-100;
+      background-color: var(--gray-300);
     }
 
     img {
@@ -34,7 +34,7 @@
 }
 
 .arrow {
-  color: $gray-400;
+  color:  var(--text-color);
   transition: 0.3s;
   right: 0;
 }
@@ -45,7 +45,7 @@
 
 .headerLinkActive {
   span {
-    color:  $brand-primary;
+    color:  var(--brand-primary);
     font-weight: $font-weight-semi-bold;
   }
 }
@@ -55,8 +55,6 @@
   box-shadow: none;
   margin: 0;
   border-radius: 0;
-  background: rgba(#000, 0.1);
-
   div {
     padding: 0;
   }

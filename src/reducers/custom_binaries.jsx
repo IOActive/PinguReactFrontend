@@ -17,7 +17,7 @@ import {
     CREATE_CUSTOM_BINARY,
     CUSTOM_BINARY_REQUEST,
     CUSTOM_BINARY_FAILURE,
-} from "../actions/types";
+} from "actions/types";
 
 const initialState = [];
 
@@ -39,7 +39,7 @@ function customBinaryReducer(custom_bianries = initialState, action) {
         case CUSTOM_BINARY_FAILURE:
             return {
                 isFetching: false,
-                errorMessage: payload,
+                errorMessage: payload.message,
             };
         default:
             return custom_bianries;

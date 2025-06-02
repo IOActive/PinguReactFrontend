@@ -15,10 +15,10 @@
 
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { retrieveBots, findBotsByName } from "../../../actions/bot";
+import { retrieveBots, findBotsByName } from "actions/bot";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
-import DashboardTable from "../../DashBoardTable/DashBoardTable";
+import DashboardTable from "components/DashBoardTable/DashBoardTable";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -48,7 +48,7 @@ const BotsDashboardTable = (props) => {
           retrieveData={props.retrieveBots}
           findObjectByName={props.findBotsByName}
           colums={["name", "last_beat_time", "platform", "task_payload", "task_status"]}
-          list_path={"/app/bot/list"}
+          list_path={"/bot/list"}
           data={payload}
           isFetching={isFetching}
         />

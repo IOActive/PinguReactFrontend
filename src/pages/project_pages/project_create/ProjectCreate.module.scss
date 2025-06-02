@@ -1,0 +1,37 @@
+
+
+ @import 'styles/app';
+
+ .root {
+   // styles here
+ }
+ 
+ .ProjectsTable {
+   th,
+   td {
+     border-color: $white;
+   }
+ 
+   thead {
+     border-bottom: 1px solid $gray-200;
+   }
+ }
+
+ .ProjectCard {
+  th,
+  td {
+    border-color: $white;
+  }
+
+  thead {
+    border-bottom: 1px solid $gray-200;
+  }
+
+  button {
+    margin-left: 90%;
+  }
+
+  margin-left: 25%;
+  margin-right: 25%;
+}
+ 

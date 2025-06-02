@@ -14,13 +14,16 @@
 */
 
 import { connect } from "react-redux";
-import { upload_build } from "../../../actions/build";
+import { upload_build } from "actions/build";
 import { useSelector } from "react-redux";
-import { Build, BUILD_TYPES} from "../../../models/Build";
-import CreateObject from "../../../components/CreateObject/CreateObject";
+import { Build, BUILD_TYPES} from "models/Build";
+import CreateObject from "components/CreateObject/CreateObject";
+import React, { useEffect } from "react";
 
 function AddBuild(props) {
 
+    const active_project = useSelector((state) => state.active_project);
+    
     const newBuild = Build({
         id: "",
         timestamp: new Date(),
@@ -29,11 +32,16 @@ function AddBuild(props) {
         file_size: 0,
         blobstore_path: "",
         type: BUILD_TYPES.RELEASE,
+        project: active_project
     });
 
     const { errorMessage } = useSelector(
         (state) => state.builds
     );
+
+      useEffect(() => {
+        newBuild.project_id.value = active_project
+      }, [active_project]);
 
     return (
         <CreateObject

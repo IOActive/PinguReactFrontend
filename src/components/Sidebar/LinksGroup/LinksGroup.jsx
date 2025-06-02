@@ -18,7 +18,7 @@ import cx from "classnames";
 import { NavLink, Link } from "react-router-dom";
 import { Collapse } from "reactstrap";
 
-import Icon from "../../Icon/Icon";
+import Icon from "components/Icon/Icon";
 
 import s from "./LinksGroup.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

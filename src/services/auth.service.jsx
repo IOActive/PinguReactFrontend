@@ -13,11 +13,12 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
 import TokenService from "./token_service";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
 
 function login(creds) {
-  return http
+  return getHttpInstance()
     .post( "auth/login/", creds)
     .then(response => {
       if (response.data.access) {
@@ -35,7 +36,7 @@ function logout() {
 }
 
 function register(data) {
-  return http.post("auth/register/", data);
+  return getHttpInstance().post("auth/register/", data);
 }
 
 function getCurrentUser() {

@@ -16,7 +16,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Icon from '../Icon/Icon';
+import Icon from 'components/Icon/Icon';
 import LinksGroup from './LinksGroup/LinksGroup';
 
 
@@ -26,83 +26,123 @@ import {
   faPersonDigging,
   faRocket,
   faBoxArchive,
+  faRobot,
+  faDragon,
+  faCode,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { useSelector } from "react-redux";
+import { use } from 'react';
+
 
 
 function Sidebar() {
+
+  const active_project = useSelector((state) => state.active_project);
 
   return (
 
     <nav className={s.root}>
       <header className={s.logo}>
-        <Link to="/app/dashboard">
-          <Icon glyph="logo2" />
+        <Link to="/dashboard">
+          <Icon glyph="pingucrew" />
         </Link>
       </header>
       <ul className={s.nav}>
         <LinksGroup
           header="Dashboard"
-          headerLink="/app/dashboard"
+          headerLink="/dashboard"
           glyph="dashboard" />
+
+        <LinksGroup
+          header="Projects"
+          headerLink="/project"
+          childrenLinks={[
+            {
+              name: 'Project List',
+              link: '/project/list',
+            },
+            {
+              name: 'Project Create',
+              link: '/project/add',
+            }
+          ]}
+          glyph={<FontAwesomeIcon icon={faDragon} />} />
+
         <LinksGroup
           header="Bots"
-          headerLink="/app/bots"
+          headerLink="/bots"
           childrenLinks={[
             {
               name: 'Bot List',
-              link: '/app/bot/list',
+              link: '/bot/list',
             },
             {
               name: 'Bot Create',
-              link: '/app/bot/add',
+              link: '/bot/add',
             }
           ]}
-          glyph="robot" />
+          glyph={<FontAwesomeIcon icon={faRobot} />} />
 
-        <LinksGroup
-          header="Jobs"
-          headerLink="/app/jobs"
-          childrenLinks={[
-            {
-              name: 'Job List',
-              link: '/app/job/list',
-            },
-            {
-              name: 'Job Create',
-              link: '/app/job/add',
-            }
-          ]}
-          glyph={<FontAwesomeIcon icon={faPersonDigging} />} />
-
+        {active_project ? (
+          <LinksGroup
+            header="Jobs"
+            headerLink="/jobs"
+            childrenLinks={[
+              {
+                name: 'Job List',
+                link: '/job/list',
+              },
+              {
+                name: 'Job Create',
+                link: '/job/add',
+              }
+            ]}
+            glyph={<FontAwesomeIcon icon={faPersonDigging} />} />
+        ) : null
+        }
         <LinksGroup
           header="Fuzzers"
-          headerLink="/app/fuzzers"
+          headerLink="/fuzzers"
           childrenLinks={[
             {
               name: 'Fuzzers List',
-              link: '/app/fuzzer/list',
+              link: '/fuzzer/list',
             },
             {
               name: 'Fuzzer Create',
-              link: '/app/fuzzer/add',
+              link: '/fuzzer/add',
             }
           ]}
           glyph={<FontAwesomeIcon icon={faRocket} />} />
 
-        <LinksGroup
-          header="Build Manger"
-          headerLink="/app/build_manager"
-          childrenLinks={[
-            {
-              name: 'Build  List',
-              link: '/app/build_manager/list',
-            },
-            {
-              name: 'Build Create',
-              link: '/app/build_manager/add',
-            }
-          ]}
-          glyph={<FontAwesomeIcon icon={faBoxArchive} />} />
+        {
+          active_project ? (
+            <><LinksGroup
+              header="Build Manger"
+              headerLink="/build_manager"
+              childrenLinks={[
+                {
+                  name: 'Build  List',
+                  link: '/build_manager/list',
+                },
+                {
+                  name: 'Build Create',
+                  link: '/build_manager/add',
+                }
+              ]}
+              glyph={<FontAwesomeIcon icon={faBoxArchive} />} /><LinksGroup
+                header="Coverage Explorer"
+                headerLink="/coverage"
+                childrenLinks={[
+                  {
+                    name: 'Project Coverage',
+                    link: '/coverage/explorer',
+                  }
+                ]}
+                glyph={<FontAwesomeIcon icon={faCode} />} /></>
+          ) : null
+        }
       </ul>
     </nav>
   );

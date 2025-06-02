@@ -14,13 +14,15 @@
 */
 
 import { connect } from "react-redux";
-import { createFuzzer } from "../../../actions/fuzzer";
+import { createFuzzer } from "actions/fuzzer";
 import { useSelector } from "react-redux";
-import { Fuzzer } from "../../../models/Fuzzer";
-import CreateObject from "../../../components/CreateObject/CreateObject";
+import { Fuzzer } from "models/Fuzzer";
+import CreateObject from "components/CreateObject/CreateObject";
 
 function AddFuzzer(props) {
 
+    const active_project = useSelector((state) => state.active_project);
+    
     const newFuzzer = Fuzzer({
         id: "",
         timestamp: new Date(),
@@ -41,12 +43,13 @@ function AddFuzzer(props) {
         sample_testcase: "",
         max_testcases: 0,
         additional_environment_string: "",
-        stats_columns: {},
-        stats_column_descriptions: {},
-        builtin: true,
+        stats_columns: "{}",
+        stats_column_descriptions: "{}",
+        builtin: false,
         differential: false,
         has_large_testcases: false,
         data_bundle_name: "",
+        project: active_project
     });
 
     const { errorMessage } = useSelector(

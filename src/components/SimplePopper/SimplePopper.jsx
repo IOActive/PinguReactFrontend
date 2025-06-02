@@ -19,7 +19,9 @@ import Popper from '@mui/material/Popper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 import cx from "classnames";
-import s from "./SimplePopper.module.scss"; 
+import s from "./SimplePopper.module.scss";
+import { Highlighter } from "components/Highlighter/Highlighter"
+import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 
 export function SimplePopper(props) {
@@ -39,7 +41,9 @@ export function SimplePopper(props) {
       <FontAwesomeIcon icon={faQuestion} onClick={handleClick}/>
       <Popper id={id} open={open} anchorEl={anchorEl}>
         <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-          {content}
+        <Highlighter theme={a11yDark}>
+              {content}
+        </Highlighter>
         </Box>
       </Popper>
     </div>

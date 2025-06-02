@@ -20,7 +20,7 @@ import {
   DELETE_JOB,
   JOB_REQUEST,
   JOB_FAILURE,
-} from "../actions/types";
+} from "actions/types";
 
 const initialState = [];
 
@@ -67,7 +67,7 @@ function jobReducer(jobs = initialState, action) {
     case JOB_FAILURE:
       return {
         isFetching: false,
-        errorMessage: payload,
+        errorMessage: payload.message,
       };
     default:
       return jobs;

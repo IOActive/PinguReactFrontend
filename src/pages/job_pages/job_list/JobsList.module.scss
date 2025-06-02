@@ -1,7 +1,6 @@
 
 
-@import '../../../styles/app';
-@import "~@fortawesome/fontawesome-free/scss/solid";
+@import 'styles/app';
 
 .root {
   // styles here
@@ -9,7 +8,7 @@
 }
 
 
-.TestCaseDetailsButton {
+.DetailsButton {
   justify-content: center !important;
   display: inline-flex !important;
   margin-left: auto !important;

@@ -19,7 +19,7 @@ export const CustomBinary = (json) => {
     return {
         job_id: {
             value: json.job_id,
-            editable: true,
+            editable: false,
             header: "UUID",
             type: String,
             required: true,
@@ -41,9 +41,8 @@ export const CustomBinary = (json) => {
         get_payload: (custom_binary) => {
             let payload = {};
             for (let key in custom_binary) {
-                if (custom_binary[key].editable) {
-                    payload[key] = custom_binary[key].value;
-                }
+                payload[key] = custom_binary[key].value;
+                
             }
             return payload;
         }

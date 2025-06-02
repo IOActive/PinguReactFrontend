@@ -14,10 +14,10 @@
 */
 
 import React, { useState } from "react";
-import Widget from "../../components/Widget/Widget";
-import Footer from "../../components/Footer/Footer";
-import { register } from "../../actions/auth";
-import Icon from "../../components/Icon/Icon";
+import Widget from "components/Widget/Widget";
+import Footer from "components/Footer/Footer";
+import { register } from "actions/auth";
+import Icon from "components/Icon/Icon";
 import { Navigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -79,7 +79,7 @@ function Register(props) {
           lg={{ size: 4, offset: 4 }}
         >
           <header className={s.logo}>
-            <Icon glyph="logo2" />
+            <Icon glyph="pingucrew" />
           </header>
           <Widget className={s.widget}>
             <h4 className="mt-0">Pingu Dashboard SingUp</h4>

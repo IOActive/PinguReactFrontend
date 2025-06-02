@@ -1,0 +1,33 @@
+@import 'styles/app';
+  
+ .root {
+   // styles here
+   
+ }
+
+ .LogsButtons{
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  color:  var(--text-color);
+
+ }
+
+ .CardButtonGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1%;
+ }
+
+.Header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+  background-color: $white;
+ }

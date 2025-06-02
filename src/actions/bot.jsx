@@ -14,7 +14,7 @@
 */
 
 
-import BotDataService from "../services/bot_service";
+import BotDataService from "services/bot_service";
 
 import {
   CREATE_BOT,
@@ -25,40 +25,18 @@ import {
   BOT_FAILURE
 } from "./types";
 
-function botRequest(payload) {
-  return {
-    type: BOT_REQUEST,
-    isFetching: true,
-    payload,
-  };
-}
-
-export function botRecieved(type, data) {
-  return {
-    type: type,
-    isFetching: false,
-    payload: data
-  };
-}
-
-function botError(message) {
-  return {
-    type: BOT_FAILURE,
-    isFetching: false,
-    payload: message,
-  };
-}
+import {action_request, action_recieved, action_error} from "./action"
 
 export const createBot = (payload) => (dispatch) => {
-  dispatch(botRequest(payload));
+  dispatch(action_request(BOT_REQUEST, payload));
   return BotDataService.create(payload).then(
     (response) => {
-      dispatch(botRecieved(CREATE_BOT, response.data));
+      dispatch(action_recieved(CREATE_BOT, response.data));
       return Promise.resolve();
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString();
-      dispatch(botError(message));
+      const message = error.response.data;
+      dispatch(action_error(BOT_FAILURE, message));
 
       return Promise.reject();
     }
@@ -69,26 +47,25 @@ export const createBot = (payload) => (dispatch) => {
 export const retrieveBots = (page_number) => async (dispatch) => {
   try {
     const response = await BotDataService.getPage(page_number);
-
-    dispatch(botRecieved(RETRIEVE_BOTS, response.data));
+    dispatch(action_recieved(RETRIEVE_BOTS, response.data));
     return Promise.resolve(response.data);
   } catch (error) {
-    const message = error.response.data.message || error.response.data.msg | error.toString();
-    dispatch(botError(message));
+    const message = error.response.data;
+    dispatch(action_error(BOT_FAILURE, message));
     return Promise.reject(error);
   }
 };
 
 export const getBot = (id) => (dispatch) => {
-  dispatch(botRequest(id));
+  dispatch(action_request(BOT_REQUEST, id));
   return BotDataService.findByID(id).then(
     (response) => {
-      dispatch(botRecieved(RETRIEVE_BOTS, response.data));
+      dispatch(action_recieved(RETRIEVE_BOTS, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString();
-      dispatch(botError(message));
+      const message = error.response.data;
+      dispatch(action_error(BOT_FAILURE, message));
 
       return Promise.reject();
     }
@@ -96,45 +73,45 @@ export const getBot = (id) => (dispatch) => {
 }
 
 export const updateBot = (id, data) => (dispatch) => {
-  dispatch(botRequest(data));
+  dispatch(action_request(BOT_REQUEST, data));
   return BotDataService.update(id, data).then(
     (response) => {
-      dispatch(botRecieved(UPDATE_BOT, response.data));
+      dispatch(action_recieved(UPDATE_BOT, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString();
-      dispatch(botError(message));
+      const message = error.response.data;
+      dispatch(action_error(BOT_FAILURE, message));
       return Promise.reject();
     }
   );
 }
 
 export const deleteBot = (id) => (dispatch) => {
-  dispatch(botRequest(id));
+  dispatch(action_request(BOT_REQUEST, id));
   return BotDataService.deleteBot(id).then(
     (response) => {
-      dispatch(botRecieved(DELETE_BOT, response.data));
+      dispatch(action_recieved(DELETE_BOT, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString();
-      dispatch(botError(message));
+      const message = error.response.data;
+      dispatch(action_error(BOT_FAILURE, message));
       return Promise.reject();
     }
   );
 }
 
 export const findBotsByName = (name) => (dispatch) => {
-  dispatch(botRequest(name));
+  dispatch(action_request(BOT_REQUEST, name));
   return BotDataService.findByName(name).then(
     (response) => {
-      dispatch(botRecieved(RETRIEVE_BOTS, response.data));
+      dispatch(action_recieved(RETRIEVE_BOTS, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString();
-      dispatch(botError(message));
+      const message = error.response.data;
+      dispatch(action_error(BOT_FAILURE, message));
 
       return Promise.reject();
     }

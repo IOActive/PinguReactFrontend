@@ -7,14 +7,14 @@
   * LICENSE.txt file in the root directory of this source tree.
 */
 
-@import '../../styles/app';
+@import 'styles/app';
 
 .root {
   background: $navbar-bg-color;
 
   :global {
     .input-group {
-      background-color: $gray-100;
+      background-color: var(--text-color);
 
       @include media-breakpoint-down(xs) {
         display: none;
@@ -34,16 +34,16 @@
         }
 
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-          color: $gray-300;
+          color:  var(--text-color);
           opacity: 1; /* Firefox */
         }
 
         &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-          color: $gray-300;
+          color: var(--text-color);
         }
 
         &::-ms-input-placeholder { /* Microsoft Edge */
-          color: $gray-300;
+          color:  var(--text-color);
         }
 
         &:hover,
@@ -62,7 +62,7 @@
 
         i {
           font-size: 1.25rem;
-          color: theme-color('light');
+          color:  var(--text-color);
         }
       }
     }
@@ -74,8 +74,8 @@
 
     .dropdown-item {
       &:active {
-        background-color: $gray-200;
-        color: $text-color;
+        background-color: var(--gray-200);
+        color:var(--text-color);
       }
 
       &:focus {
@@ -84,10 +84,10 @@
 
       a {
         display: block;
-        color: $text-color;
+        color: var(--text-color);
 
         &:hover {
-          color: $text-color;
+          color: var(--text-color);
           text-decoration: none;
           cursor: default;
         }
@@ -97,7 +97,7 @@
 }
 
 .arrow {
-  color: $gray-400;
+  color:  var(--text-color);
   transition: 0.3s;
   right: 0;
 }
@@ -121,14 +121,14 @@
   }
 
   :global .btn {
-    background: $white;
+    background: var(--component-bg);
     border: none;
 
     &:hover,
     &:active,
     &:focus,
     &:focus:active {
-      background: $white;
+      background: var(--body-bg);
       box-shadow: none !important;
       outline: none;
     }
@@ -156,12 +156,12 @@
     align-items: center;
     top: 12px;
     right: -6px;
-    color: $white;
+    color: var(--text-color);
     font-size: 0.55rem;
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: theme-color('danger');
+    background-color: var(--brand-danger);
   }
 }
 

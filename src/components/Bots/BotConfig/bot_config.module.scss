@@ -1,0 +1,37 @@
+@import 'styles/app.scss';
+
+.root {
+  // styles here
+}
+
+.Card {
+  display: block;
+  th,
+  td {
+    border-color: $red;
+  }
+ 
+  thead {
+    border-bottom: 1px solid var(--gray-200);
+  }
+ 
+  .Button_bg_blue {
+   // position to bottom of form and aligned with the input fields
+   float: right;
+   margin-right: 2%;
+   margin-bottom: 2%;
+   background-color: $brand-button;
+   color: var(--text-color);
+  }
+ 
+  .buttons_container {
+   // position to bottom of form and aligned with the input fields
+   display: block;
+ }
+
+  .alert{
+    float: right;
+    margin-right: 2%;
+  }
+
+ }

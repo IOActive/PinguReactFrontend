@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "config/*": [
+        "config/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "node_modules"
+  ]
+}

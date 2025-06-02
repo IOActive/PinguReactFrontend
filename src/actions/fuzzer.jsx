@@ -14,8 +14,8 @@
 */
 
 
-import FuzzerDataService from "../services/fuzzer_service";
-
+import FuzzerDataService from "services/fuzzer_service";
+import {action_request, action_recieved, action_error} from "./action"
 import {
   CREATE_FUZZER,
   RETRIEVE_FUZZERS,
@@ -25,40 +25,17 @@ import {
   FUZZER_FAILURE
 } from "./types";
 
-function fuzzerRequest(payload) {
-  return {
-    type: FUZZER_REQUEST,
-    isFetching: true,
-    payload,
-  };
-}
-
-export function fuzzerRecieved(type, data) {
-  return {
-    type: type,
-    isFetching: false,
-    payload: data
-  };
-}
-
-function fuzzerError(message) {
-  return {
-    type: FUZZER_FAILURE,
-    isFetching: false,
-    payload: message,
-  };
-}
-
 export const createFuzzer = (payload) => (dispatch) => {
-  dispatch(fuzzerRequest(payload));
+
+  dispatch(action_request(FUZZER_REQUEST, payload));
   return FuzzerDataService.create(payload).then(
     (response) => {
-      dispatch(fuzzerRecieved(CREATE_FUZZER, response.data));
+      dispatch(action_recieved(CREATE_FUZZER, response.data));
       return Promise.resolve();
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString(); 
-      dispatch(fuzzerError(message));
+      const message = error.response.data; 
+      dispatch(action_error(FUZZER_FAILURE, message));
       return Promise.reject();
     }
   );
@@ -69,24 +46,25 @@ export const retrieveFuzzers = (page_number) => async (dispatch) => {
   try {
     const response = await FuzzerDataService.getPage(page_number);
 
-    dispatch(fuzzerRecieved(RETRIEVE_FUZZERS, response.data));
+    dispatch(action_recieved(RETRIEVE_FUZZERS, response.data));
     return Promise.resolve(response.data);
   } catch (error) {
-    const message = error.response.data.message || error.response.data.msg | error.toString();     dispatch(fuzzerError(message));
+    const message = error.response.data;     
+    dispatch(action_error(FUZZER_FAILURE, message));
     return Promise.reject(error);
   }
 };
 
 export const getFuzzer = (id) => (dispatch) => {
-  dispatch(fuzzerRequest(id));
+  dispatch(action_request(FUZZER_REQUEST, id));
   return FuzzerDataService.findByID(id).then(
     (response) => {
-      dispatch(fuzzerRecieved(RETRIEVE_FUZZERS, response.data));
+      dispatch(action_recieved(RETRIEVE_FUZZERS, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString(); 
-      dispatch(fuzzerError(message));
+      const message = error.response.data; 
+      dispatch(action_error(FUZZER_FAILURE, message));
 
       return Promise.reject();
     }
@@ -94,47 +72,75 @@ export const getFuzzer = (id) => (dispatch) => {
 }
 
 export const updateFuzzer = (id, data) => (dispatch) => {
-  dispatch(fuzzerRequest(data));
+  dispatch(action_request(FUZZER_REQUEST, data));
   return FuzzerDataService.update(id, data).then(
     (response) => {
-      dispatch(fuzzerRecieved(UPDATE_FUZZER, response.data));
+      dispatch(action_recieved(UPDATE_FUZZER, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString(); 
-      dispatch(fuzzerError(message));
+      const message = error.response.data; 
+      dispatch(action_error(FUZZER_FAILURE, message));
       return Promise.reject();
     }
   );
 }
 
 export const deleteFuzzer = (id) => (dispatch) => {
-  dispatch(fuzzerRequest(id));
+  dispatch(action_request(FUZZER_REQUEST, id));
   return FuzzerDataService.delete(id).then(
     (response) => {
-      dispatch(fuzzerRecieved(DELETE_FUZZER, response.data));
+      dispatch(action_recieved(DELETE_FUZZER, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString(); 
-      dispatch(fuzzerError(message));
+      const message = error.response.data; 
+      dispatch(action_error(FUZZER_FAILURE, message));
       return Promise.reject();
     }
   );
 }
 
 export const findFuzzersByName = (name) => (dispatch) => {
-  dispatch(fuzzerRequest(name));
+  dispatch(action_request(FUZZER_REQUEST, name));
   return FuzzerDataService.findByName(name).then(
     (response) => {
-      dispatch(fuzzerRecieved(RETRIEVE_FUZZERS, response.data));
+      dispatch(action_recieved(RETRIEVE_FUZZERS, response.data));
       return Promise.resolve(response.data);
     },
     (error) => {
-      const message = error.response.data.message || error.response.data.msg | error.toString(); 
-      dispatch(fuzzerError(message));
+      const message = error.response.data; 
+      dispatch(action_error(FUZZER_FAILURE, message));
 
       return Promise.reject();
     }
   );
 }
+
+export const download_fuzzer_source = (fuzzer_id) => {
+  return FuzzerDataService.download_fuzzer_source(fuzzer_id).then(
+    (response) => {
+      const contentDisposition = response.headers["content-disposition"];
+      let filename = `${fuzzer_id}.zip`;
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename="(.+)"/);
+        if (match && match[1]) filename = match[1];
+      }
+
+      const url = window.URL.createObjectURL(response.data);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+
+      return Promise.resolve();
+    },
+    (error) => {
+      console.error("Download failed:", error);
+      return Promise.reject(error);
+    }
+  );
+};

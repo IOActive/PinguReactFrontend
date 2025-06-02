@@ -1,0 +1,28 @@
+ @import 'styles/app.scss';
+  
+ .root {
+   // styles here
+   
+ }
+
+ .ProjectButton {
+  justify-content: center !important;
+  display: inline-flex !important;
+  margin-left: auto !important;
+  background-color: $blue;
+  float: right;
+  flex-grow: 0;
+
+  // letters in white
+  color: $white;
+
+  // centert text
+  align-items: center;
+
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+}
+ 
+ 

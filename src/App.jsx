@@ -17,17 +17,29 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import loadConfig from "./helpers/config-loader";
+import { initializeHttp } from "./helpers/http-common"; // Import the initializer
 
-import ErrorPage from "../pages/error/ErrorPage";
+import ErrorPage from "./pages/error/ErrorPage";
 
-import "../styles/theme.scss";
-import Layout from "./Layout/Layout";
-//import DocumentationLayoutComponent from '../documentation/DocumentationLayout';
-import Login from "../pages/login/Login";
-import Register from "../pages/register/Register";
+import "./styles/theme.scss";
+import Layout from "./components/Layout/Layout";
+//import DocumentationLayoutComponent from 'documentation/DocumentationLayout';
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
+  React.useEffect(() => {
+    (async () => {
+      const config = await loadConfig();
+      window.APP_CONFIG = config; // Store the configuration globally
+
+      // Initialize the HTTP instance once
+      initializeHttp(config);
+    })();
+  }, []);
+
   return (
     <div>
       <ToastContainer
@@ -36,16 +48,15 @@ function App() {
         closeButton={<CloseButton />} />
       <BrowserRouter>
         <Routes>
-          <Route path="/register" element={<Register />} />
+          {/*<Route path="/register" element={<Register />} />*/}
           <Route path="/login" element={<Login />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route
-            path="/app/*"
+            path="/*"
             element={<PrivateRoute>
               <Layout />
             </PrivateRoute>} />
-          <Route path="*" element={<Navigate to="/app" />} />
-
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -55,7 +66,5 @@ function App() {
 const CloseButton = ({ closeToast }) => (
   <i onClick={closeToast} className="la la-close notifications-close" />
 );
-
-
 
 export default App;

@@ -13,15 +13,15 @@
  limitations under the License.
 */
 
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "components/SearchBar/SearchBar";
 import React, { useEffect, useState } from "react";
 import { Table, Spinner, Badge } from "reactstrap";
-import Widget from "../Widget/Widget";
+import Widget from "components/Widget/Widget";
 import cx from "classnames";
-import Icon from "../Icon/Icon";
+import Icon from "components/Icon/Icon";
 import s from "./InteractiveList.module.scss";
-import CustomPagination from "../ObjectPagination/ObjectPagination";
-import { beautify_key_names, isDateString, beautify_date } from "../../helpers/utils";
+import CustomPagination from "components/ObjectPagination/ObjectPagination";
+import { beautify_key_names, isDateString, beautify_date } from "helpers/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,7 +36,7 @@ function InteractiveList(props) {
 
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [dataPerPage] = useState(5);
+    const [dataPerPage] = useState(10);
     const [totalData, setTotalData] = useState(0);
 
 
@@ -68,20 +68,26 @@ function InteractiveList(props) {
     useEffect(() => {
         if (parent_object_id)
             retieve_data_function(1, parent_object_id)
+                .catch((error) => {
+                    console.error("error", error);
+                });
         else
-            retieve_data_function(1);
+            retieve_data_function(1)
+                .catch((error) => {
+                    console.error("error", error);
+                });
         if (payload)
             setTotalData(payload.count);
     }, []);
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (parent_object_id)
             retieve_data_function(1, parent_object_id)
         else
             retieve_data_function(1);
         if (payload)
             setTotalData(payload.count);
-    }, [parent_object_id]);
+    }, [parent_object_id]); */
 
 
 
@@ -96,12 +102,17 @@ function InteractiveList(props) {
 
 
     return (
-        <div className={cx(s.root)}>
+        <div className={cx(s.ListdWidget)}>
             <Widget
                 title={
-                    <div>
-                        {search_fucntion != undefined && (
+                    <>
+                        {typeof glyph === "object" ? (
+                            <span> {glyph} </span>
+                        ) : (
+                            <Icon glyph={glyph} />
+                        )} {objectName}
 
+                        {search_fucntion != undefined && (
                             <SearchBar
                                 searchValue={searchName}
                                 onChangeSearchValue={onChangeSearchName}
@@ -109,39 +120,32 @@ function InteractiveList(props) {
                                 refreshData={refreshData}
                             />
                         )}
-                        <h5 className="mt-0 mb-3">
-                            {typeof glyph === "object" ? (
-                                <span> {glyph} </span>
-                            ) : (
-                                <Icon glyph={glyph} />
-                            )} {objectName}
-                        </h5>
-                    </div>
+                    </>
 
                 }
             >
-                {isFetching ? (
-                    <Spinner animation="border" variant="primary" />
-                ) : (
-                    payload && (
-                        <div>
+                <div className={s.ListdWidget__content}>
+                    {isFetching ? (
+                        <Spinner animation="border" variant="primary" />
+                    ) : (
+                        payload && (
                             <InteractiveTable
                                 listData={payload.results}
                                 setActiveObject={setActiveObject}
                                 currentIndex={currentIndex}
                                 colums={colums}
                             />
-                        </div>
-                    )
+                        )
 
 
-                )}
-                <CustomPagination
-                    dataPerPage={dataPerPage}
-                    totalData={totalData}
-                    paginate={paginate}
-                    currentPage={currentPage}
-                />
+                    )}
+                    <CustomPagination
+                        dataPerPage={dataPerPage}
+                        totalData={totalData}
+                        paginate={paginate}
+                        currentPage={currentPage}
+                    />
+                </div>
             </Widget>
         </div>
     )
@@ -161,7 +165,7 @@ const InteractiveTable = ({ listData, setActiveObject, currentIndex, colums }) =
             </thead>
             <tbody>
                 {
-                    
+
                     listData.map((listItem, index) => {
                         return <Row listItem={listItem} index={index} setActiveObject={setActiveObject} currentIndex={currentIndex} colums={colums} />;
                     }

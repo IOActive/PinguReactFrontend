@@ -1,19 +1,33 @@
 
 
- @import '../../styles/app.scss';
+ @import 'styles/app.scss';
 
  .root {
    // styles here
    margin-bottom:0px;
    border-style:solid;
-   border-color: $gray-400;
+   border-color: var(--gray-400);
    border-width:1px;
  }
+
+.ListdWidget {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.ListdWidget__content{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
  
  .InteractiveTable{
   th,
   td {
-    border-bottom: 2px solid $gray-200;
+    border-bottom: 2px solid var(--gray-200);
     text-align: center;
     align-items: left;
 
@@ -23,7 +37,7 @@
   
 
   thead {
-    border-bottom: 3px solid $gray-400;
+    border-bottom: 3px solid var(--gray-400);
   }
 
 }

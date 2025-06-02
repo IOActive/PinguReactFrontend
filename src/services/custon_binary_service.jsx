@@ -13,11 +13,17 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
+
 
 class CustomBinaryDataService {
   create(data) {
-    return http.post("/custom_binary/", data);
+    return getHttpInstance().post("/custom_binary/", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",  // ✅ Override for file uploads
+      },
+    });
   }
 
 }

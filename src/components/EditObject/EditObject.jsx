@@ -16,13 +16,13 @@
 import React, { useEffect, useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import cx from "classnames";
-import { Button } from "reactstrap";
+import { Button, Alert } from "reactstrap";
 import Form from "react-bootstrap/Form";
 
 import s from "./EditObject.module.scss";
 import Card from "react-bootstrap/Card";
-import { generateFormGroups } from "../GenericForm/GenericForm";
-import { CloseButton } from "../CloseButton/CloseButton";
+import { generateFormGroups } from "components/GenericForm/GenericForm";
+import { CloseButton } from "components/CloseButton/CloseButton";
 
 
 const EditObject = (props) => {
@@ -35,51 +35,33 @@ const EditObject = (props) => {
   const onInputChange = (event) => {
 
     let name = event.target.name;
-    var value = "";
+    var value = null;
 
     switch (event.target.type) {
       case "checkbox":
         if (event.target.value === "on")
-          value = true;
-        else if (event.target.value === "off")
           value = false;
+        else if (event.target.value === "off")
+          value = true;
         break;
       case "file":
         let files = event.target.files;
         if (files.length !== 1) {
           alert('Please select a single file.');
-        }
-        var reader = new FileReader();
-        reader.readAsDataURL(files[0]); //
-
-        const promise = new Promise((resolve, reject) => {
-          reader.onload = () => {
-            value = reader.result;
-            resolve();
-          }
-          reader.onerror = reject;
-        });
-
-        promise.then(() => {
-
+        } else {
+          value = files[0]; // Directly store the file object, no need for FileReader
           setCurrentObject((currentObject) => ({
             ...currentObject,
             "filename": {
               ...currentObject.filename,
-              "value": files[0].name,
+              "value": files[0].name,  // Store the filename for reference
             },
             [name]: {
               ...currentObject[name],
-              "value": value,
+              "value": value, // Store the file object directly
             },
           }));
-
-        });
-
-        reader.onerror = function (error) {
-          console.log('Error: ', error);
-
-        };
+        }
         break;
       default:
         value = event.target.value;
@@ -96,8 +78,6 @@ const EditObject = (props) => {
 
 
   const updateContent = (event) => {
-    event.preventDefault();
-
     const form = event.target;
     event.preventDefault();
     if (form.checkValidity() === false) {
@@ -108,17 +88,15 @@ const EditObject = (props) => {
     setCurrentObject({ ...currentObject, validated: true });
 
     if (form.checkValidity() === true) {
+      updateObject(currentObject.id.value, currentObject.get_payload(currentObject)).catch((error) => {
+        console.log(error);
+      });
+      setCurrentObject({
+        ...currentObject,
+        submitted: true,
 
-      updateObject(currentObject.id.value, currentObject.get_payload(currentObject));
-    } <CloseButton
-      closeConstant={closeConstant}
-    />
-
-    setCurrentObject({
-      ...currentObject,
-      submitted: true,
-
-    });
+      });
+    }
   };
 
   const removeObject = (event) => {
@@ -133,7 +111,9 @@ const EditObject = (props) => {
     setCurrentObject({ ...currentObject, validated: true });
 
     if (form.checkValidity() === true) {
-      deleteObject(currentObject.id.value);
+      deleteObject(currentObject.id.value).catch((error) => {
+        console.log(error);
+      });
     }
 
     setCurrentObject({
@@ -166,9 +146,9 @@ const EditObject = (props) => {
 
                 {errorMessage && (
                   <div className="form-group">
-                    <div className="alert alert-danger" role="alert">
+                    <Alert size="sm" color="danger">
                       {errorMessage}
-                    </div>
+                    </Alert>
                   </div>
                 )}
 
@@ -179,6 +159,7 @@ const EditObject = (props) => {
                     </div>
                   </div>
                 )}
+
 
                 <ButtonGroup className={cx(s.ButtonGroupEditBot, 'btn-group')}>
                   <Button className={cx(s.UpdateButton)} onClick={updateContent}>Update</Button>

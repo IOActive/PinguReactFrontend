@@ -108,13 +108,6 @@ export const Crash = (json) => {
             type: Code,
             required: false,
         },
-        regression: {
-            value: json.regression,
-            editable: false,
-            header: "Regression", 
-            type: String,
-            required: false,
-        },
         security_severity: {
             value: json.security_severity,
             editable: false,

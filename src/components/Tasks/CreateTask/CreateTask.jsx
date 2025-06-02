@@ -14,14 +14,14 @@
 */
 
 import { connect } from "react-redux";
-import { createTask } from "../../../actions/task";
+import { createTask } from "actions/task";
 import { useSelector } from "react-redux";
-import { Task } from "../../../models/Task";
-import CreateObject from "../../CreateObject/CreateObject";
+import { Task } from "models/Task";
+import CreateObject from "components/CreateObject/CreateObject";
 
 function AddTask(props) {
 
-    const { job_id, closeConstant, platform, command="analyze" } = props;
+    const { job_id, closeConstant, platform, command = "fuzz" } = props;
 
     const newTask = Task({
         job_id: job_id,
@@ -43,9 +43,23 @@ function AddTask(props) {
             errorMessage={errorMessage}
             objectName={"Task"}
             closeConstant={closeConstant}
+            helpText={helpText}
+            display_header={false}
         />
     );
 }
+
+const helpText = "There are differet types of tasks that can be created for a job.\n\
+Please note that some tasks may require additional arguments to be specified.\n\
+- Fuzz task need the name of the fuzzer as argument.\n\
+    For example, to create a fuzz task for the 'libFuzzer' fuzzer, you would enter 'libFuzzer' as the argument.\
+- Analyze task need the testcase id to analyze.\n\
+- Corpus pruning needs the name of the fuzzer as argument.\n\
+- Regression task need the testcase id.\n\
+- Progression task need the testcase id.\n\
+- Minimization task need the testcase id.\n\
+- Symbolize task need the testcase id.\n\
+";
 
 const mapStateToProps = (state) => {
     const { user } = state.auth;

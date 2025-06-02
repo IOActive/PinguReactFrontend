@@ -17,7 +17,7 @@ import {
     RETRIEVE_TESTCASES,
     TESTCASE_REQUEST,
     TESTCASE_FAILURE,
-  } from "../actions/types";
+  } from "actions/types";
   
   const initialState = [];
   
@@ -39,7 +39,7 @@ import {
       case TESTCASE_FAILURE:
         return {
           isFetching: false,
-          errorMessage: payload,
+          errorMessage: payload.message,
         };
       default:
         return testcases;

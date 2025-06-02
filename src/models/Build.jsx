@@ -78,6 +78,13 @@ export const Build = (json) => {
             type: String,
             required: false,
         },
+        project_id: {
+            value: json.project_id,
+            editable: true,
+            header: "The project that the archive belongs to",
+            type: String,
+            required: true,
+        },
         validated: false,
         submitted: false,
         get_enums: () => {
@@ -89,10 +96,7 @@ export const Build = (json) => {
             let payload = {};
             for (let key in build) {
                 if (build[key].editable) {
-                    if (key === "build_zip")
-                        payload[key] = build[key].value.split(",").pop();
-                    else
-                        payload[key] = build[key].value;
+                    payload[key] = build[key].value;
                 }
             }
             return payload;

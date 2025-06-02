@@ -14,15 +14,18 @@
 */
 
 import React from 'react';
+import cx from "classnames";
+import s from "./SearchBar.module.scss";
+
 
 function SearchBar(props) {
   const { searchValue, onChangeSearchValue, findByName, refreshData } = props;
 
   return (
-    <div>
+    <div className={cx(s.container)}>
       <div className="pull-right mt-n-xs">
         <button
-          className="btn btn-outline-secondary"
+          className={cx("btn btn-outline-secondary", s.button)}
           type="button"
           onClick={findByName}
         >
@@ -40,7 +43,7 @@ function SearchBar(props) {
       </div>
       <div className="pull-right mt-n-xs">
       <button
-          className="btn btn-outline-secondary"
+          className={cx("btn btn-outline-secondary", s.button)}
           type="button"
           onClick={refreshData}
         >Refresh</button>

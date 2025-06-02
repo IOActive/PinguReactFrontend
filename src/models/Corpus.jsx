@@ -45,10 +45,10 @@ export const Corpus = (json) => {
             type: String,
             required: true,
         },
-        engine_id: {
-            value: json.engine_id,
+        fuzzer_id: {
+            value: json.fuzzer_id,
             editable: true,
-            header: "Engine UUID",
+            header: "Fuzzer UUID",
             type: String,
             required: true,
         },

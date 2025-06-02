@@ -14,10 +14,10 @@
 */
 
 import { connect } from "react-redux";
-import { upload_custom_binary } from "../../../actions/custom_binary";
+import { upload_custom_binary } from "actions/custom_binary";
 import { useSelector } from "react-redux";
-import { CustomBinary } from "../../../models/CustomBinary";
-import CreateObject from "../../CreateObject/CreateObject";
+import { CustomBinary } from "models/CustomBinary";
+import CreateObject from "components/CreateObject/CreateObject";
 
 function UploadCustomBinary(props) {
 
@@ -40,6 +40,7 @@ function UploadCustomBinary(props) {
             errorMessage={errorMessage}
             objectName={"CustomBinary"}
             closeConstant={closeConstant}
+            display_header={false}
         />
     );
 }

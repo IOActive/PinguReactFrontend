@@ -15,15 +15,15 @@
 
 import React, { useState, useEffect } from "react";
 import { Table, Badge } from "reactstrap";
-import Widget from "../Widget/Widget";
+import Widget from "components/Widget/Widget";
 import s from "./DashBoadTable.module.scss";
 import cx from "classnames";
 import { Link } from "react-router-dom";
-import SearchBar from "../SearchBar/SearchBar"
-import Icon from "../Icon/Icon";
+import SearchBar from "components/SearchBar/SearchBar"
+import Icon from "components/Icon/Icon";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { beautify_key_names, beautify_date, isDateString } from "../../helpers/utils";
+import { beautify_key_names, beautify_date, isDateString } from "helpers/utils";
 
 const DashboardTable = (props) => {
     const [searchName, setSearchName] = useState("");
@@ -48,25 +48,22 @@ const DashboardTable = (props) => {
     return (
         <Widget className={cx(s.DashboardWidget)}
             title={
-                <div>
+                <>
+                    {typeof glyph === "object" ? (
+                        <span> {glyph} </span>
+                    ) : (
+                        <Icon glyph={glyph} />
+                    )} {objectName}
                     {
                         findObjectByName != undefined && (
                             <SearchBar
-                                searchValue={searchName}
                                 onChangeSearchValue={onChangeSearchName}
                                 findByName={findByName}
                                 refreshData={refreshData}
                             />
                         )
                     }
-                    <h5 className="mt-0 mb-3">
-                        {typeof glyph === "object" ? (
-                            <span> {glyph} </span>
-                        ) : (
-                            <Icon glyph={glyph} />
-                        )} {objectName}
-                    </h5>
-                </div>
+                </>
             }
         >
             <Table responsive borderless className={cx("mb-0", s.DashboardTable)}>
@@ -135,8 +132,8 @@ const DashboardTable = (props) => {
 
             </Table>
             {list_path != undefined && (
-                <section className={cx(s.ViewAll)}>
-                    <Link to={list_path} className="btn btn-default">
+                <section className="">
+                    <Link to={list_path} className={cx("btn btn-default", s.ViewAll)}>
                         View all {objectName}{" "}
                     </Link>
                 </section>

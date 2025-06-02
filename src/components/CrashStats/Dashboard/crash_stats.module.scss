@@ -1,0 +1,18 @@
+@import 'styles/app.scss';
+
+.root {
+  // styles here
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0;
+}
+
+.form {
+    width: 20px;
+    margin-bottom: 100px;
+    background-color: aliceblue;
+}
+
+.card {
+  margin-bottom: 10px;
+}

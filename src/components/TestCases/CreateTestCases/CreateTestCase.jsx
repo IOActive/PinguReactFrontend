@@ -14,10 +14,10 @@
 */
 
 import { connect } from "react-redux";
-import { createTestcase } from "../../../actions/testcase";
+import { createTestcase } from "actions/testcase";
 import { useSelector } from "react-redux";
-import { TestCase } from "../../../models/TestCase";
-import CreateObject from "../../CreateObject/CreateObject";
+import { TestCase } from "models/TestCase";
+import CreateObject from "components/CreateObject/CreateObject";
 
 function AddTestCase(props) {
 
@@ -46,6 +46,7 @@ function AddTestCase(props) {
             errorMessage={errorMessage}
             objectName={"TestCase"}
             closeConstant={closeConstant}
+            display_header={false}
         />
     );
 }

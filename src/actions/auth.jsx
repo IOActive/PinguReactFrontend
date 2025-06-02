@@ -19,13 +19,12 @@ import {
     LOGIN_FAILURE,
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
-    LOGOUT_FAILURE,
     REGISTER_SUCCESS,
     REGISTER_REQUEST,
     REGISTER_FAILURE,
   } from "./types";
   
-  import AuthService from "../services/auth.service";
+  import AuthService from "services/auth.service";
   
 
   function requestLogin(creds) {
@@ -52,7 +51,7 @@ import {
       type: LOGIN_FAILURE,
       isFetching: false,
       isAuthenticated: false,
-      payload: message,
+      message: message,
     };
   }
 
@@ -65,10 +64,10 @@ import {
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.detail;
+        const message = error.response.data.message;
         dispatch(loginError(message));
 
-        return Promise.reject();
+        return Promise.reject(message);
       }
     );
   };
@@ -106,7 +105,7 @@ import {
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.detail;        
+        const message = error.response.data.message;        
         dispatch(RegistrationError(message));
         return Promise.reject();
       }
@@ -150,7 +149,7 @@ import {
           return Promise.resolve();
         },
         (error) => {          
-          dispatch(loginError(error.response.detail));
+          dispatch(loginError(error.response.message));
           return Promise.reject();
         }
       );

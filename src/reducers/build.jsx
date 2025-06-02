@@ -20,7 +20,7 @@ import {
   DELETE_BUILD,
   BUILD_REQUEST,
   BUILD_FAILURE,
-} from "../actions/types";
+} from "actions/types";
 
 const initialState = [];
 
@@ -67,7 +67,7 @@ function buildReducer(builds = initialState, action) {
     case BUILD_FAILURE:
       return {
         isFetching: false,
-        errorMessage: payload,
+        errorMessage: payload.message,
       };
     default:
       return builds;

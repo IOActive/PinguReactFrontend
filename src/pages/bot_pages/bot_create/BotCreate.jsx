@@ -14,10 +14,10 @@
 */
 
 import { connect } from "react-redux";
-import { createBot } from "../../../actions/bot";
+import { createBot } from "actions/bot";
 import { useSelector } from "react-redux";
-import { Bot } from "../../../models/Bot";
-import CreateObject from "../../../components/CreateObject/CreateObject";
+import { Bot } from "models/Bot";
+import CreateObject from "components/CreateObject/CreateObject";
 
 function AddBot(props) {
 

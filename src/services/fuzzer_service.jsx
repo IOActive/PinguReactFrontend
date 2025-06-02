@@ -13,45 +13,59 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
+
 
 class FuzzerDataService {
   getAll() {
-    return http.get("/fuzzer/");
+    return getHttpInstance().get("/fuzzer/");
   }
 
   get(id) {
-    return http.get(`/fuzzer/?id=${id}`);
+    return getHttpInstance().get(`/fuzzer/?id=${id}`);
   }
 
   create(data) {
-    return http.post("/fuzzer/", data);
+    return getHttpInstance().post("/fuzzer/", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",  // ✅ Override for file uploads
+      },
+    });
   }
 
   update(id, data) {
-    return http.patch(`/fuzzer/${id}/`, data).catch((e) => {
-      console.log(e);
+    return getHttpInstance().patch(`/fuzzer/${id}/`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",  // ✅ Override for file uploads
+      },
     });
   }
 
   delete(id) {
-    return http.delete(`/fuzzer/${id}/`);
+    return getHttpInstance().delete(`/fuzzer/${id}/`);
   }
 
   deleteAll() {
-    return http.delete(`/fuzzer/`);
+    return getHttpInstance().delete(`/fuzzer/`);
   }
 
   findByName(name) {
-    return http.get(`/fuzzer/?name=${name}`);
+    return getHttpInstance().get(`/fuzzer/?name=${name}`);
   }
 
   findByID(id){
-    return http.get(`/fuzzer/?id=${id}`);
+    return getHttpInstance().get(`/fuzzer/?id=${id}`);
   }
 
   getPage(page_number) {
-    return  http.get(`/fuzzer/?page=${page_number}`);
+    return  getHttpInstance().get(`/fuzzer/?page=${page_number}`);
+  }
+
+  download_fuzzer_source(id) {
+    return getHttpInstance().get(`/fuzzer/${id}/download`, {
+      responseType: 'blob',
+    });
   }
 }
 

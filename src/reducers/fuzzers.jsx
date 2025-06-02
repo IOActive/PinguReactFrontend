@@ -20,7 +20,7 @@ import {
     DELETE_FUZZER,
     FUZZER_REQUEST,
     FUZZER_FAILURE,
-  } from "../actions/types";
+  } from "actions/types";
   
   const initialState = [];
   
@@ -67,7 +67,7 @@ import {
       case FUZZER_FAILURE:
         return {
           isFetching: false,
-          errorMessage: payload,
+          errorMessage: payload.message,
         };
       default:
         return fuzzers;

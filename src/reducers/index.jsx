@@ -15,24 +15,31 @@
 
 import { combineReducers } from "redux";
 import bots from "./bots";
+import bot_configs from "./bot_configs";
 import auth from "./auth";
 import jobs from "./jobs";
 import fuzzers from "./fuzzers";
 import navigation from './navigation';
 import runtime from './runtime';
 import tasks from "./tasks";
-import testcases from "./testcase"
+import testcases from "./testcase";
 import crashes from "./crashes";
-import jobTemplates from "./jobTemplates"
-import custom_binaries from "./custom_binaries"
-import corpuses from "./corpus"
+import jobTemplates from "./jobTemplates";
+import custom_binaries from "./custom_binaries";
+import corpuses from "./corpus";
 import builds from "./build";
-
+import active_project from "./active_project";
+import projects from "./projects";
+import fuzzer_stats from "./fuzzer_stats";
+import fuzzer_targets from "./fuzzer_target";
+import crash_stats from "./crash_stats";
+import coverages from "./coverage";
 
 
 export default combineReducers({
   auth,
   bots,
+  bot_configs,
   navigation,
   runtime,
   jobs,
@@ -44,4 +51,10 @@ export default combineReducers({
   custom_binaries,
   corpuses,
   builds,
+  projects,
+  active_project,
+  fuzzer_stats,
+  fuzzer_targets,
+  crash_stats,
+  coverages,
 });

@@ -13,19 +13,17 @@
  limitations under the License.
 */
 
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore } from '@reduxjs/toolkit'; // Correct import statement
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-const initialState = {};
-
 const middleware = [thunk];
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+const store = configureStore({ // Use configureStore instead of createStore
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middleware), // Ensure middleware is added correctly
+  devTools: composeWithDevTools(), // Correct usage of devTools enhancer
+});
 
 export default store;

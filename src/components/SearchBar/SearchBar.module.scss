@@ -1,11 +1,20 @@
-@import '../../styles/app';
+@import 'styles/app';
 
 .root {
   width: $sidebar-width-open;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
   background-color: $sidebar-bg-color;
-  color: $sidebar-color;
+  color:  var(--text-color);
+}
+
+.button {
+  background-color: $brand-info;
+  color: var(--text-color);
+}
+
+.container {
+  display: inline-flex !important;
+  margin-left: auto !important;
+  float: right;
+  flex-grow: 0;
+  flex-direction: row;
 }

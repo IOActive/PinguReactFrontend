@@ -13,21 +13,34 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
+
 
 class TaskDataService {
   create(data) {
-    return http.post("/task/", data);
+    return getHttpInstance().post("/task/", data);
   }
 
-  read(platform) {
-    return http.get(`/task/?platform=${platform}`);
+  readQueueByPlatform(platform) {
+    return getHttpInstance().get(`/task?platform=${platform}`);
   }
 
-  readAll() {
-    return http.get("/task/");
+  readAllQueue() {
+    return getHttpInstance().get("/task?read_queue");
   }
 
+  findByID(id){
+    return getHttpInstance().get(`/task?id=${id}`)
+  }
+
+  retrieveTasks(page_number) {
+    return getHttpInstance().get(`/task?page=${page_number}`);
+  }
+
+  retrieveTasksByJobId(page_number, job_id) {
+    return getHttpInstance().get(`/task?page=${page_number}&job=${job_id}`);
+  }   
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

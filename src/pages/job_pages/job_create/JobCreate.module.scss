@@ -1,7 +1,38 @@
-@import '../../../styles/app';
-@import "~@fortawesome/fontawesome-free/scss/solid";
+@import 'styles/app';
 
 .root {
-  // styles here
-
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Optional max-width for center alignment */
+  margin: 0 auto; /* Center align the container */
+  padding: 16px; /* Add padding to the root */
 }
+
+.template {
+  justify-content: center !important;
+  display: inline-flex !important;
+  margin-left: auto !important;
+  background-color: $blue;
+  float: right;
+  flex-grow: 0;
+
+  // letters in white
+  color: $white;
+
+  // centert text
+  align-items: center;
+
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+}
+
+.creation_form {
+  font-weight: bold;
+  margin: 0;
+}
+
+
+

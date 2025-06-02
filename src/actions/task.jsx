@@ -14,8 +14,8 @@
 */
 
 
-import TaskDataService from "../services/task_service";
-
+import TaskDataService from "services/task_service";
+import {action_request, action_recieved, action_error} from "./action"
 import {
   CREATE_TASK,
   TASK_REQUEST,
@@ -24,41 +24,17 @@ import {
   READ_ALL_TASKS,
 } from "./types";
 
-function taskRequest(payload) {
-  return {
-    type: TASK_REQUEST,
-    isFetching: true,
-    payload,
-  };
-}
-
-export function taskRecieved(type, data) {
-  return {
-    type: type,
-    isFetching: false,
-    payload: data
-  };
-}
-
-function taskError(message) {
-  return {
-    type: TASK_FAILURE,
-    isFetching: false,
-    payload: message,
-  };
-}
-
 export const createTask = (payload) => (dispatch) => {
-    dispatch(taskRequest(payload));
+    dispatch(action_request(TASK_REQUEST, payload));
     return TaskDataService.create(payload).then(
       (response) => {
-        dispatch(taskRecieved(CREATE_TASK,response.data));
+        dispatch(action_recieved(CREATE_TASK,response.data));
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.message || error.response.data.msg | error.toString(); 
+        const message = error.response.data; 
   
-        dispatch(taskError(message));
+        dispatch(action_error(TASK_FAILURE, message));
  
         return Promise.reject();
       }
@@ -67,18 +43,67 @@ export const createTask = (payload) => (dispatch) => {
 
 
   export const readAllTasks = () => (dispatch) => {
-    dispatch(taskRequest());
-    return TaskDataService.readAll().then(
+    dispatch(action_request(TASK_REQUEST));
+    return TaskDataService.readAllQueue().then(
       (response) => {
-        dispatch(taskRecieved(READ_ALL_TASKS,response.data));
+        dispatch(action_recieved(READ_ALL_TASKS,response.data));
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.message || error.response.data.msg | error.toString(); 
+        const message = error.response.data.message || error.response.data.msg;
   
-        dispatch(taskError(message));
+        dispatch(action_error(TASK_FAILURE, message));
+       }
+    );
+  };
+
+  export const retrieveTaskByID = (id) => (dispatch) => {
+    dispatch(action_request(TASK_REQUEST, id));
+    return TaskDataService.findByID(id).then(
+      (response) => {
+        dispatch(action_recieved(READ_TASKS, response.data));
+        return Promise.resolve(response.data);
+      },
+      (error) => {
+        const message = error.response.data.message || error.response.data.msg; 
+  
+        dispatch(action_error(TASK_FAILURE, message));
+  
+        return Promise.reject();
+      }
+    );
+  }
+
+  export const retrieveTasks = (page_number) => (dispatch) => {
+    dispatch(action_request(TASK_REQUEST));
+    return TaskDataService.retrieveTasks(page_number).then(
+      (response) => {
+        dispatch(action_recieved(READ_ALL_TASKS,response.data));
+        return Promise.resolve();
+      },
+      (error) => {
+        const message = error.response.data; 
+  
+        dispatch(action_error(TASK_FAILURE, message));
  
         return Promise.reject();
       }
     );
-  };
+  }
+
+  export const retrieveTasksByJobId = (page_number, job_id) => (dispatch) => {
+    dispatch(action_request(TASK_REQUEST));
+    return TaskDataService.retrieveTasksByJobId (page_number, job_id).then(
+      (response) => {
+        dispatch(action_recieved(READ_ALL_TASKS,response.data));
+        return Promise.resolve();
+      },
+      (error) => {
+        const message = error.response.data; 
+  
+        dispatch(action_error(TASK_FAILURE, message));
+ 
+        return Promise.reject();
+      }
+    );
+  }

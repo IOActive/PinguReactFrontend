@@ -13,11 +13,17 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
+
 
 class CorpusDataService {
   create(data) {
-    return http.post("/corpus/", data);
+    return getHttpInstance().post("/corpus/", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",  // ✅ Override for file uploads
+      },
+    });
   }
 
 }

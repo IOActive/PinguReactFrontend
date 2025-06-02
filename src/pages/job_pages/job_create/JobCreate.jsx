@@ -14,24 +14,28 @@
 */
 
 import { connect } from "react-redux";
-import { createJob } from "../../../actions/job";
+import { createJob } from "actions/job";
 import { useSelector } from "react-redux";
-import { Job } from "../../../models/Job";
-import CreateObject from "../../../components/CreateObject/CreateObject";
+import { Job } from "models/Job";
+import CreateObject from "components/CreateObject/CreateObject";
 import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
-import { retrieveJobTemplates } from "../../../actions/jobTemplate";
+import { retrieveJobTemplates } from "actions/jobTemplate";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import s from './JobCreate.module.scss'
+import cx from "classnames";
+
 
 function AddJob(props) {
+
+  const active_project = useSelector((state) => state.active_project);
 
   const newJob = Job({
     id: null,
     name: "",
     description: "",
-    project: "",
+    project: active_project,
     date: new Date(),
     enabled: true,
     archived: false,
@@ -40,6 +44,7 @@ function AddJob(props) {
     custom_binary_path: "",
     custom_binary_filename: "",
     custom_binary_revision: 1,
+    project_id: "",
     validated: false,
     submitted: false,
   });
@@ -47,6 +52,10 @@ function AddJob(props) {
   const { errorMessage } = useSelector(
     (state) => state.jobs
   );
+
+  useEffect(() => {
+    newJob.project_id.value = active_project
+  }, [active_project]);
 
   const { isFetching, payload } = useSelector(state => state.jobTemplates);
 
@@ -61,47 +70,44 @@ function AddJob(props) {
     if (environment_string) {
       let current_value = environment_string.value;
       environment_string.value = [current_value, template_parameters].join("\n");
+      newJob.environment_string.value = [current_value, template_parameters].join("\n");
     }
 
   }
 
   return (
+    <div className={cx(s.root)}>
+      <div className={cx(s.creation_form)}>
+        <CreateObject
+          object={newJob}
+          createObject={props.createJob}
+          errorMessage={errorMessage}
+          objectName={"Job"}
+        />
+      </div>
+      <div className={cx(s.template)}>
+        <DropdownButton id="dropdown-basic-button" title="Job Templates">
+          {
+            isFetching && (
+              <tr>
+                <td colSpan="100">Loading...</td>
+              </tr>
+            )
+          }
+          {
+            payload &&
+            !isFetching &&
 
+            payload.map((object, index) => (
 
-    <div>
-      <DropdownButton id="dropdown-basic-button" title="Job Templates">
-        {
-          isFetching && (
-            <tr>
-              <td colSpan="100">Loading...</td>
-            </tr>
-          )
-        }
-        {
-          payload &&
-          !isFetching &&
+              <Dropdown.Item onClick={(e) => apply_template(object.environment_string)}>{object.name}</Dropdown.Item>
 
-          payload.map((object, index) => (
-
-            <Dropdown.Item onClick={(e) => apply_template(object.environment_string)}>{object.name}</Dropdown.Item>
-
-          ))
-        }
-      </DropdownButton>
-
-      <CreateObject
-        object={newJob}
-        createObject={props.createJob}
-        errorMessage={errorMessage}
-        objectName={"Job"}
-      />
-
-
-
+            ))
+          }
+        </DropdownButton>
+      </div>
     </div>
-
-
-  );
+  )
 }
 
 const mapStateToProps = (state) => {

@@ -13,24 +13,26 @@
  limitations under the License.
 */
 
-import http from "../helpers/http-common";
+import { getHttpInstance } from "helpers/http-common"; // Use the HTTP instance getter
+
+
 
 class TestCaseDataService {
 
   getPage(page_number) {
-    return  http.get(`/testcase?page=${page_number}`);
+    return  getHttpInstance().get(`/testcase?page=${page_number}`);
   }
 
   getPageByJobID(job_id, page_number) {
-    return  http.get(`/testcase?page=${page_number}&job_id=${job_id}`);
+    return  getHttpInstance().get(`/testcase?page=${page_number}&job=${job_id}`);
   }
 
   findByID(id){
-    return http.get(`/testcase?id=${id}`);
+    return getHttpInstance().get(`/testcase?id=${id}`);
   }
 
   create(data) {
-    return http.post("/testcase/", data);
+    return getHttpInstance().post("/testcase/", data);
   }
 
 }

@@ -16,13 +16,14 @@
 import React, { useState } from "react";
 import { Alert, Button, FormGroup, Input, Row, Col, Form } from "reactstrap";
 import s from "./Login.module.scss";
-import Widget from "../../components/Widget/Widget";
-import Footer from "../../components/Footer/Footer";
-import { loginUser } from "../../actions/auth";
-import Icon from "../../components/Icon/Icon";
+import Widget from "components/Widget/Widget";
+import Footer from "components/Footer/Footer";
+import { loginUser } from "actions/auth";
+import Icon from "components/Icon/Icon";
 import { Navigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ThemeSwitcher from 'components/theme_switcher';
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -46,21 +47,27 @@ function Login(props) {
   };
 
   const doLogin = (e) => {
-    dispatch(
-      loginUser({
-        username: username,
-        password: password,
-      })
-    );
     e.preventDefault();
+    try {
+      dispatch(
+        loginUser({
+          username: username,
+          password: password,
+        })
+      ).catch((error) => {
+        console.error("Login failed:", error);
+      });
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    }
   };
 
   const goToRegistration = (event) => {
     return <Navigate to="/register" />;
   };
 
-  if(isAuthenticated) {
-    navigate("/dashboard");
+  if (isAuthenticated) {
+    navigate("/project/list");
   }
 
   return (
@@ -72,7 +79,7 @@ function Login(props) {
           lg={{ size: 4, offset: 4 }}
         >
           <header className={s.logo}>
-            <Icon glyph="logo2" />
+            <Icon glyph="pingucrew" />
           </header>
           <Widget className={s.widget}>
             <h4 className="mt-0">Login to Pingu Dashboard</h4>
@@ -108,9 +115,9 @@ function Login(props) {
                   placeholder="Password" />
               </FormGroup>
               <div className="d-flex justify-content-between align-items-center">
-                <NavLink to="/register" className="fs-sm">
+                {/*                 <NavLink to="/register" className="fs-sm">
                   Sing Up
-                </NavLink>
+                </NavLink> */}
                 <div>
                   <Button color="success" size="sm" type="submit">
                     {isFetching ? "Loading..." : "Login"}
@@ -120,8 +127,13 @@ function Login(props) {
             </Form>
           </Widget>
         </Col>
+        <Col><ThemeSwitcher />
+        </Col>
       </Row>
-      <Footer className="text-center" />
+
+      <Footer className="text-center">
+      </Footer>
+
     </div>
   );
 }

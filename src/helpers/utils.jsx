@@ -25,10 +25,10 @@ export function beautify_key_names(key) {
   return key;
 }
 
-export function beautify_date(dateString) { 
+export function beautify_date(dateString) {
   // date format is "2023-03-23T19:01:26.688000Z" beautify it
   const newDateString = `${dateString.split("T")[0]} at ${dateString.split("T")[1].split(".")[0]}`;
-    return newDateString;
+  return newDateString;
 }
 
 
@@ -42,6 +42,8 @@ export function isDateString(str) {
 }
 
 export function decode_base64(str) {
-  const buffer = Buffer.from(str, 'base64');
-  return buffer.toString();
+  if (str) {
+    const buffer = Buffer.from(str, 'base64');
+    return buffer.toString();
+  }
 }

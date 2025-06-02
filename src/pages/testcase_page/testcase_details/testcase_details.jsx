@@ -16,19 +16,20 @@
 import { useEffect, useState } from "react";
 import s from "./testcase_details.module.scss";
 import cx from "classnames";
-import { retrieveTestCaseByID } from "../../../actions/testcase"
+import { retrieveTestCaseByID } from "actions/testcase"
 import { useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { connect, useDispatch } from "react-redux";
-import { TestCase } from "../../../models/TestCase"
-import { InformationTable } from "../../../components/InformationTable/InformationTable";
+import { TestCase } from "models/TestCase"
+import { InformationTable } from "components/InformationTable/InformationTable";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
-import { retrieveTestCaseCrashes, retrieveCrashByID } from "../../../actions/crash"
-import { Breadcrumb, BreadcrumbItem, Button, ButtonGroup } from "reactstrap";
+import { retrieveTestCaseCrashes, retrieveCrashByID } from "actions/crash"
+import { Button, ButtonGroup } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InteractiveTable from "../../../components/Interactive_List/InteractiveList";
-import { Crash } from "../../../models/Crash";
+import InteractiveTable from "components/Interactive_List/InteractiveList";
+import { Crash } from "models/Crash";
 import { Buffer } from 'buffer';
+import { PageHeader } from "components/PageHeader/PageHeader";
 
 const TestCaseDetails = (props) => {
 
@@ -66,19 +67,14 @@ const TestCaseDetails = (props) => {
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
             const split = currentTestcase["absolute_path"].value.split('/');
-            const filename = split[split.length-1];
+            const filename = split[split.length - 1];
             link.download = filename;
             link.click();
         }
     }
 
     return <div className={s.root}>
-        <Breadcrumb>
-            <BreadcrumbItem>YOU ARE HERE</BreadcrumbItem>
-            <BreadcrumbItem>TestCases</BreadcrumbItem>
-            <BreadcrumbItem active>TestCase Details</BreadcrumbItem>
-        </Breadcrumb>
-        <h1 className="mb-lg">TestCase Details</h1>
+        <PageHeader title="Testcase Details"/>
         {
             currentTestcase ? (
                 <div responsive className={cx("mb-0", s.CardsGroup)}>

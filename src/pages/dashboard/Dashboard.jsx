@@ -14,50 +14,69 @@
 */
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import {
   Row,
   Col,
-  Breadcrumb,
-  BreadcrumbItem,
 } from 'reactstrap';
 
 import cx from "classnames";
 
 import s from './Dashboard.module.scss';
 
-import BotsDashboardTable from '../../components/Bots/BotsDashboardTable/BotsDashboardTable';
-import JobsDashboardTable from '../../components/Jobs/JobsDashboardTable/JobsDashboardTable';
-import FuzzersDashboardTable from '../../components/Fuzzers/FuzzersDashboardTable/FuzzerDashBoardTable';
-import TasksDashboardTable from '../../components/Tasks/TasksDashboardTable/TasksDashboardTable';
-
+import BotsDashboardTable from 'components/Bots/BotsDashboardTable/BotsDashboardTable';
+import JobsDashboardTable from 'components/Jobs/JobsDashboardTable/JobsDashboardTable';
+import FuzzersDashboardTable from 'components/Fuzzers/FuzzersDashboardTable/FuzzerDashBoardTable';
+import TasksDashboardTable from 'components/Tasks/TasksDashboardTable/TasksDashboardTable';
+import FuzzerStatsDashboard from 'components/FuzzerStats/ProjectDashboard/fuzzer_stats';
+import CrashStatsDashboard from 'components/CrashStats/Dashboard/crash_stats';
+import Card from "react-bootstrap/Card";
 
 const Dashboard = () => {
 
+  const active_project = useSelector((state) => state.active_project);
+
   return (
-    <div className={s.root}>
-      <Breadcrumb>
-        <BreadcrumbItem>YOU ARE HERE</BreadcrumbItem>
-        <BreadcrumbItem active>Dashboard</BreadcrumbItem>
-      </Breadcrumb>
-      <h1 className="mb-lg">Dashboard</h1>
-      <Row className={cx(s.DashboardRow)}>
-        <Col className={cx(s.DashboardCol)}>
-          <BotsDashboardTable />
-        </Col>
-        <Col className={cx(s.DashboardCol)}>
-          <JobsDashboardTable />
-        </Col>
-      </Row>
-      <Row>
-        <Col className={cx(s.DashboardCol)}>
-          <FuzzersDashboardTable />
-        </Col>
-        <Col className={cx(s.DashboardCol)}>
-          <TasksDashboardTable />
-        </Col>
-      </Row>
-    </div>
+    <Card>
+      <Card.Header>
+        {active_project ? (
+          <h1 className="mb-lg">Dashboard {active_project}</h1>
+        ) : (
+          <h1 className="mb-lg">Dashboard</h1>
+        )}
+      </Card.Header>
+      <Card.Body>
+        <Row className={cx(s.DashboardRow)}>
+          <Col className={cx(s.DashboardCol)}>
+            <BotsDashboardTable />
+          </Col>
+          <Col className={cx(s.DashboardCol)}>
+            <FuzzersDashboardTable />
+          </Col>
+        </Row>
+
+        <Row>
+          {active_project ? (
+            <><Col className={cx(s.DashboardCol)}>
+              <JobsDashboardTable />
+            </Col><Col className={cx(s.DashboardCol)}>
+                <TasksDashboardTable />
+              </Col></>
+          ) : null
+          }
+        </Row>
+
+        <Row>
+          {active_project ? (
+            <>
+              <CrashStatsDashboard />
+              <FuzzerStatsDashboard />
+            </>
+          ) : <CrashStatsDashboard />
+          }
+        </Row>
+      </Card.Body>
+    </Card>
   );
 
 

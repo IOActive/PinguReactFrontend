@@ -14,8 +14,8 @@
 */
 
 
-import TestCaseDataService from "../services/testcase_service";
-
+import TestCaseDataService from "services/testcase_service";
+import {action_request, action_recieved, action_error} from "./action"
 import {
     RETRIEVE_TESTCASES,
     TESTCASE_REQUEST,
@@ -23,65 +23,43 @@ import {
     CREATE_TESTCASE,
 } from "./types";
 
-function testCaseRequest(payload) {
-    return {
-        type: TESTCASE_REQUEST,
-        isFetching: true,
-        payload,
-    };
-}
-
-function testCaseRecieved(type, data) {
-    return {
-        type: type,
-        isFetching: false,
-        payload: data
-    };
-}
-
-function testCaseError(message) {
-    return {
-        type: TESTCASE_FAILURE,
-        isFetching: false,
-        payload: message,
-    };
-}
-
 export const retrieveTestCases = (page_number) => async (dispatch) => {
     try {
-        dispatch(testCaseRequest(page_number));
+        dispatch(action_request(TESTCASE_REQUEST, page_number));
         const response = await TestCaseDataService.getPage(page_number);
-        dispatch(testCaseRecieved(RETRIEVE_TESTCASES, response.data));
+        dispatch(action_recieved(RETRIEVE_TESTCASES, response.data));
         return Promise.resolve(response.data);
     } catch (error) {
-      const message = error.response.data.message || error.response.data.msg | error.toString();         dispatch(testCaseError(message));
-        return Promise.reject(error);
+      const message = error.response.data;         
+      dispatch(action_error(TESTCASE_FAILURE, message));
+      return Promise.reject(error);
     }
 };
 
 export const retrieveJobTestCases = (page_number, job_id) => async (dispatch) => {
     try {
-        dispatch(testCaseRequest(page_number));
+        dispatch(action_request(TESTCASE_REQUEST, page_number));
         const response = await TestCaseDataService.getPageByJobID(job_id, page_number);
-        dispatch(testCaseRecieved(RETRIEVE_TESTCASES, response.data));
+        dispatch(action_recieved(RETRIEVE_TESTCASES, response.data));
         return Promise.resolve(response.data);
     } catch (error) {
-      const message = error.response.data.message || error.response.data.msg | error.toString();         dispatch(testCaseError(message));
-        return Promise.reject(error);
+      const message = error.response.data;         
+      dispatch(action_error(TESTCASE_FAILURE, message));
+      return Promise.reject(error);
     }
 };
 
 export const retrieveTestCaseByID = (id) => (dispatch) => {
-    dispatch(testCaseRequest(id));
+    dispatch(action_request(TESTCASE_REQUEST,id));
     return TestCaseDataService.findByID(id).then(
       (response) => {
-        dispatch(testCaseRecieved(RETRIEVE_TESTCASES, response.data));
+        dispatch(action_recieved(RETRIEVE_TESTCASES, response.data));
         return Promise.resolve(response.data);
       },
       (error) => {
-        const message = error.response.data.message || error.response.data.msg | error.toString(); 
+        const message = error.response.data; 
   
-        dispatch(testCaseError(message));
+        dispatch(action_error(TESTCASE_FAILURE, message));
   
         return Promise.reject();
       }
@@ -89,16 +67,16 @@ export const retrieveTestCaseByID = (id) => (dispatch) => {
   }
   
   export const createTestcase = (payload) => (dispatch) => {
-    dispatch(testCaseRequest(payload));
+    dispatch(action_request(TESTCASE_REQUEST, payload));
     return TestCaseDataService.create(payload).then(
       (response) => {
-        dispatch(testCaseRecieved(CREATE_TESTCASE, response.data));
+        dispatch(action_recieved(CREATE_TESTCASE, response.data));
         return Promise.resolve();
       },
       (error) => {
-        const message = error.response.data.message || error.response.data.msg | error.toString(); 
+        const message = error.response.data; 
   
-        dispatch(testCaseError(message));
+        dispatch(action_error(TESTCASE_FAILURE, message));
   
         return Promise.reject();
       }
